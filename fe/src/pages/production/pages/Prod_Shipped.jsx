@@ -31,9 +31,12 @@ export default function Prod_Shipped() {
     if (getFetchGate) ProductionFetch(pathname, setShipped);
   }, [getFetchGate, pathname]);
 
-  if (getShipped.length < 0)
+  if (getShipped.length === 0)
     return (
       <>
+        <strong className='d-flex justify-content-center align-items-center bg-warning p-2'>
+          Shipped Orders
+        </strong>
         <strong className='d-flex justify-content-center align-items-center'>
           Loading...
         </strong>
@@ -43,6 +46,9 @@ export default function Prod_Shipped() {
 
   return (
     <>
+      <strong className='d-flex justify-content-center align-items-center bg-warning p-2'>
+        Shipped Orders
+      </strong>
       <table className='table table-striped table-dark table-hover table-sm table-responsive-sm'>
         <thead>
           <tr>

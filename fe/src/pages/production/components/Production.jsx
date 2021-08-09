@@ -34,6 +34,9 @@ export default function Production() {
   if (getProd.length === 0)
     return (
       <>
+        <strong className='d-flex justify-content-center align-items-center bg-primary text-white p-2'>
+          Production
+        </strong>
         <strong className='d-flex justify-content-center align-items-center'>
           Loading...
         </strong>
@@ -43,6 +46,9 @@ export default function Production() {
 
   return (
     <>
+      <strong className='d-flex justify-content-center align-items-center bg-primary text-white p-2'>
+        Production
+      </strong>
       <table className='table table-striped table-dark table-hover table-sm table-responsive-sm'>
         <thead>
           <tr>

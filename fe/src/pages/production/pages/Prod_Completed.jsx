@@ -31,9 +31,12 @@ export default function Prod_Completed() {
     if (getFetchGate) ProductionFetch(pathname, setCompl);
   }, [getFetchGate, pathname]);
 
-  if (getCompl.length < 0)
+  if (getCompl.length === 0)
     return (
       <>
+        <strong className='d-flex justify-content-center align-items-center bg-success text-white p-2'>
+          Completed Orders
+        </strong>
         <strong className='d-flex justify-content-center align-items-center'>
           Loading...
         </strong>
@@ -43,6 +46,9 @@ export default function Prod_Completed() {
 
   return (
     <>
+      <strong className='d-flex justify-content-center align-items-center bg-success text-white p-2'>
+        Completed Orders
+      </strong>
       <table className='table table-striped table-dark table-hover table-sm table-responsive-sm'>
         <thead>
           <tr>
