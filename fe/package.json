@@ -9,6 +9,7 @@
     "axios": "^0.21.1",
     "axios-hooks": "^2.6.3",
     "bcryptjs": "^2.4.3",
+    "moment": "^2.29.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.6.3",
@@ -44,6 +45,7 @@
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
+    "@types/moment": "^2.13.0",
     "@types/react-dom": "^17.0.5",
     "@types/react-modal": "^3.12.1",
     "@types/react-router-dom": "^5.1.7",

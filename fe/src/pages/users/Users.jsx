@@ -15,8 +15,7 @@ import {
   UserCheck,
   UserContext,
 } from '../../context/UserContext';
-import Logout from '../../components/Logout';
-import CurrentUser from '../../components/CurrentUser';
+import NavBar from '../../components/NavBar';
 
 function Home() {
   // Context for current user
@@ -47,7 +46,7 @@ function Home() {
 
   return (
     <>
-      <CurrentUser />
+      <NavBar />
       <strong className='d-flex justify-content-center mt-4'>
         Create User:
       </strong>
@@ -64,7 +63,6 @@ function Home() {
         setData={setData}
         handleDelete={id => handleDelete(id, setData)}
       />
-      <Logout />
     </>
   );
 }

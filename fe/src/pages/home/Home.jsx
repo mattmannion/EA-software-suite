@@ -5,8 +5,7 @@ import {
   UserCheck,
   UserContext,
 } from '../../context/UserContext';
-import CurrentUser from '../../components/CurrentUser';
-import Logout from '../../components/Logout';
+import NavBar from '../../components/NavBar';
 
 function Home() {
   const history = useHistory();
@@ -24,7 +23,7 @@ function Home() {
 
   return (
     <>
-      <CurrentUser />
+      <NavBar />
       <div className='d-flex flex-column justify-content-center align-items-center'>
         <div className='m-2'>Software Select</div>
         <div className='d-flex flex-row justify-content-center align-items-center m-5'>
@@ -35,7 +34,6 @@ function Home() {
             To Production
           </Link>
         </div>
-        <Logout />
       </div>
     </>
   );

@@ -4,6 +4,7 @@ import cors from 'cors';
 import users from './routes/users.js';
 import login from './routes/login.js';
 import volusion from './routes/volusion.js';
+import orders from './routes/orders.js';
 
 // init env
 config();
@@ -29,6 +30,7 @@ app.use(json());
 app.use(login);
 app.use(users);
 app.use(volusion);
+app.use(orders);
 
 // init async IIFE main
 (async () =>
