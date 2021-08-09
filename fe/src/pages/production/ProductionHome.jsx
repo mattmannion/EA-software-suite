@@ -9,7 +9,8 @@ import {
 import { useState } from 'react';
 import { api_path } from '../../axios/axios_properties';
 import NavBar from '../../components/NavBar';
-import FactoryProductScheduleLTL from './components/OrderTableFPS_LTL';
+import FactoryProductScheduleLTL from './components/FactoryProductionSheduleLTL';
+import ProductionTabs from './components/ProductionTabs';
 import {
   UserContext,
   CookieContext,
@@ -70,8 +71,17 @@ function ProductionHome() {
     <>
       <NavBar />
       <Switch>
-        <Route path={path}>
+        <Route exact path={path}>
           <FactoryProductScheduleLTL getVolData={getVolData} />
+          <ProductionTabs />
+        </Route>
+        <Route path={path + '/completed'}>
+          <div>Placeholder for Completed Orders</div>
+          <ProductionTabs />
+        </Route>
+        <Route path={path + '/shipped'}>
+          <div>Placeholder for Shipped Orders</div>
+          <ProductionTabs />
         </Route>
       </Switch>
     </>

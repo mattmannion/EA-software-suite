@@ -25,7 +25,7 @@ const WaitTime = OrderTime => {
 };
 
 export default function FactoryProductScheduleLTL({ getVolData }) {
-  if (getVolData == null)
+  if (getVolData === null)
     return (
       <strong className='d-flex justify-content-center align-items-center'>
         No Data
@@ -47,14 +47,19 @@ export default function FactoryProductScheduleLTL({ getVolData }) {
             <th>Order Date</th>
             <th>Order ID</th>
             <th>Customer</th>
-            <th>Product Name (Product Code)</th>
+            <th>
+              <div>Product Name</div>
+              <div>(Product Code)</div>
+            </th>
             <th>Shipped</th>
             <th>Completed</th>
             <th>Notes</th>
             <th>Pallet</th>
             <th>Tack</th>
             <th>Assembled</th>
-            <th>Wait Time (days or weeks)</th>
+            <th>
+              <div>Wait Time</div>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -79,16 +84,17 @@ export default function FactoryProductScheduleLTL({ getVolData }) {
                 <td>{order_id}</td>
                 <td>{full_name}</td>
                 <td>
-                  {RemoveXML(product_name)} ({product_code})
+                  <div>{RemoveXML(product_name)}</div>
+                  <div>({product_code})</div>
                 </td>
-                <td>{shipped == 'N' ? 'No' : 'Yes'}</td>
-                <td>{completed == '' ? 'No' : 'Yes'}</td>
-                <td>{notes == '' ? 'No' : 'Yes'}</td>
-                <td>{pallet == '' ? 'No' : 'Yes'}</td>
-                <td>{tack == '' ? 'No' : 'Yes'}</td>
-                <td>{assembled == '' ? 'No' : 'Yes'}</td>
+                <td>{shipped === 'N' ? 'No' : 'Yes'}</td>
+                <td>{completed === '' ? 'No' : 'Yes'}</td>
+                <td>{notes === '' ? 'No' : 'Yes'}</td>
+                <td>{pallet === '' ? 'No' : 'Yes'}</td>
+                <td>{tack === '' ? 'No' : 'Yes'}</td>
+                <td>{assembled === '' ? 'No' : 'Yes'}</td>
                 <td>
-                  <div>{WaitTime(order_date).days} days</div>
+                  {/* <div>{WaitTime(order_date).days} days</div> */}
                   <div>{WaitTime(order_date).weeks} weeks</div>
                 </td>
               </tr>
