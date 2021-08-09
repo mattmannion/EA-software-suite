@@ -1,47 +1,49 @@
-import React from 'react';
-import moment from 'moment';
+import React, { useEffect, useContext, useState } from 'react';
+import { ProductionFetch, WaitTime, RemoveXML } from '../logic/Production';
+import { useHistory, useLocation } from 'react-router-dom';
+import {
+  UserContext,
+  CookieContext,
+  UserCheck,
+} from '../../../context/UserContext';
+import ProductionTabs from '../components/ProductionTabs';
 
-// Removes XML from some entries
-const RemoveXML = ProductName =>
-  // if ProductName starts with <!30> or something similar
-  // it is checked for and only removed when found
-  ProductName.includes('>') ? ProductName.split('>')[1] : ProductName;
+export default function Production() {
+  // all the hooks
+  const history = useHistory();
+  const { pathname } = useLocation();
+  const { setUser } = useContext(UserContext);
+  const cookies = useContext(CookieContext);
+  const [getFetchGate, setFetchGate] = useState(false);
 
-const WaitTime = OrderTime => {
-  const [current_m, current_d, current_y] = new Date(Date.now())
-    .toLocaleString()
-    .split(',')[0]
-    .split('/');
+  useEffect(
+    () => setFetchGate(UserCheck(cookies, pathname, history, setUser)),
+    // eslint-disable-next-line
+    []
+  );
 
-  const [order_m, order_d, order_y] = OrderTime.split('/');
+  // starts as null in the event that the fetched
+  // data is null or the array is null
+  const [getProd, setProd] = useState([]);
 
-  const order_time = moment(new Date(+order_y, +order_m, +order_d));
-  const current_time = moment(new Date(+current_y, +current_m, +current_d));
+  // checks if there is a user logged before loading data
+  useEffect(() => {
+    if (getFetchGate) ProductionFetch(pathname, setProd);
+  }, [getFetchGate, pathname]);
 
-  const days = current_time.diff(order_time, 'days');
-  const weeks = current_time.diff(order_time, 'weeks');
-
-  return { days, weeks };
-};
-
-export default function FactoryProductScheduleLTL({ getVolData }) {
-  if (getVolData === null)
+  if (getProd.length === 0)
     return (
-      <strong className='d-flex justify-content-center align-items-center'>
-        No Data
-      </strong>
-    );
-
-  if (getVolData.length === 0)
-    return (
-      <strong className='d-flex justify-content-center align-items-center'>
-        Loading...
-      </strong>
+      <>
+        <strong className='d-flex justify-content-center align-items-center'>
+          Loading...
+        </strong>
+        <ProductionTabs />
+      </>
     );
 
   return (
     <>
-      <table className='table table-striped table-dark table-hover'>
+      <table className='table table-striped table-dark table-hover table-sm table-responsive-sm'>
         <thead>
           <tr>
             <th>Order Date</th>
@@ -63,7 +65,7 @@ export default function FactoryProductScheduleLTL({ getVolData }) {
           </tr>
         </thead>
         <tbody>
-          {getVolData.map((data, index) => {
+          {getProd.map((data, index) => {
             // stores table info for nested mapping
             const {
               order_id,
@@ -81,14 +83,14 @@ export default function FactoryProductScheduleLTL({ getVolData }) {
             return (
               <tr key={index}>
                 <th>{order_date}</th>
-                <td>{order_id}</td>
+                <th>{order_id}</th>
                 <td>{full_name}</td>
                 <td>
                   <div>{RemoveXML(product_name)}</div>
                   <div>({product_code})</div>
                 </td>
                 <td>{shipped === 'N' ? 'No' : 'Yes'}</td>
-                <td>{completed === '' ? 'No' : 'Yes'}</td>
+                <td>{completed === 'N' ? 'No' : 'Yes'}</td>
                 <td>{notes === '' ? 'No' : 'Yes'}</td>
                 <td>{pallet === '' ? 'No' : 'Yes'}</td>
                 <td>{tack === '' ? 'No' : 'Yes'}</td>
@@ -102,6 +104,7 @@ export default function FactoryProductScheduleLTL({ getVolData }) {
           })}
         </tbody>
       </table>
+      <ProductionTabs />
     </>
   );
 }
