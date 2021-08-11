@@ -1,0 +1,13 @@
+.prod-search {
+  @include cflex;
+  margin: 5rem;
+
+  &__searchbar {
+    width: 100%;
+    border: 1rem solid black;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}

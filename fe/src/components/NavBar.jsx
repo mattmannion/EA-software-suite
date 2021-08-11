@@ -1,4 +1,3 @@
-import './navbar.css';
 import { Link } from 'react-router-dom';
 import CurrentUser from './CurrentUser';
 import Logout from './Logout';
