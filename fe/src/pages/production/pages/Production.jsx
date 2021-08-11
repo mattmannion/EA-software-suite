@@ -31,6 +31,7 @@ export default function Production({ getList }) {
               <div>Product Name</div>
               <div>(Product Code)</div>
             </th>
+            <th>Order Status</th>
             <th>Notes/</th>
             <th>Pallet/</th>
             <th>Tack/</th>
@@ -43,47 +44,55 @@ export default function Production({ getList }) {
           </tr>
         </thead>
         <tbody>
-          {getList.map(data => {
-            // stores table info for nested mapping
-            const {
-              id,
-              order_id,
-              full_name,
-              product_name,
-              product_code,
-              completed,
-              notes,
-              pallet,
-              tack,
-              assembled,
-              order_date,
-            } = data;
-            return (
-              <tr key={id}>
-                <th>{order_date}</th>
-                <th>{order_id}</th>
-                <td>{full_name}</td>
-                <td>
-                  <p>{RemoveXML(product_name)}</p>
-                  <p>({product_code})</p>
-                </td>
-                <td>{notes === '' ? 'No' : 'Yes'}</td>
-                <td>{pallet === '' ? 'No' : 'Yes'}</td>
-                <td>{tack === '' ? 'No' : 'Yes'}</td>
-                <td>{assembled === '' ? 'No' : 'Yes'}</td>
-                <td>
-                  {/* <div>{WaitTime(order_date).days} days</div> */}
-                  <div>{WaitTime(order_date).weeks} weeks</div>
-                </td>
-                <td>{completed === 'N' ? 'No' : 'Yes'}</td>
-                <td>
-                  <Link to='' className='btn btn-warning m-5'>
-                    Edit
-                  </Link>
-                </td>
-              </tr>
-            );
-          })}
+          {getList
+            .filter(
+              ({ order_status }) =>
+                order_status !== 'Shipped' &&
+                order_status !== 'Returned' &&
+                order_status !== 'Cancelled'
+            )
+            .map(data => {
+              let {
+                id,
+                order_id,
+                full_name,
+                product_name,
+                product_code,
+                order_status,
+                completed,
+                notes,
+                pallet,
+                tack,
+                assembled,
+                order_date,
+              } = data;
+              return (
+                <tr key={id}>
+                  <th>{order_date}</th>
+                  <th>{order_id}</th>
+                  <td>{full_name}</td>
+                  <td>
+                    <p>{RemoveXML(product_name)}</p>
+                    <p>({product_code})</p>
+                  </td>
+                  <td>{order_status}</td>
+                  <td>{notes === '' ? 'No' : 'Yes'}</td>
+                  <td>{pallet === '' ? 'No' : 'Yes'}</td>
+                  <td>{tack === '' ? 'No' : 'Yes'}</td>
+                  <td>{assembled === '' ? 'No' : 'Yes'}</td>
+                  <td>
+                    {/* <div>{WaitTime(order_date).days} days</div> */}
+                    <div>{WaitTime(order_date).weeks} weeks</div>
+                  </td>
+                  <td>{completed === '' ? 'No' : 'Yes'}</td>
+                  <td>
+                    <Link to='' className='btn btn-warning m-5'>
+                      Edit
+                    </Link>
+                  </td>
+                </tr>
+              );
+            })}
         </tbody>
       </table>
       <ProductionTabs />

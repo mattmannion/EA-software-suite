@@ -10,8 +10,6 @@ export default async (req, res) => {
         `
           select * from orders 
           where (product_code like 'EA%' or product_code like 'ETA%') 
-          and shipped = 'N' 
-          and completed = 'N'
           order by order_id asc
       `
       )
