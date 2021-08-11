@@ -1,23 +1,23 @@
-/prototype-be/node_modules
-/prototype-be/.env
+/be/node_modules
+/be/.env
 
-/prototype-fe/node_modules
-/prototype-fe/.env
-/prototype-fe/.pnp
-/prototype-fe/.pnp.js
+/fe/node_modules
+/fe/.env
+/fe/.pnp
+/fe/.pnp.js
 # testing 
-/prototype-fe/coverage
+/fe/coverage
 # production
-/prototype-fe/uild
+/fe/uild
 
 # misc
-/prototype-fe/.DS_Store
-/prototype-fe/.env
-/prototype-fe/.env.local
-/prototype-fe/.env.development.local
-/prototype-fe/.env.test.local
-/prototype-fe/.env.production.local
+/fe/.DS_Store
+/fe/.env
+/fe/.env.local
+/fe/.env.development.local
+/fe/.env.test.local
+/fe/.env.production.local
 
-/prototype-fe/npm-debug.log*
-/prototype-fe/yarn-debug.log*
-/prototype-fe/yarn-error.log*
+/fe/npm-debug.log*
+/fe/yarn-debug.log*
+/fe/yarn-error.log*
