@@ -8,10 +8,19 @@ export default async (req, res) => {
     const data = await db
       .query(
         `
-          select * from orders 
-          where (product_code like 'EA%' or product_code like 'ETA%') 
-          and shipped = 'Y' 
-          order by order_id asc
+        select * from orders
+          where (product_code like 'EA%' or product_code like 'ETA%' or product_code like '%LS') 
+          and 
+          order_status != 'Processed'
+          and 
+          order_status != 'New - See Order Notes'
+          and 
+          order_status != 'Partially Shipped'
+          and
+          order_status != 'Cancelled' 
+          and 
+          order_status != 'Returned'
+          order by order_id asc;
       `
       )
       .then(res => res.rows)

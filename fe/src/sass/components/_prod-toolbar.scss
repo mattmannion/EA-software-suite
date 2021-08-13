@@ -1,0 +1,36 @@
+.prod-toolbar {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  &__page-numbers {
+    list-style: none;
+    @include cflex;
+    justify-content: space-between;
+    margin: 0 10rem;
+
+    li {
+      @include cflex;
+      user-select: none;
+      border-radius: 2rem;
+      border-bottom: 1rem solid transparent;
+      width: 20rem;
+
+      transition: all 0.2s;
+
+      &:link,
+      &:visited {
+        text-decoration: none;
+      }
+
+      &:hover,
+      &:active {
+        background-color: black;
+        color: white;
+      }
+    }
+  }
+
+  &__active {
+    border-bottom: 1rem solid black !important;
+  }
+}

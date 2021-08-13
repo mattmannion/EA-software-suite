@@ -1,4 +1,4 @@
-export default function Prod_Search() {
+export default function Prod_Search({ getKeyword, setKeyword }) {
   return (
     <>
       <label htmlFor='searchbar' className='prod-search'>
@@ -7,6 +7,8 @@ export default function Prod_Search() {
           type='search'
           className='prod-search__searchbar'
           placeholder='Search here...'
+          // value={getKeyword}
+          // onChange={e => setKeyword(e.target.value)}
         />
       </label>
     </>

@@ -5,6 +5,9 @@
   &__searchbar {
     width: 100%;
     border: 1rem solid black;
+    border-radius: 5rem;
+
+    padding: 0 2rem;
 
     &:focus {
       outline: none;
