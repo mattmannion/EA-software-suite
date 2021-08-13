@@ -10,6 +10,8 @@ export default async (req, res) => {
         `
         select * from orders
           where (product_code like 'EA%' or product_code like 'ETA%' or product_code like '%LS') 
+          and
+          completed != ''
           and 
           order_status != 'Shipped'
           and

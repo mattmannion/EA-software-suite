@@ -6,22 +6,39 @@ import {
   UserContext,
   CookieContext,
 } from '../../../context/UserContext';
-import { ProductionFetch } from '../logic/Production';
-import ProdTable from '../components/ProdTable';
+import { ProductionFetch } from '../logic/ProductionLogic';
+import ProdTable from '../components/tables/ProdTable';
 import ProdToolbar from '../components/ProdToolbar';
 
 export default function Production() {
-  // all the hooks
+  // basic hooks for checking the user
   const history = useHistory();
   const { pathname } = useLocation();
   const { setUser } = useContext(UserContext);
   const cookies = useContext(CookieContext);
   const [getList, setList] = useState([]);
   const [getFetchGate, setFetchGate] = useState(false);
-  // const [getUpdatedList, setUpdateList] = useState([]);
-  // const [getKeyword, setKeyword] = useState('');
 
-  // pagination start
+  // start search bar
+  const [getSearchTerm, setSearchTerm] = useState('');
+  const [getSearchResults, setSearchResults] = useState([]);
+
+  const SearchHandler = getSearchTerm => {
+    setSearchTerm(getSearchTerm);
+    if (getSearchTerm !== '') {
+      const filteredList = getList.filter(list => {
+        return Object.values(list)
+          .join(' ')
+          .toLowerCase()
+          .includes(getSearchTerm.toLowerCase());
+      });
+      setSearchResults(filteredList);
+    } else {
+      setSearchResults(getList);
+    }
+  };
+
+  // start pagination
   const [getCurrentPage, setCurrentPage] = useState(1);
   const [getMaxPNL, setMaxPNL] = useState(10);
   const [getMinPNL, setMinPNL] = useState(0);
@@ -30,9 +47,15 @@ export default function Production() {
 
   const indexOfLastItem = getCurrentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = getList.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems =
+    getSearchTerm.length < 1
+      ? getList.slice(indexOfFirstItem, indexOfLastItem)
+      : getSearchResults.slice(indexOfFirstItem, indexOfLastItem);
 
-  const pageNumber = Math.ceil(getList.length / itemsPerPage);
+  const pageNumber =
+    getSearchTerm.length < 1
+      ? Math.ceil(getList.length / itemsPerPage)
+      : Math.ceil(getSearchResults.length / itemsPerPage);
 
   const pageNumberLimit = 10;
 
@@ -96,6 +119,7 @@ export default function Production() {
     else return null;
   });
 
+  // fetch data and check user
   useEffect(
     () => setFetchGate(UserCheck(cookies, pathname, history, setUser)),
     // eslint-disable-next-line
@@ -107,6 +131,7 @@ export default function Production() {
     if (getFetchGate) ProductionFetch('/production', setList);
   }, [getFetchGate, pathname]);
 
+  // placeholder for list while its loading
   if (getList.length === 0)
     return (
       <>
@@ -129,11 +154,13 @@ export default function Production() {
         NextPage={NextPage}
         LastPage={LastPage}
         pageNumber={pageNumber}
+        getSearchTerm={getSearchTerm}
+        SearchHandler={SearchHandler}
       />
       <div className='d-flex justify-content-center align-items-center bg-primary text-white p-2'>
         <strong>Production</strong>
       </div>
-      <ProdTable getList={currentItems} />
+      <ProdTable currentItems={currentItems} />
       <ProductionTabs />
     </>
   );

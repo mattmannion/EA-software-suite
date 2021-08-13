@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import { WaitTime, RemoveXML } from '../logic/Production';
+import { WaitTime, RemoveXML } from '../../logic/ProductionLogic';
 
-export default function ProdTable({ getList }) {
+export default function ProdTable({ currentItems }) {
   return (
     <>
       <table className='table table-striped table-dark table-hover production__table'>
@@ -22,7 +22,7 @@ export default function ProdTable({ getList }) {
           </tr>
         </thead>
         <tbody>
-          {getList.map(data => {
+          {currentItems.map(data => {
             let {
               id,
               order_id,
@@ -57,7 +57,7 @@ export default function ProdTable({ getList }) {
                 </td>
                 <td>{completed === '' ? 'No' : 'Yes'}</td>
                 <td>
-                  <Link to='' className='btn btn-warning m-5'>
+                  <Link to='/production' className='btn btn-warning m-5'>
                     Edit
                   </Link>
                 </td>

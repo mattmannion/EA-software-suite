@@ -7,10 +7,16 @@ export default function Prod_Toolbar({
   NextPage,
   LastPage,
   pageNumber,
+  getSearchTerm,
+  SearchHandler,
 }) {
   return (
     <div className='prod-toolbar'>
-      <ProdSearch />
+      <ProdSearch
+        getSearchTerm={getSearchTerm}
+        SearchHandler={SearchHandler}
+        FirstPage={FirstPage}
+      />
       <ul className='prod-toolbar__page-numbers'>
         <li onClick={FirstPage}>First</li>
         <li onClick={PrevPage}>Prev</li>

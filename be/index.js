@@ -8,7 +8,7 @@ import orders from './routes/orders.js';
 
 // init env
 config();
-const port = process.env.port || 7890;
+const port = process.env.PORT || 7890;
 const path = process.env.path;
 
 // init app

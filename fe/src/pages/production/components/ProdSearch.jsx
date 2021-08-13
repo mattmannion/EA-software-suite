@@ -1,14 +1,28 @@
-export default function Prod_Search({ getKeyword, setKeyword }) {
+import { useRef } from 'react';
+
+export default function Prod_Search({
+  getSearchTerm,
+  SearchHandler,
+  FirstPage,
+}) {
+  const inputElement = useRef('');
+
+  const SearchKeyword = () => {
+    SearchHandler(inputElement.current.value);
+    FirstPage();
+  };
+
   return (
     <>
       <label htmlFor='searchbar' className='prod-search'>
         <input
+          ref={inputElement}
           name='searchbar'
-          type='search'
+          type='text'
           className='prod-search__searchbar'
           placeholder='Search here...'
-          // value={getKeyword}
-          // onChange={e => setKeyword(e.target.value)}
+          value={getSearchTerm}
+          onChange={SearchKeyword}
         />
       </label>
     </>
