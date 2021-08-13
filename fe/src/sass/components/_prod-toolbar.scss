@@ -33,4 +33,12 @@
   &__active {
     border-bottom: 1rem solid black !important;
   }
+
+  &__page-count {
+    &:hover,
+    &:active {
+      background-color: white !important;
+      color: black !important;
+    }
+  }
 }

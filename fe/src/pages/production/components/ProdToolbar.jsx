@@ -6,6 +6,7 @@ export default function Prod_Toolbar({
   PrevPage,
   NextPage,
   LastPage,
+  pageNumber,
 }) {
   return (
     <div className='prod-toolbar'>
@@ -14,6 +15,9 @@ export default function Prod_Toolbar({
         <li onClick={FirstPage}>First</li>
         <li onClick={PrevPage}>Prev</li>
         {renderPageNumbers}
+        <li className='prod-toolbar__page-count'>
+          <strong>/{pageNumber}</strong>
+        </li>
         <li onClick={NextPage}>Next</li>
         <li onClick={LastPage}>Last</li>
       </ul>

@@ -128,6 +128,7 @@ export default function Production() {
         PrevPage={PrevPage}
         NextPage={NextPage}
         LastPage={LastPage}
+        pageNumber={pageNumber}
       />
       <div className='d-flex justify-content-center align-items-center bg-primary text-white p-2'>
         <strong>Production</strong>
