@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import {
   UserContext,
@@ -8,10 +8,10 @@ import {
 import Cookies from 'universal-cookie';
 
 // Page components
-import Home from './home/Home';
-import Users from './users/Users';
 import Login from './login/Login';
-import ProductionHome from './production/ProductionHome';
+import Home from './home/Home';
+const Users = lazy(() => import('./users/Users'));
+const ProductionHome = lazy(() => import('./production/ProductionHome'));
 
 // create cookie
 const cookies = new Cookies();
@@ -26,13 +26,15 @@ function ApplicationRouter() {
       <UserContext.Provider value={UserProvider}>
         <CookieContext.Provider value={cookies}>
           <Router>
-            <Switch>
-              <Route exact path='/login' component={Login} />
-              <Route path='/users/:id' component={Users} />
-              <Route exact path='/users' component={Users} />
-              <Route path='/production' component={ProductionHome} />
-              <Route exact path='/' component={Home} />
-            </Switch>
+            <Suspense fallback={<strong>Loading...</strong>}>
+              <Switch>
+                <Route exact path='/login' component={Login} />
+                <Route path='/users/:id' component={Users} />
+                <Route exact path='/users' component={Users} />
+                <Route path='/production' component={ProductionHome} />
+                <Route exact path='/' component={Home} />
+              </Switch>
+            </Suspense>
           </Router>
         </CookieContext.Provider>
       </UserContext.Provider>

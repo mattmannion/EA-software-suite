@@ -1,5 +1,5 @@
 import db from '../../db/db.js';
-import logger from '../../logger/logger.js';
+import logger from '../../util/logger.js';
 
 export default async (req, res) => {
   logger(req);

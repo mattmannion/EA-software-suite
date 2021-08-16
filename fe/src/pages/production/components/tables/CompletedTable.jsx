@@ -1,5 +1,8 @@
 import { WaitTime, RemoveXML } from '../../logic/ProductionLogic';
+import Modal from 'react-modal';
 
+Modal.setAppElement('#root');
+Modal.defaultStyles.overlay.backgroundColor = 'transparent';
 export default function CompletedTable({ currentItems }) {
   return (
     <>

@@ -18,11 +18,12 @@ export default function Prod_Search({
         <input
           ref={inputElement}
           name='searchbar'
-          type='text'
+          type='search'
           className='prod-search__searchbar'
           placeholder='Search here...'
           value={getSearchTerm}
           onChange={SearchKeyword}
+          autoFocus
         />
       </label>
     </>

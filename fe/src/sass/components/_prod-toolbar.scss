@@ -1,19 +1,21 @@
 .prod-toolbar {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  margin-right: 2rem;
 
   &__page-numbers {
     list-style: none;
     @include cflex;
-    justify-content: space-between;
-    margin: 0 10rem;
+    justify-content: center;
+    gap: 0.5rem;
 
     li {
       @include cflex;
       user-select: none;
-      border-radius: 2rem;
-      border-bottom: 1rem solid transparent;
-      width: 20rem;
+      border-radius: 0.2rem;
+      border-bottom: 0.1rem solid transparent;
+      width: 2rem;
+      cursor: pointer;
 
       transition: all 0.2s;
 
@@ -31,7 +33,7 @@
   }
 
   &__active {
-    border-bottom: 1rem solid black !important;
+    border-bottom: 0.1rem solid black !important;
   }
 
   &__page-count {
@@ -39,6 +41,7 @@
     &:active {
       background-color: white !important;
       color: black !important;
+      cursor: auto;
     }
   }
 }

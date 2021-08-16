@@ -2,21 +2,9 @@ import { useHistory, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import Modal from 'react-modal';
+import { modalStyles, users_slug } from '../../../util/modal_util';
 import Update from './Update';
 import Delete from './Delete';
-import { users_slug } from '../../../axios/axios_user';
-
-const modalStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-    backgroundColor: 'white',
-  },
-};
 
 Modal.setAppElement('#root');
 Modal.defaultStyles.overlay.backgroundColor = 'transparent';
@@ -28,9 +16,7 @@ export default function Table({ getData, setData }) {
 
   const [getIsUpdateOpen, setIsUpdateOpen] = useState(false);
 
-  function openUpdateModal() {
-    setIsUpdateOpen(true);
-  }
+  const openUpdateModal = () => setIsUpdateOpen(true);
 
   function closeUpdateModal() {
     setIsUpdateOpen(false);
@@ -39,9 +25,7 @@ export default function Table({ getData, setData }) {
 
   const [getIsDeleteOpen, setIsDeleteOpen] = useState(false);
 
-  function openDeleteModal() {
-    setIsDeleteOpen(true);
-  }
+  const openDeleteModal = () => setIsDeleteOpen(true);
 
   function closeDeleteModal() {
     setIsDeleteOpen(false);

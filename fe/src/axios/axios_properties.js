@@ -10,5 +10,5 @@ export const volusionHeaders = {
 };
 
 export const AxiosConfig = {
-  withCredentials: true,
+  // withCredentials: true,
 };
