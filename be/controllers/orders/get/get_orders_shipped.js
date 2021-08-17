@@ -1,5 +1,5 @@
-import db from '../../db/db.js';
-import logger from '../../util/logger.js';
+import db from '../../../db/db.js';
+import logger from '../../../util/logger.js';
 
 export default async (req, res) => {
   logger(req);
@@ -10,10 +10,12 @@ export default async (req, res) => {
         `
         select * from orders
           where (product_code like 'EA%' or product_code like 'ETA%' or product_code like '%LS') 
-          and
-          completed != ''
           and 
-          order_status != 'Shipped'
+          order_status != 'Processed'
+          and 
+          order_status != 'New - See Order Notes'
+          and 
+          order_status != 'Partially Shipped'
           and
           order_status != 'Cancelled' 
           and 

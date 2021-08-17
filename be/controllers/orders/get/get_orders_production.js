@@ -1,5 +1,5 @@
-import db from '../../db/db.js';
-import logger from '../../util/logger.js';
+import db from '../../../db/db.js';
+import logger from '../../../util/logger.js';
 
 export default async (req, res) => {
   logger(req);
@@ -8,16 +8,15 @@ export default async (req, res) => {
     const data = await db
       .query(
         `
-        select * from orders
+        select order_date, order_id, full_name, 
+        product_name, product_code, order_status, 
+        completed, notes, pallet, tack, assembled, order_detail_id
+          from orders
           where (product_code like 'EA%' or product_code like 'ETA%' or product_code like '%LS') 
-          and 
-          order_status != 'Processed'
-          and 
-          order_status != 'New - See Order Notes'
-          and 
-          order_status != 'Partially Shipped'
           and
           order_status != 'Cancelled' 
+          and 
+          order_status != 'Shipped'
           and 
           order_status != 'Returned'
           order by order_id asc;

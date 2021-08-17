@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import get_orders from '../controllers/orders/get_orders.js';
-import get_orders_production from '../controllers/orders/get_orders_production.js';
-import get_orders_completed from '../controllers/orders/get_orders_completed.js';
-import get_orders_shipped from '../controllers/orders/get_orders_shipped.js';
-import insert_orders from '../controllers/orders/insert_orders.js';
-import daily_orders from '../controllers/orders/daily_orders.js';
+import get_orders from '../controllers/orders/get/get_orders.js';
+import get_orders_production from '../controllers/orders/get/get_orders_production.js';
+import get_orders_completed from '../controllers/orders/get/get_orders_completed.js';
+import get_orders_shipped from '../controllers/orders/get/get_orders_shipped.js';
+import insert_orders from '../controllers/orders/insert/insert_orders.js';
+import daily_orders from '../controllers/orders/recurring/daily_orders.js';
 
 const router = new Router();
 
