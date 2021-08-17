@@ -1,4 +1,4 @@
-import { api_path, headers } from '../../axios/axios_properties';
+import { api_path, headers } from '../axios/axios_properties';
 import axios from 'axios';
 
 export default async function LoginHandle(

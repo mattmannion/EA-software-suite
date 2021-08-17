@@ -1,4 +1,5 @@
 import { WaitTime, RemoveXML } from '../../../../util/util';
+import OrderLink from '../OrderLink';
 import Modal from 'react-modal';
 
 Modal.setAppElement('#root');
@@ -39,7 +40,9 @@ export default function CompletedTable({ currentItems }) {
             return (
               <tr key={index}>
                 <th>{order_date}</th>
-                <th>{order_id}</th>
+                <th>
+                  <OrderLink order_id={order_id} />
+                </th>
                 <td>{full_name}</td>
                 <td>
                   <div>{RemoveXML(product_name)}</div>

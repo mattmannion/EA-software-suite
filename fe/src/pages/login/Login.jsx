@@ -2,7 +2,7 @@ import { withRouter, useHistory } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import { CookieContext } from '../../context/UserContext';
 import CurrentUser from '../../components/CurrentUser';
-import LoginHandle from './LoginHandle';
+import LoginHandle from '../../handles/LoginHandle';
 
 function Login() {
   // set initial login state values

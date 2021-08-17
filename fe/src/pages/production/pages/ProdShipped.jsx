@@ -20,9 +20,7 @@ export default function Prod_Shipped() {
     PrevPage,
     NextPage,
     LastPage,
-  } = usePaginationInit(10, 15, getList, getSearchTerm, getSearchResults);
-
-  useFetchGateLogin_Prod('/production', setList);
+  } = usePaginationInit(10, 30, getList, getSearchTerm, getSearchResults);
 
   useFetchGateLogin_Prod('/production/shipped', setList);
 

@@ -1,7 +1,7 @@
 import { WaitTime, RemoveXML } from '../../../../util/util';
 import ProdModal from '../modals/ProdModal';
 import { production_slug } from '../../../../util/modal_util';
-import OrderLink from './OrderLink';
+import OrderLink from '../OrderLink';
 
 export default function ProdTable({ currentItems }) {
   return (
@@ -47,8 +47,8 @@ export default function ProdTable({ currentItems }) {
                 </th>
                 <td>{full_name}</td>
                 <td>
-                  <p>{RemoveXML(product_name)}</p>
-                  <p>({product_code})</p>
+                  <div>{RemoveXML(product_name)}</div>
+                  <div>({product_code})</div>
                 </td>
                 <td>{order_status}</td>
                 <td>{notes === '' ? 'No' : 'Yes'}</td>

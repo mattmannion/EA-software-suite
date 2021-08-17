@@ -22,6 +22,7 @@ export const usePaginationInit = (
       ? current_data_set.slice(indexOfFirstItem, indexOfLastItem)
       : current_search_results.slice(indexOfFirstItem, indexOfLastItem);
 
+  // dynamic page number calculated on current number of items
   const pageNumber =
     current_search_term.length < 1
       ? Math.ceil(current_data_set.length / itemsPerPage)
