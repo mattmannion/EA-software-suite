@@ -1,4 +1,4 @@
-import { WaitTime, RemoveXML } from '../../logic/ProductionLogic';
+import { WaitTime, RemoveXML } from '../../../../util/util';
 
 export default function ShippedTable({ currentItems }) {
   return (

@@ -1,4 +1,4 @@
-import { WaitTime, RemoveXML } from '../../logic/ProductionLogic';
+import { WaitTime, RemoveXML } from '../../../../util/util';
 import ProdModal from '../modals/ProdModal';
 import { production_slug } from '../../../../util/modal_util';
 import OrderLink from './OrderLink';
@@ -26,7 +26,7 @@ export default function ProdTable({ currentItems }) {
         <tbody>
           {currentItems.map(data => {
             let {
-              id,
+              order_detail_id,
               order_date,
               order_id,
               full_name,
@@ -40,7 +40,7 @@ export default function ProdTable({ currentItems }) {
               assembled,
             } = data;
             return (
-              <tr key={id}>
+              <tr key={order_detail_id}>
                 <th>{order_date}</th>
                 <th>
                   <OrderLink order_id={order_id} />

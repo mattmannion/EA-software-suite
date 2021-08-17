@@ -1,25 +1,9 @@
-import { Link, useHistory, useLocation } from 'react-router-dom';
-import { useContext, useEffect } from 'react';
-import {
-  CookieContext,
-  UserCheck,
-  UserContext,
-} from '../../context/UserContext';
+import { Link } from 'react-router-dom';
 import NavBar from '../../components/NavBar';
+import { useLogin } from '../../hooks/LoginHooks';
 
 function Home() {
-  const history = useHistory();
-  const { pathname } = useLocation();
-
-  const { setUser } = useContext(UserContext);
-
-  const cookies = useContext(CookieContext);
-
-  useEffect(
-    () => UserCheck(cookies, pathname, history, setUser),
-    // eslint-disable-next-line
-    []
-  );
+  useLogin();
 
   return (
     <>
