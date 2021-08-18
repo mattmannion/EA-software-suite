@@ -1,11 +1,11 @@
-import db from '../../../db/db.js';
+import db from '../../db/db.js';
 import fetch from 'node-fetch';
 import xml2js from 'xml2js';
-import logger from '../../../util/logger.js';
-import timer from '../../../util/timer.js';
+import { time_stamp } from '../../util/logger.js';
+import timer from '../../util/timer.js';
 
-export default async (req, res) => {
-  logger(req);
+export default async () => {
+  time_stamp();
 
   // sets how far the loop will look after the last found order_id
   let order_advance = 55;
@@ -69,15 +69,8 @@ export default async (req, res) => {
       `;
 
       // checks for data inside response to volusion
-      if (data === null || data === undefined) {
-        // console.log(data);
-        res.status(200).json({
-          status: 'no data',
-        });
-        return;
-
-        // end if
-      } else if (data !== null || data !== undefined) {
+      if (data === null || data === undefined) return;
+      else if (data !== null || data !== undefined) {
         // base query values
         let {
           OrderID,
@@ -176,17 +169,9 @@ export default async (req, res) => {
             .catch(err => console.log(err.stack));
           // end else
         }
-        res.status(200).json({
-          status: 'success',
-        });
         return;
         // end else if
-      } else {
-        res.status(400).json({
-          status: 'something went wrong...',
-        });
-        return;
-      }
+      } else return;
     } catch (err) {
       err;
     }
@@ -199,6 +184,7 @@ export default async (req, res) => {
     console.log(id);
     MainLoop(id);
 
-    if (id === last_order_id + order_advance) console.log('loop done');
+    if (id === last_order_id + order_advance)
+      console.log('daily orders fetched');
   } // end outer loop
 };

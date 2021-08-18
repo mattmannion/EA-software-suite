@@ -17,7 +17,7 @@ export const usePaginationInit = (
   const indexOfLastItem = getCurrentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   // currentItems is the pagination entry point array
-  const currentItems =
+  let currentItems =
     current_search_term.length < 1
       ? current_data_set.slice(indexOfFirstItem, indexOfLastItem)
       : current_search_results.slice(indexOfFirstItem, indexOfLastItem);

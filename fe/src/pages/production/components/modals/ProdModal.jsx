@@ -6,9 +6,7 @@ import { modalStyles } from '../../../../util/modal_util';
 Modal.setAppElement('#root');
 Modal.defaultStyles.overlay.backgroundColor = 'transparent';
 
-export default function ProdModal(props) {
-  const { slug } = props;
-
+export default function ProdModal({ slug, children }) {
   const history = useHistory();
   const [getIsModalOpen, setIsModalOpen] = useState(false);
 
@@ -35,7 +33,7 @@ export default function ProdModal(props) {
             &#x2715;
           </button>
         </div>
-        {props.children}
+        {children}
       </Modal>
     </>
   );

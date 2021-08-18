@@ -2,8 +2,14 @@ import { WaitTime, RemoveXML } from '../../../../util/util';
 import ProdModal from '../modals/ProdModal';
 import { production_slug } from '../../../../util/modal_util';
 import OrderLink from '../OrderLink';
+import RefreshBtn from '../RefreshBtn';
 
-export default function ProdTable({ currentItems }) {
+export default function ProdTable({
+  currentItems,
+  setList,
+  getSearchTerm,
+  SearchHandler,
+}) {
   return (
     <>
       <table className='table table-striped table-dark table-hover production__table'>
@@ -11,6 +17,7 @@ export default function ProdTable({ currentItems }) {
           <tr>
             <th>Order Date</th>
             <th>Order ID</th>
+            <th>Refresh</th>
             <th>Customer</th>
             <th>Product Name (Product Code)</th>
             <th>Order Status</th>
@@ -45,6 +52,15 @@ export default function ProdTable({ currentItems }) {
                 <th>
                   <OrderLink order_id={order_id} />
                 </th>
+                <td>
+                  <RefreshBtn
+                    order_id={order_id}
+                    order_detail_id={order_detail_id}
+                    setList={setList}
+                    getSearchTerm={getSearchTerm}
+                    SearchHandler={SearchHandler}
+                  />
+                </td>
                 <td>{full_name}</td>
                 <td>
                   <div>{RemoveXML(product_name)}</div>

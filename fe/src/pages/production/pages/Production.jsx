@@ -53,7 +53,12 @@ export default function Production() {
       <div className='d-flex justify-content-center align-items-center bg-primary text-white p-2'>
         <strong>Production</strong>
       </div>
-      <ProdTable currentItems={currentItems} />
+      <ProdTable
+        currentItems={currentItems}
+        setList={setList}
+        getSearchTerm={getSearchTerm}
+        SearchHandler={SearchHandler}
+      />
       <ProductionTabs />
     </>
   );

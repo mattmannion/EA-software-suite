@@ -4,7 +4,7 @@ import get_orders_production from '../controllers/orders/get/get_orders_producti
 import get_orders_completed from '../controllers/orders/get/get_orders_completed.js';
 import get_orders_shipped from '../controllers/orders/get/get_orders_shipped.js';
 import insert_orders from '../controllers/orders/insert/insert_orders.js';
-import daily_orders from '../controllers/orders/recurring/daily_orders.js';
+import update_order from '../controllers/orders/udpate/update_item.js';
 
 const router = new Router();
 
@@ -12,10 +12,11 @@ const router = new Router();
 router.route('/orders/production').get(get_orders_production);
 router.route('/orders/production/completed').get(get_orders_completed);
 router.route('/orders/production/shipped').get(get_orders_shipped);
-router.route('/orders').get(get_orders);
+
 router.route('/orders/insert_orders').get(insert_orders);
 router.route('/orders/insert_orders/:id').get(insert_orders);
+router.route('/orders/update/:o_id&:od_id').put(update_order);
 
-router.route('/orders/daily').get(daily_orders);
+router.route('/orders').get(get_orders);
 
 export default router;

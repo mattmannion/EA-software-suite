@@ -7,6 +7,28 @@ import timer from '../../../util/timer.js';
 export default async (req, res) => {
   logger(req);
 
+  // sets how far the loop will look after the last found order_id
+  let order_advance = 55;
+  let last_order_id;
+
+  try {
+    let { order_id } = await db
+      .query(
+        `
+      select order_id from orders
+      order by order_id desc limit 1;
+    `
+      )
+      .then(res => {
+        return res.rows[0];
+      })
+      .catch(err => console.log(err.stack));
+
+    last_order_id = +order_id + 1;
+  } catch (error) {
+    error;
+  }
+
   const MainLoop = async id => {
     try {
       let response = await fetch(`${process.env.insert_order_v2}${id}`);
@@ -170,13 +192,13 @@ export default async (req, res) => {
     }
   };
 
-  let last_id = 113664;
-
   // start outer loop
-  for (let id = 104741; id < last_id + 55; id++) {
+  for (let id = last_order_id; id < last_order_id + order_advance + 1; id++) {
     // timer stops db overload
-    await timer(1500);
+    await timer(3000);
     console.log(id);
     MainLoop(id);
+
+    if (id === last_order_id + order_advance) console.log('loop done');
   } // end outer loop
 };
