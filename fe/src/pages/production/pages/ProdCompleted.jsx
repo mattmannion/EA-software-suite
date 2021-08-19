@@ -3,14 +3,18 @@ import ProductionTabs from '../components/ProductionTabs';
 import ProdToolbar from '../components/ProdToolbar';
 import CompletedTable from '../components/tables/CompletedTable';
 import { usePaginationInit } from '../../../hooks/PaginationHooks';
-import { useSearchInit } from '../../../hooks/SearchHooks';
+import { useSearchArrayFlush, useSearchInit } from '../../../hooks/SearchHooks';
 import { useFetchGateLogin_Prod } from '../../../hooks/LoginHooks';
 
 export default function Prod_Completed() {
   const [getList, setList] = useState([]);
 
+  useFetchGateLogin_Prod('/production/completed', setList);
+
   const { getSearchTerm, getSearchResults, SearchHandler } =
     useSearchInit(getList);
+
+  useSearchArrayFlush(getList, getSearchTerm, SearchHandler);
 
   const {
     currentItems,
@@ -21,8 +25,6 @@ export default function Prod_Completed() {
     NextPage,
     LastPage,
   } = usePaginationInit(10, 15, getList, getSearchTerm, getSearchResults);
-
-  useFetchGateLogin_Prod('/production/completed', setList);
 
   // placeholder for list while its loading
   if (getList.length === 0)
@@ -53,7 +55,7 @@ export default function Prod_Completed() {
       <strong className='d-flex justify-content-center align-items-center bg-success text-white p-2'>
         Completed Orders
       </strong>
-      <CompletedTable currentItems={currentItems} />
+      <CompletedTable currentItems={currentItems} setList={setList} />
       <ProductionTabs />
     </>
   );

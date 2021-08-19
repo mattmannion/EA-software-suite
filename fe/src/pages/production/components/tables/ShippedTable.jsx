@@ -1,7 +1,8 @@
 import { WaitTime, RemoveXML } from '../../../../util/util';
 import OrderLink from '../OrderLink';
+import RefreshBtn from '../RefreshBtn';
 
-export default function ShippedTable({ currentItems }) {
+export default function ShippedTable({ currentItems, setList }) {
   return (
     <>
       <table className='table table-striped table-dark table-hover table-sm table-responsive-sm'>
@@ -9,6 +10,7 @@ export default function ShippedTable({ currentItems }) {
           <tr>
             <th>Order Date</th>
             <th>Order ID</th>
+            <th>Refresh</th>
             <th>Customer</th>
             <th>
               <div>Product Name</div>
@@ -26,6 +28,7 @@ export default function ShippedTable({ currentItems }) {
             // stores table info for nested mapping
             const {
               order_id,
+              order_detail_id,
               full_name,
               product_name,
               product_code,
@@ -39,6 +42,14 @@ export default function ShippedTable({ currentItems }) {
                 <th>
                   <OrderLink order_id={order_id} />
                 </th>
+                <td>
+                  <RefreshBtn
+                    order_id={order_id}
+                    order_detail_id={order_detail_id}
+                    setList={setList}
+                    path='/production/shipped'
+                  />
+                </td>
                 <td>{full_name}</td>
                 <td>
                   <div>{RemoveXML(product_name)}</div>

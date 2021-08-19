@@ -1,5 +1,4 @@
 import { useState } from 'react';
-// import { useEffect } from 'react';
 import ProductionTabs from '../components/ProductionTabs';
 import ProdTable from '../components/tables/ProdTable';
 import ProdToolbar from '../components/ProdToolbar';
@@ -9,6 +8,8 @@ import { useFetchGateLogin_Prod } from '../../../hooks/LoginHooks';
 
 export default function Production() {
   const [getList, setList] = useState([]);
+
+  useFetchGateLogin_Prod('/production', setList);
 
   const { getSearchTerm, getSearchResults, SearchHandler } =
     useSearchInit(getList);
@@ -24,8 +25,6 @@ export default function Production() {
     NextPage,
     LastPage,
   } = usePaginationInit(10, 15, getList, getSearchTerm, getSearchResults);
-
-  useFetchGateLogin_Prod('/production', setList);
 
   // placeholder for list while its loading
   if (getList.length === 0)

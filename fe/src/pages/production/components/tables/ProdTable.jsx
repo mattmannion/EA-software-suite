@@ -52,6 +52,7 @@ export default function ProdTable({ currentItems, setList }) {
                     order_id={order_id}
                     order_detail_id={order_detail_id}
                     setList={setList}
+                    path='/production'
                   />
                 </td>
                 <td>{full_name}</td>

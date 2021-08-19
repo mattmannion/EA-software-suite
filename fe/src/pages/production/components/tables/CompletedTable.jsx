@@ -1,11 +1,12 @@
 import { WaitTime, RemoveXML } from '../../../../util/util';
 import OrderLink from '../OrderLink';
 import Modal from 'react-modal';
+import RefreshBtn from '../RefreshBtn';
 
 Modal.setAppElement('#root');
 Modal.defaultStyles.overlay.backgroundColor = 'transparent';
 
-export default function CompletedTable({ currentItems }) {
+export default function CompletedTable({ currentItems, setList }) {
   return (
     <>
       <table className='table table-striped table-dark table-hover table-sm table-responsive-sm'>
@@ -13,6 +14,7 @@ export default function CompletedTable({ currentItems }) {
           <tr>
             <th>Order Date</th>
             <th>Order ID</th>
+            <th>Refresh</th>
             <th>Customer</th>
             <th>
               <div>Product Name</div>
@@ -30,6 +32,7 @@ export default function CompletedTable({ currentItems }) {
             // stores table info for nested mapping
             const {
               order_id,
+              order_detail_id,
               full_name,
               product_name,
               product_code,
@@ -43,6 +46,14 @@ export default function CompletedTable({ currentItems }) {
                 <th>
                   <OrderLink order_id={order_id} />
                 </th>
+                <td>
+                  <RefreshBtn
+                    o_id={order_id}
+                    od_id={order_detail_id}
+                    setList={setList}
+                    path='/production/completed'
+                  />
+                </td>
                 <td>{full_name}</td>
                 <td>
                   <div>{RemoveXML(product_name)}</div>
