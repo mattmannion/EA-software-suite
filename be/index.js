@@ -22,7 +22,7 @@ app.use(json());
 //////////////////
 /// Daily Task ///
 //////////////////
-daily_task(daily_orders, { second: 0, minute: 18, hour: 7 });
+daily_task(daily_orders, { second: 0, minute: 0, hour: 18 });
 //starts at 6pm est everyday
 
 //////////////

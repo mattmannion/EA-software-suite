@@ -24,7 +24,7 @@ export default function Production() {
     PrevPage,
     NextPage,
     LastPage,
-  } = usePaginationInit(10, 15, getList, getSearchTerm, getSearchResults);
+  } = usePaginationInit(10, 20, getList, getSearchTerm, getSearchResults);
 
   // placeholder for list while its loading
   if (getList.length === 0)

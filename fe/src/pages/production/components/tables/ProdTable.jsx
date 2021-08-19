@@ -15,6 +15,7 @@ export default function ProdTable({ currentItems, setList }) {
             <th>Refresh</th>
             <th>Customer</th>
             <th>Product Name (Product Code)</th>
+            <th>Options</th>
             <th>Order Status</th>
             <th>Notes</th>
             <th>Pallet</th>
@@ -34,6 +35,7 @@ export default function ProdTable({ currentItems, setList }) {
               full_name,
               product_name,
               product_code,
+              order_option,
               order_status,
               completed,
               notes,
@@ -60,6 +62,7 @@ export default function ProdTable({ currentItems, setList }) {
                   <div>{RemoveXML(product_name)}</div>
                   <div>({product_code})</div>
                 </td>
+                <td>{order_option}</td>
                 <td>{order_status}</td>
                 <td>{notes === '' ? 'No' : 'Yes'}</td>
                 <td>{pallet === '' ? 'No' : 'Yes'}</td>

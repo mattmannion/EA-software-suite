@@ -19,7 +19,7 @@ export default function ProdModal({ slug, children }) {
 
   return (
     <>
-      <Link to={slug} className='btn btn-warning m-5' onClick={openModal}>
+      <Link to={slug} className='btn btn-warning' onClick={openModal}>
         Edit
       </Link>
       <Modal
