@@ -1,9 +1,10 @@
 import { useState } from 'react';
+// import { useEffect } from 'react';
 import ProductionTabs from '../components/ProductionTabs';
 import ProdTable from '../components/tables/ProdTable';
 import ProdToolbar from '../components/ProdToolbar';
 import { usePaginationInit } from '../../../hooks/PaginationHooks';
-import { useSearchInit } from '../../../hooks/SearchHooks';
+import { useSearchArrayFlush, useSearchInit } from '../../../hooks/SearchHooks';
 import { useFetchGateLogin_Prod } from '../../../hooks/LoginHooks';
 
 export default function Production() {
@@ -11,6 +12,8 @@ export default function Production() {
 
   const { getSearchTerm, getSearchResults, SearchHandler } =
     useSearchInit(getList);
+
+  useSearchArrayFlush(getList, getSearchTerm, SearchHandler);
 
   const {
     currentItems,
@@ -53,12 +56,7 @@ export default function Production() {
       <div className='d-flex justify-content-center align-items-center bg-primary text-white p-2'>
         <strong>Production</strong>
       </div>
-      <ProdTable
-        currentItems={currentItems}
-        setList={setList}
-        getSearchTerm={getSearchTerm}
-        SearchHandler={SearchHandler}
-      />
+      <ProdTable currentItems={currentItems} setList={setList} />
       <ProductionTabs />
     </>
   );

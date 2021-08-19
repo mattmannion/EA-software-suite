@@ -4,12 +4,7 @@ import { production_slug } from '../../../../util/modal_util';
 import OrderLink from '../OrderLink';
 import RefreshBtn from '../RefreshBtn';
 
-export default function ProdTable({
-  currentItems,
-  setList,
-  getSearchTerm,
-  SearchHandler,
-}) {
+export default function ProdTable({ currentItems, setList }) {
   return (
     <>
       <table className='table table-striped table-dark table-hover production__table'>
@@ -57,8 +52,6 @@ export default function ProdTable({
                     order_id={order_id}
                     order_detail_id={order_detail_id}
                     setList={setList}
-                    getSearchTerm={getSearchTerm}
-                    SearchHandler={SearchHandler}
                   />
                 </td>
                 <td>{full_name}</td>
