@@ -26,7 +26,7 @@ export const usePaginationInit = (
   const pageNumber =
     current_search_term.length < 1
       ? Math.ceil(current_data_set.length / itemsPerPage)
-      : Math.ceil(current_search_term.length / itemsPerPage);
+      : Math.ceil(current_search_results.length / itemsPerPage);
 
   const pageNumberLimit = 10;
 

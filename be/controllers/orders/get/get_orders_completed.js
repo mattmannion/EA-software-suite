@@ -9,7 +9,7 @@ export default async (req, res) => {
       .query(
         `
         select * from orders
-          where (product_code like 'EA%' or product_code like 'ETA%' or product_code like '%LS') 
+          where (product_code like 'EA%' or product_code like 'ETA%' or product_code like 'LS%') 
           and
           completed != ''
           and 
@@ -18,7 +18,7 @@ export default async (req, res) => {
           order_status != 'Cancelled' 
           and 
           order_status != 'Returned'
-          order by order_id asc;
+          order by order_id, order_detail_id;
       `
       )
       .then(res => res.rows)

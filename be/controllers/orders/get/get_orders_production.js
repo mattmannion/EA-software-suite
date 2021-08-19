@@ -12,14 +12,14 @@ export default async (req, res) => {
         product_name, product_code, order_status, 
         completed, notes, pallet, tack, assembled, order_detail_id
           from orders
-          where (product_code like 'EA%' or product_code like 'ETA%' or product_code like '%LS') 
+          where (product_code like 'EA%' or product_code like 'ETA%' or product_code like 'LS%') 
           and
           order_status != 'Cancelled' 
           and 
           order_status != 'Shipped'
           and 
           order_status != 'Returned'
-          order by order_id asc;
+          order by order_id, order_detail_id;
       `
       )
       .then(res => res.rows)
