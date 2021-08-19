@@ -62,7 +62,7 @@ export default function ProdTable({ currentItems, setList }) {
                   <div>{RemoveXML(product_name)}</div>
                   <div>({product_code})</div>
                 </td>
-                <td>{order_option}</td>
+                <td className='production__options'>{order_option}</td>
                 <td>{order_status}</td>
                 <td>{notes === '' ? 'No' : 'Yes'}</td>
                 <td>{pallet === '' ? 'No' : 'Yes'}</td>
