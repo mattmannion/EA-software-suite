@@ -6,7 +6,7 @@ import { modalStyles } from '../../../../util/modal_util';
 Modal.setAppElement('#root');
 Modal.defaultStyles.overlay.backgroundColor = 'transparent';
 
-export default function ProdModal({ slug, children }) {
+export default function ProdModal({ slug, name, children }) {
   const history = useHistory();
   const [getIsModalOpen, setIsModalOpen] = useState(false);
 
@@ -19,8 +19,12 @@ export default function ProdModal({ slug, children }) {
 
   return (
     <>
-      <Link to={slug} className='btn btn-warning' onClick={openModal}>
-        Edit
+      <Link
+        to={slug}
+        className='btn btn-warning production__edit-notes'
+        onClick={openModal}
+      >
+        <strong>{name}</strong>
       </Link>
       <Modal
         isOpen={getIsModalOpen}

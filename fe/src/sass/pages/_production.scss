@@ -1,5 +1,25 @@
 .production {
+  &__header {
+    width: 100%;
+  }
+
   &__options {
     max-width: 20rem;
+  }
+
+  &__edit-notes {
+    @include cflex;
+    font-weight: 700;
+    text-decoration: none;
+    color: inherit;
+
+    transition: all 0.2s;
+    &:active,
+    &:hover {
+      color: lightgreen;
+    }
+    div {
+      max-width: 35rem;
+    }
   }
 }

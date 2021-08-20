@@ -4,8 +4,9 @@ import get_orders_production from '../controllers/orders/get/get_orders_producti
 import get_orders_completed from '../controllers/orders/get/get_orders_completed.js';
 import get_orders_shipped from '../controllers/orders/get/get_orders_shipped.js';
 import insert_orders from '../controllers/orders/insert/insert_orders.js';
-import update_order from '../controllers/orders/udpate/update_item.js';
-import daily_update from '../controllers/orders/udpate/daily_update.js';
+import update_order from '../controllers/orders/update/update_item.js';
+import daily_update from '../controllers/orders/update/daily_update.js';
+import notes from '../controllers/orders/update/notes.js';
 
 const router = new Router();
 
@@ -18,6 +19,7 @@ router.route('/orders/insert_orders').get(insert_orders);
 router.route('/orders/insert_orders/:id').get(insert_orders);
 router.route('/orders/update').put(daily_update);
 router.route('/orders/update/:o_id&:od_id').put(update_order);
+router.route('/orders/update/notes/:o_id&:od_id').put(notes);
 
 router.route('/orders').get(get_orders);
 

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { DataFetch } from './LoginHooks';
 
 // this hook gets the current data set and filters the results
 // coming from the search box. filtered on a large string containing
@@ -39,4 +40,15 @@ export const useSearchArrayFlush = (
     SearchHandler(current_search_term);
     //eslint-disable-next-line
   }, [current_data_set]);
+};
+
+export const refresh_list = async (
+  current_data_set,
+  path,
+  api_path,
+  method
+) => {
+  await fetch(api_path, { method });
+
+  await DataFetch(path, current_data_set);
 };

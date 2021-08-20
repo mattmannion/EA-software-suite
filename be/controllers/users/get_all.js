@@ -8,7 +8,7 @@ export default async (req, res) => {
     const data = await db
       .query(
         `
-        select * from users
+        select * from users order by id
       `
       )
       .then(res => res.rows)

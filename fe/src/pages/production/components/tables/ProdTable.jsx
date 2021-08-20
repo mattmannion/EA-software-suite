@@ -1,8 +1,8 @@
 import { WaitTime, RemoveXML } from '../../../../util/util';
-import ProdModal from '../modals/ProdModal';
+import NotesModal from '../modals/NotesModal';
 import { production_slug } from '../../../../util/modal_util';
-import OrderLink from '../OrderLink';
-import RefreshBtn from '../RefreshBtn';
+import OrderLink from '../inputs/OrderLink';
+import RefreshBtn from '../inputs/RefreshBtn';
 
 export default function ProdTable({ currentItems, setList }) {
   return (
@@ -14,16 +14,15 @@ export default function ProdTable({ currentItems, setList }) {
             <th>Order ID</th>
             <th>Refresh</th>
             <th>Customer</th>
-            <th>Product Name (Product Code)</th>
+            <th>Product Name(Code)</th>
             <th>Options</th>
             <th>Order Status</th>
             <th>Notes</th>
             <th>Pallet</th>
             <th>Tack</th>
             <th>Assembled</th>
-            <th>Wait Time</th>
             <th>Completed</th>
-            <th></th>
+            <th>Wait Time</th>
           </tr>
         </thead>
         <tbody>
@@ -64,17 +63,25 @@ export default function ProdTable({ currentItems, setList }) {
                 </td>
                 <td className='production__options'>{order_option}</td>
                 <td>{order_status}</td>
-                <td>{notes === '' ? 'No' : 'Yes'}</td>
+                <td>
+                  <NotesModal
+                    slug={`${production_slug}/${order_id}&${order_detail_id}`}
+                    name={
+                      notes === '' || notes === null ? 'Click to Add' : notes
+                    }
+                    notes={notes}
+                    o_id={order_id}
+                    od_id={order_detail_id}
+                    setList={setList}
+                  />
+                </td>
                 <td>{pallet === '' ? 'No' : 'Yes'}</td>
                 <td>{tack === '' ? 'No' : 'Yes'}</td>
                 <td>{assembled === '' ? 'No' : 'Yes'}</td>
+                <td>{completed === '' ? 'No' : 'Yes'}</td>
                 <td>
                   {/* <div>{WaitTime(order_date).days} days</div> */}
                   <div>{WaitTime(order_date).weeks} weeks</div>
-                </td>
-                <td>{completed === '' ? 'No' : 'Yes'}</td>
-                <td>
-                  <ProdModal slug={production_slug}></ProdModal>
                 </td>
               </tr>
             );

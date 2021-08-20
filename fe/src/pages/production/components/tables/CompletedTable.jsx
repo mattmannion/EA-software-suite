@@ -1,7 +1,7 @@
 import { WaitTime, RemoveXML } from '../../../../util/util';
-import OrderLink from '../OrderLink';
 import Modal from 'react-modal';
-import RefreshBtn from '../RefreshBtn';
+import OrderLink from '../inputs/OrderLink';
+import RefreshBtn from '../inputs/RefreshBtn';
 
 Modal.setAppElement('#root');
 Modal.defaultStyles.overlay.backgroundColor = 'transparent';
@@ -18,7 +18,7 @@ export default function CompletedTable({ currentItems, setList }) {
             <th>Customer</th>
             <th>
               <div>Product Name</div>
-              <div>(Product Code)</div>
+              <div>(Code)</div>
             </th>
             <th>Order Status</th>
             <th>Notes</th>

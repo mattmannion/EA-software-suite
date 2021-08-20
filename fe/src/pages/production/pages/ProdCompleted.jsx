@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import ProductionTabs from '../components/ProductionTabs';
-import ProdToolbar from '../components/ProdToolbar';
+import ProdToolbar from '../components/inputs/ProdToolbar';
+import ProductionTabs from '../components/inputs/ProductionTabs';
 import CompletedTable from '../components/tables/CompletedTable';
 import { usePaginationInit } from '../../../hooks/PaginationHooks';
 import { useSearchArrayFlush, useSearchInit } from '../../../hooks/SearchHooks';

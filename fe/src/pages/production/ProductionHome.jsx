@@ -11,19 +11,19 @@ function ProductionHome() {
     <>
       <NavBar />
       <Switch>
-        <Route path={path + '/completed/:id'}>
+        <Route path={path + '/completed/:o_id&:od_id'}>
           <Completed />
         </Route>
         <Route path={path + '/completed'}>
           <Completed />
         </Route>
-        <Route path={path + '/shipped/:id'}>
+        <Route path={path + '/shipped/:o_id&:od_id'}>
           <Shipped />
         </Route>
         <Route path={path + '/shipped'}>
           <Shipped />
         </Route>
-        <Route path={path + '/:id'}>
+        <Route path={path + '/:o_id&:od_id'}>
           <Production />
         </Route>
         <Route exact path={path}>

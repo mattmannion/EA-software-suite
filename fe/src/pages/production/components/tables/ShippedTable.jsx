@@ -1,6 +1,6 @@
 import { WaitTime, RemoveXML } from '../../../../util/util';
-import OrderLink from '../OrderLink';
-import RefreshBtn from '../RefreshBtn';
+import OrderLink from '../inputs/OrderLink';
+import RefreshBtn from '../inputs/RefreshBtn';
 
 export default function ShippedTable({ currentItems, setList }) {
   return (
@@ -14,7 +14,7 @@ export default function ShippedTable({ currentItems, setList }) {
             <th>Customer</th>
             <th>
               <div>Product Name</div>
-              <div>(Product Code)</div>
+              <div>(Code)</div>
             </th>
             <th>Order Status</th>
             <th>Notes</th>
@@ -52,8 +52,7 @@ export default function ShippedTable({ currentItems, setList }) {
                 </td>
                 <td>{full_name}</td>
                 <td>
-                  <div>{RemoveXML(product_name)}</div>
-                  <div>({product_code})</div>
+                  {RemoveXML(product_name)}({product_code})
                 </td>
                 <td>{order_status}</td>
                 <td>{notes === '' ? 'No' : 'Yes'}</td>

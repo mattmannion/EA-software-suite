@@ -1,0 +1,12 @@
+.notes-form {
+  &__close-btn {
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin: 1rem;
+  }
+  &__textarea {
+    font-size: 1.6rem;
+    font-weight: 700;
+  }
+}
