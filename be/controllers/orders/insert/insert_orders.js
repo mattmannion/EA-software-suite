@@ -199,6 +199,6 @@ export default async (req, res) => {
     console.log(id);
     MainLoop(id);
 
-    if (id === last_order_id + order_advance) console.log('loop done');
+    if (id === last_order_id + order_advance) console.log('insert loop done');
   } // end outer loop
 };

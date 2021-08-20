@@ -1,17 +1,17 @@
 import db from '../../db/db.js';
 import fetch from 'node-fetch';
 import xml2js from 'xml2js';
-import { time_stamp } from '../../util/logger.js';
+import logger from '../../util/logger.js';
+import timer from '../../util/timer.js';
 
-// this is a complicated function, please look over it carefully
 export default async () => {
-  time_stamp();
+  timer();
 
   try {
-    const data = await db
+    const db_query = await db
       .query(
         `
-        select order_id from orders 
+        select order_id, order_detail_id from orders 
         where (product_code like 'EA%' or product_code like 'ETA%' or product_code like 'LS%' ) 
         and
         order_status != 'Cancelled' 
@@ -19,101 +19,114 @@ export default async () => {
         order_status != 'Shipped'
         and 
         order_status != 'Returned'
-        group by order_id 
-        order by order_id asc;
+        group by order_id, order_detail_id
+        order by order_id, order_detail_id;
       `
       )
-      .then(res => res.rows[0])
+      .then(res => res.rows)
       .catch(err => console.log(err.stack));
 
-    console.log(data);
-    res.status(201).json({
-      data,
-      status: 'success',
+    const db_tuple = db_query.map(({ order_id, order_detail_id }) => {
+      return {
+        order_id,
+        order_detail_id,
+      };
     });
-    // // volusion fetch
-    // const volusion = await fetch(`${process.env.insert_order_v2}${o_id}`);
 
-    // const { xmldata } = await xml2js.parseStringPromise(
-    //   await volusion.text(),
-    //   (err, res) => {
-    //     if (err) return console.log(err);
-    //     else return res;
-    //   }
-    // );
+    //////////////////////////
+    /// Start of Main Loop ///
+    //////////////////////////
+    const MainLoop = async query_array => {
+      try {
+        const { order_id, order_detail_id } = query_array;
 
-    // const vol_data = xmldata.Orders[0];
-    // const { OrderID, OrderStatus } = vol_data;
+        // start volusion query
+        const vol_query = await fetch(
+          `${process.env.insert_order_v2}${order_id}`
+        );
+        const { xmldata } = await xml2js.parseStringPromise(
+          await vol_query.text(),
+          (err, res) => {
+            if (err) return console.log(err);
+            else return res;
+          }
+        );
 
-    // // all data is served in single element arrays for some reason
-    // // [0] to extract the element from array format
-    // // fr means filtered result
-    // const fr = vol_data.OrderDetails.map(od => {
-    //   let order_id = OrderID !== undefined ? OrderID[0] : '';
-    //   let order_detail_id =
-    //     od.OrderDetailID !== undefined ? od.OrderDetailID[0] : '';
-    //   let product_name = od.ProductName !== undefined ? od.ProductName[0] : '';
-    //   let product_code = od.ProductCode !== undefined ? od.ProductCode[0] : '';
-    //   let order_status = OrderStatus !== undefined ? OrderStatus[0] : '';
-    //   let order_option = od.Options !== undefined ? od.Options[0] : '';
-    //   let order_option_id = od.OptionIDs !== undefined ? od.OptionIDs[0] : '';
+        const { OrderStatus, OrderDetails } = xmldata.Orders[0];
 
-    //   return {
-    //     order_id,
-    //     order_detail_id,
-    //     product_name,
-    //     product_code,
-    //     order_status,
-    //     order_option,
-    //     order_option_id,
-    //   };
-    // }).filter(
-    //   ({ order_id, order_detail_id }) =>
-    //     order_id === o_id && order_detail_id === od_id
-    // )[0];
+        const vol_data = OrderDetails.map(od => {
+          let order_detail_id =
+            od.OrderDetailID !== undefined ? od.OrderDetailID[0] : '';
+          let product_name =
+            od.ProductName !== undefined ? od.ProductName[0] : '';
+          let product_code =
+            od.ProductCode !== undefined ? od.ProductCode[0] : '';
+          let order_status = OrderStatus !== undefined ? OrderStatus[0] : '';
+          let order_option = od.Options !== undefined ? od.Options[0] : '';
+          let order_option_id =
+            od.OptionIDs !== undefined ? od.OptionIDs[0] : '';
 
-    // const {
-    //   order_id,
-    //   order_detail_id,
-    //   product_name,
-    //   product_code,
-    //   order_status,
-    //   order_option,
-    //   order_option_id,
-    // } = fr;
+          return {
+            order_id,
+            order_detail_id,
+            product_name,
+            product_code,
+            order_status,
+            order_option,
+            order_option_id,
+          };
+        }).filter(
+          filter =>
+            filter.order_id === order_id &&
+            filter.order_detail_id === order_detail_id
+        )[0];
 
-    // const data = await db
-    //   .query(
-    //     `
-    //     update orders set product_name = $3, product_code = $4,
-    //     order_status = $5, order_option = $6, order_option_id = $7
-    //     where order_id = $1 and order_detail_id = $2
-    //     returning *;
-    //   `,
-    //     [
-    //       order_id,
-    //       order_detail_id,
-    //       product_name,
-    //       product_code,
-    //       order_status,
-    //       order_option,
-    //       order_option_id,
-    //     ]
-    //   )
-    //   .then(res => res.rows[0])
-    //   .catch(err => console.log(err.stack));
+        // parse volusion query
+        const { product_name, product_code, order_option, order_status } =
+          vol_data;
 
-    // if (vol_data) {
-    //   res.status(201).json({
-    //     data,
-    //     status: 'success',
-    //   });
-    // } else {
-    //   res.status(400).json({
-    //     status: 'failure',
-    //   });
-    // }
+        // update query
+        db.query(
+          `
+        update orders set
+        product_name = $3,
+        product_code = $4,
+        order_option = $5,
+        order_status = $6
+        where order_id = $1 and order_detail_id = $2;
+      `,
+          [
+            order_id,
+            order_detail_id,
+            product_name,
+            product_code,
+            order_option,
+            order_status,
+          ]
+        )
+          .then(res => res.rows)
+          .catch(err => console.log(err.stack));
+
+        //////////////////////
+        /// Start of Error ///
+        //////////////////////
+      } catch (err) {
+        err;
+      }
+    };
+
+    // start outer loop
+    for (let i = 0; i < db_tuple.length; i++) {
+      // timer stops db overload
+      await timer(1000);
+      console.log(i + 1, db_tuple[i]);
+      MainLoop(db_tuple[i]);
+
+      if (i === db_tuple.length - 1)
+        console.log('product info update complete');
+    } // end outer loop
+    return;
   } catch (error) {
-    console.log(error);
+    return console.log(error);
   }
 };

@@ -6,6 +6,7 @@ import login from './routes/login.js';
 import orders from './routes/orders.js';
 import daily_task from './schedule/daily_tasks.js';
 import daily_orders from './schedule/tasks/daily_orders.js';
+import daily_update from './schedule/tasks/daily_update.js';
 
 // init env
 config();
@@ -22,8 +23,9 @@ app.use(json());
 //////////////////
 /// Daily Task ///
 //////////////////
+daily_task(daily_update, { second: 0, minute: 0, hour: 17 });
 daily_task(daily_orders, { second: 0, minute: 0, hour: 18 });
-//starts at 6pm est everyday
+//starts at 5pm est everyday
 
 //////////////
 /// Routes ///
