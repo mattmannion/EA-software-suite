@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { DataFetch } from './LoginHooks';
+import { FetchOrdersJSON } from '../axios/axios_production';
 
 // this hook gets the current data set and filters the results
 // coming from the search box. filtered on a large string containing
@@ -50,5 +50,5 @@ export const refresh_list = async (
 ) => {
   await fetch(api_path, { method });
 
-  await DataFetch(path, current_data_set);
+  await FetchOrdersJSON(path, current_data_set);
 };

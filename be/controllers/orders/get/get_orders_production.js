@@ -8,7 +8,7 @@ export default async (req, res) => {
     const data = await db
       .query(
         `
-        select order_date, order_id, full_name, order_option, 
+        select id, order_date, order_id, full_name, order_option, 
         product_name, product_code, order_status, 
         completed, notes, pallet, tack, assembled, order_detail_id
           from orders

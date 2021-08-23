@@ -5,8 +5,8 @@ import {
   UserCheck,
   UserContext,
 } from '../context/UserContext.js';
-import { api_path } from '../axios/axios_properties.js';
 import { fetchData } from '../handles/FormHandles.js';
+import { FetchOrdersJSON } from '../axios/axios_production';
 
 // for users
 export const useFetchGateLogin_Users = current_data_set => {
@@ -30,31 +30,6 @@ export const useFetchGateLogin_Users = current_data_set => {
   }, [getFetchGate, pathname, current_data_set]);
 
   return getUser;
-};
-
-// for production
-export const DataFetch = async (path, setData) => {
-  let response = await fetch(`${api_path}/orders${path}`, {
-    method: 'get',
-    headers: {
-      origin: process.env.REACT_APP_LOCATION,
-    },
-  });
-
-  if (!response) return console.log('no response...');
-
-  // transform response to text stored as json
-  const json = await response.text();
-
-  const { data } = JSON.parse(json);
-
-  // both if's handle the event of no data or data not being and array
-  if (!data) return setData(null);
-  if (!Array.isArray(data)) return setData(null);
-
-  setData(data);
-
-  return json;
 };
 
 export const useLogin = () => {
@@ -91,7 +66,7 @@ export const useFetchGateLogin_Prod = (current_path, current_data_set) => {
   );
 
   useEffect(() => {
-    if (getFetchGate) DataFetch(current_path, current_data_set);
+    if (getFetchGate) FetchOrdersJSON(current_path, current_data_set);
   }, [getFetchGate, pathname, current_path, current_data_set]);
 
   return getUser;

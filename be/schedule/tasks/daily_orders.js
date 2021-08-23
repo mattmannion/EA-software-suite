@@ -128,7 +128,7 @@ export default async () => {
 
           for (let i = 0; i < queryMap.length; i++) {
             // timer stops db overload
-            await timer(1000);
+            await timer(1500);
             db.query(query, queryMap[i])
               .then(res => {
                 return res.rows[0];

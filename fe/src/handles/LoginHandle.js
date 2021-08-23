@@ -1,5 +1,4 @@
-import { api_path, headers } from '../axios/axios_properties';
-import axios from 'axios';
+import { PostLogin } from '../axios/axios_login';
 
 export default async function LoginHandle(
   e,
@@ -13,11 +12,7 @@ export default async function LoginHandle(
   e.preventDefault();
 
   try {
-    let { data: login } = await axios.post(`${api_path}/login`, {
-      headers,
-      username: getLoginData.username,
-      password: getLoginData.password,
-    });
+    const login = await PostLogin('/login', getLoginData);
 
     // checks inputs and db for matching user and password
     if (login.status === 'logged in') {

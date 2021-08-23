@@ -28,6 +28,7 @@ export default function ProdTable({ currentItems, setList }) {
         <tbody>
           {currentItems.map(data => {
             let {
+              id,
               order_detail_id,
               order_date,
               order_id,
@@ -43,7 +44,7 @@ export default function ProdTable({ currentItems, setList }) {
               assembled,
             } = data;
             return (
-              <tr key={order_detail_id}>
+              <tr key={id}>
                 <th>{order_date}</th>
                 <th>
                   <OrderLink order_id={order_id} />
@@ -67,7 +68,9 @@ export default function ProdTable({ currentItems, setList }) {
                   <NotesModal
                     slug={`${production_slug}/${order_id}&${order_detail_id}`}
                     name={
-                      notes === '' || notes === null ? 'Click to Add' : notes
+                      notes === '' || notes === '\n' || notes === null
+                        ? 'Click to Add'
+                        : notes
                     }
                     notes={notes}
                     o_id={order_id}

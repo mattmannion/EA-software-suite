@@ -1,30 +1,14 @@
 import { useRef, useState } from 'react';
-import { DataFetch } from '../../../../hooks/LoginHooks';
+import { UpdateNotes } from '../../../../axios/axios_production';
 
 export default function NotesForm({ notes, closeModal, o_id, od_id, setList }) {
   const [getCurrentNote, setCurrentNote] = useState(notes);
   const notesRef = useRef();
 
-  async function setNote() {
-    await fetch(
-      `${process.env.REACT_APP_API_PATH}/orders/update/notes/${o_id}&${od_id}`,
-      {
-        method: 'put',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ notes: getCurrentNote }),
-      }
-    );
-
-    await DataFetch('/production', setList);
-  }
-
   async function formSubmit(e) {
     e.preventDefault();
     if (getCurrentNote !== null || getCurrentNote !== undefined)
-      await setNote();
+      await UpdateNotes(o_id, od_id, getCurrentNote, setList);
     closeModal();
   }
 

@@ -1,7 +1,6 @@
 import db from '../../db/db.js';
 import fetch from 'node-fetch';
 import xml2js from 'xml2js';
-import logger from '../../util/logger.js';
 import timer from '../../util/timer.js';
 
 export default async () => {
@@ -118,7 +117,7 @@ export default async () => {
     // start outer loop
     for (let i = 0; i < db_tuple.length; i++) {
       // timer stops db overload
-      await timer(1000);
+      await timer(1500);
       console.log(i + 1, db_tuple[i]);
       MainLoop(db_tuple[i]);
 
