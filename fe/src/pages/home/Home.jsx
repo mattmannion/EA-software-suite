@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import NavBar from '../../components/NavBar';
-import { useLogin } from '../../hooks/LoginHooks';
+import { useLoggedIn } from '../../hooks/LoginHooks';
 
 function Home() {
-  useLogin();
+  useLoggedIn();
 
   return (
     <>

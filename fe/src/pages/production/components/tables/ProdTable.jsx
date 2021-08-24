@@ -3,6 +3,7 @@ import NotesModal from '../modals/NotesModal';
 import { production_slug } from '../../../../util/modal_util';
 import OrderLink from '../inputs/OrderLink';
 import RefreshBtn from '../inputs/RefreshBtn';
+import Process from '../inputs/Process';
 
 export default function ProdTable({ currentItems, setList }) {
   return (
@@ -78,10 +79,15 @@ export default function ProdTable({ currentItems, setList }) {
                     setList={setList}
                   />
                 </td>
-                <td>{pallet === '' ? 'No' : 'Yes'}</td>
-                <td>{tack === '' ? 'No' : 'Yes'}</td>
-                <td>{assembled === '' ? 'No' : 'Yes'}</td>
-                <td>{completed === '' ? 'No' : 'Yes'}</td>
+                <Process
+                  pallet={pallet}
+                  tack={tack}
+                  assembled={assembled}
+                  completed={completed}
+                  setList={setList}
+                  o_id={order_id}
+                  od_id={order_detail_id}
+                />
                 <td>
                   {/* <div>{WaitTime(order_date).days} days</div> */}
                   <div>{WaitTime(order_date).weeks} weeks</div>

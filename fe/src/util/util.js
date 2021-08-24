@@ -24,3 +24,12 @@ export const RemoveXML = ProductName =>
   ProductName.includes('>') ? ProductName.split('>')[1] : ProductName;
 
 export const sleep = sec => new Promise(res => setTimeout(res, sec * 1000));
+
+export const btn_pd = e => e.preventDefault();
+
+export const time_stamp = () =>
+  new Date()
+    .toLocaleString('en-US', {
+      timeZone: 'America/New_York',
+    })
+    .split(',')[0];

@@ -3,6 +3,7 @@ import logger from '../../../util/logger.js';
 
 export default async (req, res) => {
   logger(req);
+  console.log('here');
 
   try {
     const data = await db

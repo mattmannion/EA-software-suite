@@ -22,4 +22,15 @@
       max-width: 35rem;
     }
   }
+
+  &__process {
+    @include cflex;
+    flex-flow: column;
+  }
+
+  &__marked-item {
+    @include cflex;
+    width: 2rem;
+    height: 2rem;
+  }
 }

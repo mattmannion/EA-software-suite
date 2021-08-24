@@ -1,52 +1,17 @@
-import { withRouter, useHistory } from 'react-router-dom';
-import { useContext, useState } from 'react';
-import { CookieContext } from '../../context/UserContext';
+import { withRouter } from 'react-router-dom';
 import CurrentUser from '../../components/CurrentUser';
-import LoginHandle from '../../handles/LoginHandle';
+import { useLogin } from '../../hooks/LoginHooks';
 
 function Login() {
-  // set initial login state values
-  const InitialLoginData = {
-    username: '',
-    password: '',
-  };
-
-  // allows path manipulation
-  const history = useHistory();
-
-  // state for login data
-  const [getLoginData, setLoginData] = useState(InitialLoginData);
-
-  // state for login message
-  const [getLoginStatus, setLoginStatus] = useState(true);
-
-  // handles the input box on change data
-  const LoginChangeHandler = e => {
-    setLoginData({
-      ...getLoginData,
-      [e.target.name]: e.target.value.trim(),
-    });
-  };
-
-  // set Context and Check User
-  const cookies = useContext(CookieContext);
+  const { getLoginData, getLoginStatus, LoginChangeHandler, LoginSubmit } =
+    useLogin();
 
   return (
     <>
       <CurrentUser />
       <form
         className='d-flex flex-column justify-content-center align-items-center m-5 p-2 '
-        onSubmit={async e => {
-          await LoginHandle(
-            e,
-            history,
-            cookies,
-            setLoginStatus,
-            getLoginData,
-            setLoginData,
-            InitialLoginData
-          );
-        }}
+        onSubmit={LoginSubmit}
       >
         <div className='d-flex flex-column justify-content-center align-items-center m-2'>
           <strong>Everything Attachments</strong>
