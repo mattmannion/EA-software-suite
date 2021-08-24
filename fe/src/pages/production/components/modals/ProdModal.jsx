@@ -4,7 +4,6 @@ import Modal from 'react-modal';
 import { modalStyles } from '../../../../util/modal_util';
 
 Modal.setAppElement('#root');
-Modal.defaultStyles.overlay.backgroundColor = 'transparent';
 
 export default function ProdModal({ slug, name, children }) {
   const history = useHistory();

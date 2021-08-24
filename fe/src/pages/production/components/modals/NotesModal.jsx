@@ -5,7 +5,6 @@ import NotesForm from '../form/NotesForm';
 import { useModalHook } from '../../../../hooks/ModalHooks';
 
 Modal.setAppElement('#root');
-Modal.defaultStyles.overlay.backgroundColor = 'transparent';
 
 export default function NoteModal({ slug, name, notes, o_id, od_id, setList }) {
   const { getIsModalOpen, openModal, closeModal } = useModalHook(slug);

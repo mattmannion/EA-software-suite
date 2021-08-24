@@ -1,3 +1,4 @@
+import PLModal from '../modals/PLModal';
 import ProdSearch from './ProdSearch';
 
 export default function Prod_Toolbar({
@@ -7,8 +8,10 @@ export default function Prod_Toolbar({
   NextPage,
   LastPage,
   pageNumber,
+  getSearchResults,
   getSearchTerm,
   SearchHandler,
+  getList,
 }) {
   return (
     <div className='prod-toolbar'>
@@ -17,16 +20,19 @@ export default function Prod_Toolbar({
         SearchHandler={SearchHandler}
         FirstPage={FirstPage}
       />
-      <ul className='prod-toolbar__page-numbers'>
-        <li onClick={FirstPage}>First</li>
-        <li onClick={PrevPage}>Prev</li>
-        {renderPageNumbers}
-        <li className='prod-toolbar__page-count'>
-          <strong>/{pageNumber}</strong>
-        </li>
-        <li onClick={NextPage}>Next</li>
-        <li onClick={LastPage}>Last</li>
-      </ul>
+      <div className='prod-toolbar__container'>
+        <PLModal getSearchResults={getSearchResults} getList={getList} />
+        <ul className='prod-toolbar__page-numbers'>
+          <li onClick={FirstPage}>First</li>
+          <li onClick={PrevPage}>Prev</li>
+          {renderPageNumbers}
+          <li className='prod-toolbar__page-count'>
+            <strong>/{pageNumber}</strong>
+          </li>
+          <li onClick={NextPage}>Next</li>
+          <li onClick={LastPage}>Last</li>
+        </ul>
+      </div>
     </div>
   );
 }

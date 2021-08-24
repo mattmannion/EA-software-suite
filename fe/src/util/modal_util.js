@@ -1,4 +1,7 @@
 export const modalStyles = {
+  overlay: {
+    backgroundColor: 'tranparent',
+  },
   content: {
     top: '50%',
     left: '50%',

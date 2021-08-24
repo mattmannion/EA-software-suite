@@ -20,9 +20,9 @@ export default function ProdTable({ currentItems, setList }) {
             <th>Order Status</th>
             <th>Notes</th>
             <th>Pallet</th>
-            <th>Tack</th>
-            <th>Assembled</th>
-            <th>Completed</th>
+            <th>Tacked</th>
+            <th>Assem</th>
+            <th>Compl</th>
             <th>Wait Time</th>
           </tr>
         </thead>
