@@ -12,7 +12,7 @@ export default function ProdTable({ currentItems, setList }) {
         <thead>
           <tr>
             <th>Order Date</th>
-            <th>Order ID</th>
+            <th>Order ID (DetailID)</th>
             <th>Refresh</th>
             <th>Customer</th>
             <th>Product Name(Code)</th>
@@ -74,6 +74,7 @@ export default function ProdTable({ currentItems, setList }) {
                         : notes
                     }
                     notes={notes}
+                    id={id}
                     o_id={order_id}
                     od_id={order_detail_id}
                     setList={setList}
@@ -85,6 +86,7 @@ export default function ProdTable({ currentItems, setList }) {
                   assembled={assembled}
                   completed={completed}
                   setList={setList}
+                  id={id}
                   o_id={order_id}
                   od_id={order_detail_id}
                 />

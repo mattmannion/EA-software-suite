@@ -6,7 +6,15 @@ import { useModalHook } from '../../../../hooks/ModalHooks';
 
 Modal.setAppElement('#root');
 
-export default function NoteModal({ slug, name, notes, o_id, od_id, setList }) {
+export default function NoteModal({
+  slug,
+  name,
+  notes,
+  id,
+  o_id,
+  od_id,
+  setList,
+}) {
   const { getIsModalOpen, openModal, closeModal } = useModalHook(slug);
 
   return (
@@ -31,6 +39,8 @@ export default function NoteModal({ slug, name, notes, o_id, od_id, setList }) {
         <NotesForm
           notes={notes}
           closeModal={closeModal}
+          getIsModalOpen={getIsModalOpen}
+          id={id}
           o_id={o_id}
           od_id={od_id}
           setList={setList}

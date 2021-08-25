@@ -5,19 +5,17 @@ export default async (req, res) => {
   logger(req);
 
   try {
-    const { o_id, od_id } = req.params;
+    const { id, o_id, od_id } = req.params;
     const { body } = req.body;
-
-    console.log(body);
 
     const data = await db
       .query(
         `
-        update orders set pallet = $3
-        where order_id = $1 and order_detail_id = $2
+        update orders set pallet = $4
+        where id = $1 and order_id = $2 and order_detail_id = $3
         returning pallet;
       `,
-        [o_id, od_id, body]
+        [id, o_id, od_id, body]
       )
       .then(res => res.rows[0])
       .catch(err => console.log(err.stack));

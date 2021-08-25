@@ -16,9 +16,9 @@ export const FetchOrdersJSON = async (path, setData) => {
   return JSON.stringify(data);
 };
 
-export const UpdateNotes = async (o_id, od_id, getCurrentNote, setList) => {
+export const UpdateNotes = async (id, o_id, od_id, getCurrentNote, setList) => {
   await axios.put(
-    `${api_path}/orders/update/notes/${o_id}&${od_id}`,
+    `${api_path}/orders/update/notes/${id}&${o_id}&${od_id}`,
     { notes: getCurrentNote },
     headers
   );

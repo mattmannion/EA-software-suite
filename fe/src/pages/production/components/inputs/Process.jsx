@@ -31,6 +31,7 @@ export default function Process({
   tack,
   assembled,
   completed,
+  id,
   o_id,
   od_id,
   setList,
@@ -39,20 +40,24 @@ export default function Process({
     btn_pd(e);
     if (data === '')
       return await UpdateProcess(
-        `${path}/${o_id}&${od_id}`,
+        `${path}/${id}&${o_id}&${od_id}`,
         time_stamp(),
         setList
       );
     if (data !== '')
-      return await UpdateProcess(`${path}/${o_id}&${od_id}`, '', setList);
+      return await UpdateProcess(`${path}/${id}&${o_id}&${od_id}`, '', setList);
   };
 
   const mark_completed = async (e, path, data) => {
     btn_pd(e);
     if (data === '')
-      return await UpdateProcess(`${path}/${o_id}&${od_id}`, 'Y', setList);
+      return await UpdateProcess(
+        `${path}/${id}&${o_id}&${od_id}`,
+        'Y',
+        setList
+      );
     if (data !== '')
-      return await UpdateProcess(`${path}/${o_id}&${od_id}`, '', setList);
+      return await UpdateProcess(`${path}/${id}&${o_id}&${od_id}`, '', setList);
   };
 
   return (

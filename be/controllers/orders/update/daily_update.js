@@ -8,24 +8,6 @@ export default async (req, res) => {
   logger(req);
 
   try {
-    const vol_query = await db
-      .query(
-        `
-        select order_id from orders 
-        where (product_code like 'EA%' or product_code like 'ETA%' or product_code like 'LS%' ) 
-        and
-        order_status != 'Cancelled' 
-        and 
-        order_status != 'Shipped'
-        and 
-        order_status != 'Returned'
-        group by order_id
-        order by order_id;
-      `
-      )
-      .then(res => res.rows)
-      .catch(err => console.log(err.stack));
-
     const db_query = await db
       .query(
         `

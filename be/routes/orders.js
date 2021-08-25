@@ -23,12 +23,16 @@ router.route('/orders/insert_orders/:id').get(insert_orders);
 
 router.route('/orders/update').put(daily_update);
 router.route('/orders/update/:o_id&:od_id').put(update_order);
-router.route('/orders/update/notes/:o_id&:od_id').put(notes);
+router.route('/orders/update/notes/:id&:o_id&:od_id').put(notes);
 
-router.route('/orders/update/process/pallet/:o_id&:od_id').put(pallet);
-router.route('/orders/update/process/tack/:o_id&:od_id').put(tack);
-router.route('/orders/update/process/assembled/:o_id&:od_id').put(assembled);
-router.route('/orders/update/process/completed/:o_id&:od_id').put(completed);
+router.route('/orders/update/process/pallet/:id&:o_id&:od_id').put(pallet);
+router.route('/orders/update/process/tack/:id&:o_id&:od_id').put(tack);
+router
+  .route('/orders/update/process/assembled/:id&:o_id&:od_id')
+  .put(assembled);
+router
+  .route('/orders/update/process/completed/:id&:o_id&:od_id')
+  .put(completed);
 
 router.route('/orders').get(get_orders);
 
