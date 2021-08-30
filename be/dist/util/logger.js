@@ -6,7 +6,7 @@ const time_stamp = () => {
     console.log(`task started at ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`);
 };
 exports.time_stamp = time_stamp;
-const logger = req => {
+const logger = (req) => {
     const date = new Date();
     console.log(`${req.path} - ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`);
 };

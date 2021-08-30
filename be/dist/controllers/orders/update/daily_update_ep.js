@@ -13,47 +13,38 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const db_js_1 = __importDefault(require("../../../util/db.js"));
-const node_fetch_1 = __importDefault(require("node-fetch"));
-const xml2js_1 = __importDefault(require("xml2js"));
+const select_orders_js_1 = require("../../../logic/queries/general/select_orders.js");
 const logger_js_1 = __importDefault(require("../../../util/logger.js"));
 const timer_js_1 = __importDefault(require("../../../util/timer.js"));
+const volusion_fetch_js_1 = __importDefault(require("../../../logic/general/volusion_fetch.js"));
+let db_tuple = [];
 exports.default = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     (0, logger_js_1.default)(req);
     try {
         const db_query = yield db_js_1.default
-            .query(`
-        select id, order_id, order_detail_id from orders 
-        where (product_code like 'EA%' or product_code like 'ETA%' or product_code like 'LS%' ) 
-        and
-        order_status != 'Cancelled' 
-        and 
-        order_status != 'Shipped'
-        and 
-        order_status != 'Returned'
-        group by id, order_id, order_detail_id
-        order by id,order_id, order_detail_id;
-      `)
+            .query(select_orders_js_1.select_filtered_orders)
             .then(res => res.rows)
             .catch(err => console.log(err.stack));
-        const db_tuple = db_query.map(({ id, order_id, order_detail_id }) => {
-            return {
-                id,
-                order_id,
-                order_detail_id,
-            };
-        });
-        const MainLoop = (query_array) => __awaiter(void 0, void 0, void 0, function* () {
+        if (Array.isArray(db_query))
+            db_tuple = db_query.map(({ id, order_id, order_detail_id, }) => {
+                return {
+                    id,
+                    order_id,
+                    order_detail_id,
+                };
+            });
+        else {
+            res.status(500).json({
+                status: 'db failure',
+            });
+            return;
+        }
+        const MainLoop = (query_element) => __awaiter(void 0, void 0, void 0, function* () {
             try {
-                const { id, order_id, order_detail_id } = query_array;
-                const vol_query = yield (0, node_fetch_1.default)(`${process.env.insert_order_v2}${order_id}`);
-                const { xmldata } = yield xml2js_1.default.parseStringPromise(yield vol_query.text(), (err, res) => {
-                    if (err)
-                        return console.log(err);
-                    else
-                        return res;
-                });
-                const { OrderStatus, OrderDetails } = xmldata.Orders[0];
-                const vol_data = OrderDetails.map(od => {
+                const { id, order_id, order_detail_id } = query_element;
+                const data = yield (0, volusion_fetch_js_1.default)(id);
+                const { OrderStatus, OrderDetails } = data[0];
+                const vol_data = OrderDetails.map((od) => {
                     let order_detail_id = od.OrderDetailID !== undefined ? od.OrderDetailID[0] : '';
                     let product_name = od.ProductName !== undefined ? od.ProductName[0] : '';
                     let product_code = od.ProductCode !== undefined ? od.ProductCode[0] : '';
@@ -69,16 +60,9 @@ exports.default = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                         order_option,
                         order_option_id,
                     };
-                }).filter(filter => filter.order_id === order_id &&
-                    filter.order_detail_id === order_detail_id)[0];
+                }).filter(f => f.order_id === order_id && f.order_detail_id === order_detail_id)[0];
                 const { product_name, product_code, order_option, order_status } = vol_data;
                 db_js_1.default.query(`
-        update orders set
-        product_name = $4,
-        product_code = $5,
-        order_option = $6,
-        order_status = $7
-        where id = $1 and order_id = $2 and order_detail_id = $3;
       `, [
                     id,
                     order_id,

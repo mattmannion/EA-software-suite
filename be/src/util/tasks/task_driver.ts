@@ -1,15 +1,18 @@
 import { scheduleJob, RecurrenceRule } from 'node-schedule';
+import { rules } from '../../../types/schedule/tasks/daily_task_driver';
 
 const rule = new RecurrenceRule();
 
-export default (callback, rules) => {
-  let second, minute, hour;
+export default (callback: any, rules: rules) => {
+  let second: number | undefined,
+    minute: number | undefined,
+    hour: number | undefined;
 
   if (rules !== undefined) ({ second, minute, hour } = rules);
 
   if (!second) second = 0;
-  if (!minute) minute = null;
-  if (!hour) hour = null;
+  if (!minute) minute = 0;
+  if (!hour) hour = 0;
 
   rule.second = second;
   rule.minute = minute;

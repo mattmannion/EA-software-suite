@@ -2,8 +2,8 @@ import fetch from 'node-fetch';
 import xml2js from 'xml2js';
 import logger from '../../../util/logger.js';
 import timer from '../../../util/timer.js';
-import dupliate from '../logic/insert/duplicate.js';
-import query_filter from '../logic/insert/query_filter.js';
+import dupliate from '../../../logic/orders/insert/duplicate.js';
+import query_filter from '../../../logic/orders/insert/query_filter.js';
 
 const order_advance = 7700;
 // const order_advance = 0;

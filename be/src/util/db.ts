@@ -1,20 +1,21 @@
-import { config } from 'dotenv';
-config();
-
 import pg from 'pg';
 
 export const db = new pg.Pool({ idleTimeoutMillis: 100 });
 
-export const dbq = async (query, array, rows = null) => {
+export const dbq = async (
+  query: string,
+  array: [],
+  rows: null | boolean | number = null
+) => {
   if (!Array.isArray(array)) array = [];
   if (rows === null)
     return await db.query(query, array).catch(err => console.log(err));
-  if (rows === 0)
+  if (rows === false || rows === 0)
     return await db
       .query(query, array)
       .then(res => res.rows[0])
       .catch(err => console.log(err));
-  if (rows === 1)
+  if (rows === true || rows === 1)
     return await db
       .query(query, array)
       .then(res => res.rows)

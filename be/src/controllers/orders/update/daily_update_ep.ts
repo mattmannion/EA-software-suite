@@ -1,61 +1,63 @@
 import db from '../../../util/db.js';
-import fetch from 'node-fetch';
-import xml2js from 'xml2js';
+import { select_filtered_orders } from '../../../sql/general/select_orders.js';
 import logger from '../../../util/logger.js';
 import timer from '../../../util/timer.js';
+import volusion_fetch from '../../../logic/general/volusion_fetch.js';
+import { Request, Response } from 'express';
+import {
+  d_u_ep_data,
+  OrderDetails_elments,
+  query_element,
+} from '../../../../types/controllers/orders/insert/update/daily_update_ep.js';
 
-export default async (req, res) => {
+let db_tuple: void | any[] = [];
+
+export default async (req: Request, res: Response) => {
   logger(req);
 
   try {
     const db_query = await db
-      .query(
-        `
-        select id, order_id, order_detail_id from orders 
-        where (product_code like 'EA%' or product_code like 'ETA%' or product_code like 'LS%' ) 
-        and
-        order_status != 'Cancelled' 
-        and 
-        order_status != 'Shipped'
-        and 
-        order_status != 'Returned'
-        group by id, order_id, order_detail_id
-        order by id,order_id, order_detail_id;
-      `
-      )
+      .query(select_filtered_orders)
       .then(res => res.rows)
       .catch(err => console.log(err.stack));
 
-    const db_tuple = db_query.map(({ id, order_id, order_detail_id }) => {
-      return {
-        id,
-        order_id,
-        order_detail_id,
-      };
-    });
+    if (Array.isArray(db_query))
+      db_tuple = db_query.map(
+        ({
+          id,
+          order_id,
+          order_detail_id,
+        }: {
+          id: string;
+          order_id: string;
+          order_detail_id: string;
+        }) => {
+          return {
+            id,
+            order_id,
+            order_detail_id,
+          };
+        }
+      );
+    else {
+      res.status(500).json({
+        status: 'db failure',
+      });
+      return;
+    }
 
     //////////////////////////
     /// Start of Main Loop ///
     //////////////////////////
-    const MainLoop = async query_array => {
+    const MainLoop = async (query_element: query_element) => {
       try {
-        const { id, order_id, order_detail_id } = query_array;
+        const { id, order_id, order_detail_id }: query_element = query_element;
 
-        // start volusion query
-        const vol_query = await fetch(
-          `${process.env.insert_order_v2}${order_id}`
-        );
-        const { xmldata } = await xml2js.parseStringPromise(
-          await vol_query.text(),
-          (err, res) => {
-            if (err) return console.log(err);
-            else return res;
-          }
-        );
+        const data: d_u_ep_data = await volusion_fetch(id);
 
-        const { OrderStatus, OrderDetails } = xmldata.Orders[0];
+        const { OrderStatus, OrderDetails } = data[0];
 
-        const vol_data = OrderDetails.map(od => {
+        const vol_data = OrderDetails.map((od: OrderDetails_elments) => {
           let order_detail_id =
             od.OrderDetailID !== undefined ? od.OrderDetailID[0] : '';
           let product_name =
@@ -77,9 +79,7 @@ export default async (req, res) => {
             order_option_id,
           };
         }).filter(
-          filter =>
-            filter.order_id === order_id &&
-            filter.order_detail_id === order_detail_id
+          f => f.order_id === order_id && f.order_detail_id === order_detail_id
         )[0];
 
         // parse volusion query
@@ -89,12 +89,6 @@ export default async (req, res) => {
         // update query
         db.query(
           `
-        update orders set
-        product_name = $4,
-        product_code = $5,
-        order_option = $6,
-        order_status = $7
-        where id = $1 and order_id = $2 and order_detail_id = $3;
       `,
           [
             id,

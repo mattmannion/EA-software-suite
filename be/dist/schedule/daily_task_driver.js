@@ -9,9 +9,9 @@ exports.default = (callback, rules) => {
     if (!second)
         second = 0;
     if (!minute)
-        minute = null;
+        minute = 0;
     if (!hour)
-        hour = null;
+        hour = 0;
     rule.second = second;
     rule.minute = minute;
     rule.hour = hour;

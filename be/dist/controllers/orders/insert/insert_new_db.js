@@ -16,8 +16,8 @@ const node_fetch_1 = __importDefault(require("node-fetch"));
 const xml2js_1 = __importDefault(require("xml2js"));
 const logger_js_1 = __importDefault(require("../../../util/logger.js"));
 const timer_js_1 = __importDefault(require("../../../util/timer.js"));
-const duplicate_js_1 = __importDefault(require("../logic/insert/duplicate.js"));
-const query_filter_js_1 = __importDefault(require("../logic/insert/query_filter.js"));
+const duplicate_js_1 = __importDefault(require("../../../logic/orders/insert/duplicate.js"));
+const query_filter_js_1 = __importDefault(require("../../../logic/orders/insert/query_filter.js"));
 const order_advance = 7700;
 const last_order_id = 106702;
 exports.default = (req, res) => __awaiter(void 0, void 0, void 0, function* () {

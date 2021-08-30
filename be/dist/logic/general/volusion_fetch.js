@@ -17,12 +17,10 @@ const xml2js_1 = __importDefault(require("xml2js"));
 function volusion_fetch(id) {
     return __awaiter(this, void 0, void 0, function* () {
         let response = yield (0, node_fetch_1.default)(`${process.env.insert_order_v3}${id}`);
-        let { xmldata } = yield xml2js_1.default.parseStringPromise(yield response.text(), (err, res) => {
-            if (err)
-                return console.log(err);
-            else
-                return res;
-        });
+        let { xmldata } = yield xml2js_1.default
+            .parseStringPromise(yield response.text())
+            .then(res => res)
+            .catch(err => console.log(err));
         return xmldata.Orders;
     });
 }

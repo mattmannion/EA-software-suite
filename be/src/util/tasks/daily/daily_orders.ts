@@ -1,23 +1,19 @@
-import db from '../../../util/db.js';
-import logger from '../../../util/logger.js';
-import volusion_fetch from '../logic/volusion_fetch.js';
-import timer from '../../../util/timer.js';
-import query_filter from '../logic/insert/query_filter.js';
-import duplicate from '../logic/insert/duplicate.js';
+import db from '../../db.js';
+import { time_stamp } from '../../logger.js';
+import timer from '../../timer.js';
+import query_filter from '../../../logic/orders/insert/query_filter.js';
+import duplicate from '../../../logic/orders/insert/duplicate.js';
+import volusion_fetch from '../../../logic/general/volusion_fetch.js';
+import { find_last_order_query } from '../../../sql/orders/insert/insert_orders_query.js';
 
 let order_advance = 55;
-let last_order_id;
-export default async (req, res) => {
-  logger(req);
+let last_order_id = 0;
+export default async () => {
+  time_stamp();
 
   try {
     let { order_id } = await db
-      .query(
-        `
-      select order_id from orders
-      order by order_id desc limit 1;
-    `
-      )
+      .query(find_last_order_query)
       .then(res => {
         return res.rows[0];
       })
@@ -28,7 +24,7 @@ export default async (req, res) => {
     console.log(error);
   }
 
-  const MainLoop = async id => {
+  const MainLoop = async (id: number) => {
     try {
       let data_array = await volusion_fetch(id);
 
@@ -39,14 +35,6 @@ export default async (req, res) => {
       err;
     }
   };
-  res.status(200).json({
-    status: 'success',
-  });
-
-  async function testloop() {
-    console.log(last_order_id);
-    await MainLoop(last_order_id);
-  }
 
   async function loop() {
     for (let id = last_order_id; id < last_order_id + order_advance + 1; id++) {
@@ -58,7 +46,11 @@ export default async (req, res) => {
       if (id === last_order_id + order_advance) console.log('insert loop done');
     }
   }
-
-  // await testloop();
   await loop();
+
+  // async function testloop() {
+  //   console.log(last_order_id);
+  //   await MainLoop(last_order_id);
+  // }
+  // await testloop();
 };

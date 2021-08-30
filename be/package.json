@@ -2,7 +2,7 @@
   "name": "prototype-be",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "tsw": "tsc -w",
     "rf:d": "rimraf dist/*",

@@ -10,7 +10,7 @@ const get_orders_completed_js_1 = __importDefault(require("../controllers/orders
 const get_orders_shipped_js_1 = __importDefault(require("../controllers/orders/get/get_orders_shipped.js"));
 const insert_orders_js_1 = __importDefault(require("../controllers/orders/insert/insert_orders.js"));
 const update_item_js_1 = __importDefault(require("../controllers/orders/update/update_item.js"));
-const daily_update_js_1 = __importDefault(require("../controllers/orders/update/daily_update.js"));
+const daily_update_ep_js_1 = __importDefault(require("../controllers/orders/update/daily_update_ep.js"));
 const notes_js_1 = __importDefault(require("../controllers/orders/update/notes.js"));
 const pallet_js_1 = __importDefault(require("../controllers/orders/update/process/pallet.js"));
 const tack_js_1 = __importDefault(require("../controllers/orders/update/process/tack.js"));
@@ -24,7 +24,7 @@ router.route('/orders/production/shipped').get(get_orders_shipped_js_1.default);
 router.route('/orders/new_db').get(insert_new_db_js_1.default);
 router.route('/orders/insert_orders').get(insert_orders_js_1.default);
 router.route('/orders/insert_orders/:id').get(insert_orders_js_1.default);
-router.route('/orders/update').put(daily_update_js_1.default);
+router.route('/orders/update').put(daily_update_ep_js_1.default);
 router.route('/orders/update/:o_id&:od_id').put(update_item_js_1.default);
 router.route('/orders/update/notes/:id&:o_id&:od_id').put(notes_js_1.default);
 router.route('/orders/update/process/pallet/:id&:o_id&:od_id').put(pallet_js_1.default);

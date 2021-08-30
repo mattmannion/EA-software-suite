@@ -5,9 +5,9 @@ import kaffeine from './routes/kaffeine.js';
 import users from './routes/users.js';
 import login from './routes/login.js';
 import orders from './routes/orders.js';
-import daily_task from './schedule/daily_task_driver.js';
-import daily_orders from './schedule/tasks/daily_orders.js';
-// import daily_update from './schedule/tasks/daily_update.js';
+import daily_task from './util/tasks/task_driver.js';
+import daily_orders from './util/tasks/daily/daily_orders.js';
+// import daily_update from './util/tasks/daily_update.js';
 
 // init env
 const port = process.env.PORT! || 7890;

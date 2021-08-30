@@ -16,7 +16,6 @@ const db_js_1 = __importDefault(require("../../../util/db.js"));
 const logger_js_1 = __importDefault(require("../../../util/logger.js"));
 exports.default = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     (0, logger_js_1.default)(req);
-    console.log('here');
     try {
         const data = yield db_js_1.default
             .query(`

@@ -13,8 +13,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.dbq = exports.db = void 0;
-const dotenv_1 = require("dotenv");
-(0, dotenv_1.config)();
 const pg_1 = __importDefault(require("pg"));
 exports.db = new pg_1.default.Pool({ idleTimeoutMillis: 100 });
 const dbq = (query, array, rows = null) => __awaiter(void 0, void 0, void 0, function* () {
@@ -22,12 +20,12 @@ const dbq = (query, array, rows = null) => __awaiter(void 0, void 0, void 0, fun
         array = [];
     if (rows === null)
         return yield exports.db.query(query, array).catch(err => console.log(err));
-    if (rows === 0)
+    if (rows === false || rows === 0)
         return yield exports.db
             .query(query, array)
             .then(res => res.rows[0])
             .catch(err => console.log(err));
-    if (rows === 1)
+    if (rows === true || rows === 1)
         return yield exports.db
             .query(query, array)
             .then(res => res.rows)

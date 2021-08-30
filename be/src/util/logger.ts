@@ -1,3 +1,5 @@
+import { Request } from 'express';
+
 export const time_stamp = () => {
   const date = new Date();
   console.log(
@@ -5,7 +7,7 @@ export const time_stamp = () => {
   );
 };
 
-const logger = req => {
+const logger = (req: Request) => {
   const date = new Date();
   console.log(
     `${req.path} - ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`

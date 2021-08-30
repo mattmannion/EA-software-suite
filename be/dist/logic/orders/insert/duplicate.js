@@ -12,9 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const insert_new_db_query_js_1 = __importDefault(require("./queries/insert_new_db_query.js"));
-const db_js_1 = __importDefault(require("../../../../util/db.js"));
-const timer_js_1 = __importDefault(require("../../../../util/timer.js"));
+const insert_new_db_query_js_1 = __importDefault(require("../../queries/orders/insert/insert_new_db_query.js"));
+const db_js_1 = __importDefault(require("../../../util/db.js"));
+const timer_js_1 = __importDefault(require("../../../util/timer.js"));
 function dupliate(data_filter) {
     return __awaiter(this, void 0, void 0, function* () {
         try {

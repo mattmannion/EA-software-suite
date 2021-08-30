@@ -5,7 +5,7 @@ import get_orders_completed from '../controllers/orders/get/get_orders_completed
 import get_orders_shipped from '../controllers/orders/get/get_orders_shipped.js';
 import insert_orders from '../controllers/orders/insert/insert_orders.js';
 import update_order from '../controllers/orders/update/update_item.js';
-import daily_update from '../controllers/orders/update/daily_update.js';
+import daily_update from '../controllers/orders/update/daily_update_ep.js';
 import notes from '../controllers/orders/update/notes.js';
 import pallet from '../controllers/orders/update/process/pallet.js';
 import tack from '../controllers/orders/update/process/tack.js';
