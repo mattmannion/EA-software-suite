@@ -1,7 +1,6 @@
 import fetch from 'node-fetch';
 import xml2js from 'xml2js';
-import logger from '../../../util/logger.js';
-import timer from '../../../util/timer.js';
+import logger, { timer } from '../../../util/logging.js';
 import dupliate from '../../../logic/orders/insert/duplicate.js';
 import query_filter from '../../../logic/orders/insert/query_filter.js';
 
@@ -45,7 +44,7 @@ export default async (req, res) => {
       await MainLoop(id);
 
       // timer stops db overload
-      await timer(200);
+      await timer(250);
       if (id === last_order_id + order_advance) console.log('insert loop done');
     }
   }

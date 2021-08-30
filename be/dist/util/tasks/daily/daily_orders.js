@@ -13,8 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const db_js_1 = __importDefault(require("../../db.js"));
-const logger_js_1 = require("../../logger.js");
-const timer_js_1 = __importDefault(require("../../timer.js"));
+const logging_js_1 = require("../../logging.js");
 const query_filter_js_1 = __importDefault(require("../../../logic/orders/insert/query_filter.js"));
 const duplicate_js_1 = __importDefault(require("../../../logic/orders/insert/duplicate.js"));
 const volusion_fetch_js_1 = __importDefault(require("../../../logic/general/volusion_fetch.js"));
@@ -22,7 +21,7 @@ const insert_orders_query_js_1 = require("../../../sql/orders/insert/insert_orde
 let order_advance = 55;
 let last_order_id = 0;
 exports.default = () => __awaiter(void 0, void 0, void 0, function* () {
-    (0, logger_js_1.time_stamp)();
+    (0, logging_js_1.time_stamp)();
     try {
         let { order_id } = yield db_js_1.default
             .query(insert_orders_query_js_1.find_last_order_query)
@@ -50,7 +49,7 @@ exports.default = () => __awaiter(void 0, void 0, void 0, function* () {
             for (let id = last_order_id; id < last_order_id + order_advance + 1; id++) {
                 console.log(id);
                 yield MainLoop(id);
-                yield (0, timer_js_1.default)(200);
+                yield (0, logging_js_1.timer)(250);
                 if (id === last_order_id + order_advance)
                     console.log('insert loop done');
             }

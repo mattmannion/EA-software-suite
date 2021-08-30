@@ -12,9 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const logger_js_1 = __importDefault(require("../../util/logger.js"));
+const logging_js_1 = __importDefault(require("../../util/logging.js"));
 exports.default = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    (0, logger_js_1.default)(req);
+    (0, logging_js_1.default)(req);
     try {
         res.status(200).send({
             status: 'app woken up',

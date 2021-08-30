@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const insert_new_db_query_js_1 = __importDefault(require("../../../sql/orders/insert/insert_new_db_query.js"));
 const db_js_1 = __importDefault(require("../../../util/db.js"));
-const timer_js_1 = __importDefault(require("../../../util/timer.js"));
+const logging_js_1 = require("../../../util/logging.js");
 function dupliate(data_filter) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -61,7 +61,7 @@ function dupliate(data_filter) {
                     query_array[i].payment_method_id,
                 ])
                     .catch(err => console.log(err));
-                yield (0, timer_js_1.default)(200);
+                yield (0, logging_js_1.timer)(250);
             }
         }
         catch (err) {

@@ -1,5 +1,7 @@
 import { Request } from 'express';
 
+export const timer = (sec: number) => new Promise(res => setTimeout(res, sec));
+
 export const time_stamp = () => {
   const date = new Date();
   console.log(

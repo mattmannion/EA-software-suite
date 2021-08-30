@@ -11,7 +11,7 @@ import daily_orders from './util/tasks/daily/daily_orders.js';
 
 // init env
 const port = process.env.PORT! || 7890;
-const path = process.env.path!;
+const path = process.env.URL!;
 
 // init app
 const app = express();

@@ -1,6 +1,5 @@
 import db from '../../db.js';
-import { time_stamp } from '../../logger.js';
-import timer from '../../timer.js';
+import { timer, time_stamp } from '../../logging.js';
 import query_filter from '../../../logic/orders/insert/query_filter.js';
 import duplicate from '../../../logic/orders/insert/duplicate.js';
 import volusion_fetch from '../../../logic/general/volusion_fetch.js';
@@ -42,7 +41,7 @@ export default async () => {
       await MainLoop(id);
 
       // timer stops db overload
-      await timer(200);
+      await timer(250);
       if (id === last_order_id + order_advance) console.log('insert loop done');
     }
   }

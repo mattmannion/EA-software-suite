@@ -14,9 +14,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const update_queries_js_1 = require("../../../sql/orders/update/update_queries.js");
 const db_js_1 = __importDefault(require("../../../util/db.js"));
-const logger_js_1 = __importDefault(require("../../../util/logger.js"));
+const logging_js_1 = __importDefault(require("../../../util/logging.js"));
 exports.default = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    (0, logger_js_1.default)(req);
+    (0, logging_js_1.default)(req);
     try {
         const { id, o_id, od_id } = req.params;
         const { notes } = req.body;

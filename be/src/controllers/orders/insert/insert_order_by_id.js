@@ -1,7 +1,7 @@
 import db from '../../../db/db.js';
 import fetch from 'node-fetch';
 import xml2js from 'xml2js';
-import logger from '../../../util/logger.js';
+import logger from '../../../util/logging.js';
 import timer from '../../../util/timer.js';
 
 export default async (req, res) => {

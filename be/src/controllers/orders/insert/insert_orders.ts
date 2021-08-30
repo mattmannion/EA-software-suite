@@ -1,8 +1,7 @@
 import { Request, Response } from 'express';
 import db from '../../../util/db.js';
-import logger from '../../../util/logger.js';
+import logger, { timer } from '../../../util/logging.js';
 import volusion_fetch from '../../../logic/general/volusion_fetch.js';
-import timer from '../../../util/timer.js';
 import query_filter from '../../../logic/orders/insert/query_filter.js';
 import duplicate from '../../../logic/orders/insert/duplicate.js';
 import { find_last_order_query } from '../../../sql/orders/insert/insert_orders_query.js';

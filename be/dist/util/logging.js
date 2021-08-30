@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.time_stamp = void 0;
+exports.time_stamp = exports.timer = void 0;
+const timer = (sec) => new Promise(res => setTimeout(res, sec));
+exports.timer = timer;
 const time_stamp = () => {
     const date = new Date();
     console.log(`task started at ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`);

@@ -1,6 +1,6 @@
 import insert_new_db_query from '../../../sql/orders/insert/insert_new_db_query.js';
 import db from '../../../util/db.js';
-import timer from '../../../util/timer.js';
+import { timer } from '../../../util/logging.js';
 
 export default async function dupliate(data_filter) {
   try {
@@ -50,7 +50,7 @@ export default async function dupliate(data_filter) {
           query_array[i].payment_method_id,
         ])
         .catch(err => console.log(err));
-      await timer(200);
+      await timer(250);
     }
   } catch (err) {
     console.log(err);

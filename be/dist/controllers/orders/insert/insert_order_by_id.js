@@ -15,10 +15,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const db_js_1 = __importDefault(require("../../../db/db.js"));
 const node_fetch_1 = __importDefault(require("node-fetch"));
 const xml2js_1 = __importDefault(require("xml2js"));
-const logger_js_1 = __importDefault(require("../../../util/logger.js"));
+const logging_js_1 = __importDefault(require("../../../util/logging.js"));
 const timer_js_1 = __importDefault(require("../../../util/timer.js"));
 exports.default = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    (0, logger_js_1.default)(req);
+    (0, logging_js_1.default)(req);
     const { id } = req.params;
     try {
         let response = yield (0, node_fetch_1.default)(`${process.env.insert_order_v2}${id}`);

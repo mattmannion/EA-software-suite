@@ -1,7 +1,6 @@
 import db from '../../../util/db.js';
 import { select_filtered_orders } from '../../../sql/general/select_orders.js';
-import logger from '../../../util/logger.js';
-import timer from '../../../util/timer.js';
+import logger, { timer } from '../../../util/logging.js';
 import volusion_fetch from '../../../logic/general/volusion_fetch.js';
 import { Request, Response } from 'express';
 import {

@@ -41,7 +41,7 @@ const orders_js_1 = __importDefault(require("./routes/orders.js"));
 const task_driver_js_1 = __importDefault(require("./util/tasks/task_driver.js"));
 const daily_orders_js_1 = __importDefault(require("./util/tasks/daily/daily_orders.js"));
 const port = process.env.PORT || 7890;
-const path = process.env.path;
+const path = process.env.URL;
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use((0, express_1.json)());
