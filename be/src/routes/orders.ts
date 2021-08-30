@@ -13,30 +13,30 @@ import assembled from '../controllers/orders/update/process/assembled.js';
 import completed from '../controllers/orders/update/process/completed.js';
 import insert_new_db from '../controllers/orders/insert/insert_new_db.js';
 
-const router = new Router();
+const orders = Router();
 
-router.route('/orders/production').get(get_orders_production);
-router.route('/orders/production/completed').get(get_orders_completed);
-router.route('/orders/production/shipped').get(get_orders_shipped);
+orders.route('/orders/production').get(get_orders_production);
+orders.route('/orders/production/completed').get(get_orders_completed);
+orders.route('/orders/production/shipped').get(get_orders_shipped);
 
-router.route('/orders/new_db').get(insert_new_db);
+orders.route('/orders/new_db').get(insert_new_db);
 
-router.route('/orders/insert_orders').get(insert_orders);
-router.route('/orders/insert_orders/:id').get(insert_orders);
+orders.route('/orders/insert_orders').get(insert_orders);
+orders.route('/orders/insert_orders/:id').get(insert_orders);
 
-router.route('/orders/update').put(daily_update);
-router.route('/orders/update/:o_id&:od_id').put(update_order);
-router.route('/orders/update/notes/:id&:o_id&:od_id').put(notes);
+orders.route('/orders/update').put(daily_update);
+orders.route('/orders/update/:o_id&:od_id').put(update_order);
+orders.route('/orders/update/notes/:id&:o_id&:od_id').put(notes);
 
-router.route('/orders/update/process/pallet/:id&:o_id&:od_id').put(pallet);
-router.route('/orders/update/process/tack/:id&:o_id&:od_id').put(tack);
-router
+orders.route('/orders/update/process/pallet/:id&:o_id&:od_id').put(pallet);
+orders.route('/orders/update/process/tack/:id&:o_id&:od_id').put(tack);
+orders
   .route('/orders/update/process/assembled/:id&:o_id&:od_id')
   .put(assembled);
-router
+orders
   .route('/orders/update/process/completed/:id&:o_id&:od_id')
   .put(completed);
 
-router.route('/orders').get(get_orders);
+orders.route('/orders').get(get_orders);
 
-export default router;
+export default orders;

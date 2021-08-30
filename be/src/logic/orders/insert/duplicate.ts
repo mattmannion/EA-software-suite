@@ -2,11 +2,11 @@ import insert_new_db_query from '../../../sql/orders/insert/insert_new_db_query.
 import db from '../../../util/db.js';
 import { timer } from '../../../util/logging.js';
 
-export default async function dupliate(data_filter) {
+export default async function dupliate(data_filter: any[]) {
   try {
-    let query_array = [];
+    let query_array: any[] = [];
 
-    const dupliate_items = async (data, array) => {
+    const dupliate_items = async (data: any[], array: any[]) => {
       if (data)
         data.forEach(data => {
           let num_of_items = parseInt(data.product_qt);

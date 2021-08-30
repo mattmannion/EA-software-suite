@@ -1,6 +1,9 @@
-const clean = data => (data === null || data === undefined ? '' : data[0]);
+import { data_el_base, dod_el } from '../../../../types/logic/orders/insert/query_filter';
 
-export default async function query_filter(data_array) {
+const clean = (data: string) =>
+  data === null || data === undefined ? '' : data[0];
+
+export default async function query_filter(data_array: any[])    {
   if (!Array.isArray(data_array)) return console.log('no data');
 
   // base query values
@@ -20,7 +23,7 @@ export default async function query_filter(data_array) {
     TrackingNumbers,
     PaymentAmount,
     PaymentMethodID,
-  } = data_array[0];
+  }: data_el_base = data_array[0];
 
   const full_name =
     BillingFirstName[0].trim() + ' ' + BillingLastName[0].trim();
@@ -38,6 +41,7 @@ export default async function query_filter(data_array) {
   }
 
   const dod = data_array[0].OrderDetails;
+  
   const query_filter = dod
     .map(
       ({
@@ -47,7 +51,7 @@ export default async function query_filter(data_array) {
         ProductName,
         ProductCode,
         Quantity,
-      }) => {
+      }: dod_el) => {
         return {
           // id // 0
           order_id: clean(OrderID), // 1
@@ -79,10 +83,11 @@ export default async function query_filter(data_array) {
       }
     )
     .filter(
-      ({ product_code }) =>
+      ({ product_code }:{product_code: string}) =>
         product_code.startsWith('EA') ||
         product_code.startsWith('ETA') ||
         product_code.startsWith('LS')
     );
+
   return query_filter;
 }

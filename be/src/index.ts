@@ -1,12 +1,9 @@
 require('dotenv').config();
 import express, { json } from 'express';
 import cors from 'cors';
-import kaffeine from './routes/kaffeine.js';
-import users from './routes/users.js';
-import login from './routes/login.js';
-import orders from './routes/orders.js';
 import daily_task from './util/tasks/task_driver.js';
 import daily_orders from './util/tasks/daily/daily_orders.js';
+import router from './routes/router.js';
 // import daily_update from './util/tasks/daily_update.js';
 
 // init env
@@ -31,10 +28,7 @@ daily_task(daily_orders, { second: 0, minute: 0, hour: 18 });
 /// Routes ///
 //////////////
 
-app.use(kaffeine);
-app.use(login);
-app.use(users);
-app.use(orders);
+app.use(...router);
 
 // init async IIFE main
 (async () =>

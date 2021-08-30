@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const clean = data => (data === null || data === undefined ? '' : data[0]);
+const clean = (data) => data === null || data === undefined ? '' : data[0];
 function query_filter(data_array) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!Array.isArray(data_array))
