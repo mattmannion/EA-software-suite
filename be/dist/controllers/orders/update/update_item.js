@@ -14,22 +14,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const db_js_1 = __importDefault(require("../../../util/db.js"));
 const logger_js_1 = __importDefault(require("../../../util/logger.js"));
-const node_fetch_1 = __importDefault(require("node-fetch"));
-const xml2js_1 = __importDefault(require("xml2js"));
+const volusion_fetch_js_1 = __importDefault(require("../../../logic/general/volusion_fetch.js"));
+const update_queries_js_1 = require("../../../sql/orders/update/update_queries.js");
 exports.default = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     (0, logger_js_1.default)(req);
     try {
-        const { o_id, od_id } = req.params;
-        const volusion = yield (0, node_fetch_1.default)(`${process.env.insert_order_v2}${o_id}`);
-        const { xmldata } = yield xml2js_1.default.parseStringPromise(yield volusion.text(), (err, res) => {
-            if (err)
-                return console.log(err);
-            else
-                return res;
-        });
-        const vol_data = xmldata.Orders[0];
+        const { id, o_id, od_id } = req.params;
+        const vol_data = yield (0, volusion_fetch_js_1.default)(id);
         const { OrderID, OrderStatus } = vol_data;
-        const fr = vol_data.OrderDetails.map(od => {
+        const fr = vol_data.OrderDetails.map((od) => {
             let order_id = OrderID !== undefined ? OrderID[0] : '';
             let order_detail_id = od.OrderDetailID !== undefined ? od.OrderDetailID[0] : '';
             let product_name = od.ProductName !== undefined ? od.ProductName[0] : '';
@@ -49,12 +42,8 @@ exports.default = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }).filter(({ order_id, order_detail_id }) => order_id === o_id && order_detail_id === od_id)[0];
         const { order_id, order_detail_id, product_name, product_code, order_status, order_option, order_option_id, } = fr;
         const data = yield db_js_1.default
-            .query(`
-        update orders set product_name = $3, product_code = $4,
-        order_status = $5, order_option = $6, order_option_id = $7
-        where order_id = $1 and order_detail_id = $2
-        returning *;
-      `, [
+            .query(update_queries_js_1.update_item_query, [
+            id,
             order_id,
             order_detail_id,
             product_name,

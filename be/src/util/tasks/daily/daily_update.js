@@ -2,26 +2,15 @@ import db from '../../util/db.js';
 import fetch from 'node-fetch';
 import xml2js from 'xml2js';
 import timer from '../../util/timer.js';
+import { select_filtered_orders } from '../../../sql/general/select_orders.js';
+import { update_orders_query } from '../../../sql/orders/update/update_queries.js';
 
 export default async () => {
   timer();
 
   try {
     const db_query = await db
-      .query(
-        `
-        select id, order_id, order_detail_id from orders 
-        where (product_code like 'EA%' or product_code like 'ETA%' or product_code like 'LS%' ) 
-        and
-        order_status != 'Cancelled' 
-        and 
-        order_status != 'Shipped'
-        and 
-        order_status != 'Returned'
-        group by id, order_id, order_detail_id
-        order by id, order_id, order_detail_id;
-      `
-      )
+      .query(select_filtered_orders)
       .then(res => res.rows)
       .catch(err => console.log(err.stack));
 
@@ -86,25 +75,15 @@ export default async () => {
           vol_data;
 
         // update query
-        db.query(
-          `
-        update orders set
-        product_name = $4,
-        product_code = $5,
-        order_option = $6,
-        order_status = $7
-        where id = $1 and order_id = $2 and order_detail_id = $3;
-      `,
-          [
-            id,
-            order_id,
-            order_detail_id,
-            product_name,
-            product_code,
-            order_option,
-            order_status,
-          ]
-        )
+        db.query(update_orders_query, [
+          id,
+          order_id,
+          order_detail_id,
+          product_name,
+          product_code,
+          order_option,
+          order_status,
+        ])
           .then(res => res.rows)
           .catch(err => console.log(err.stack));
 

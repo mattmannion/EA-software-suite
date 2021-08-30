@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const db_js_1 = __importDefault(require("../../../util/db.js"));
-const select_orders_js_1 = require("../../../logic/queries/general/select_orders.js");
+const select_orders_js_1 = require("../../../sql/general/select_orders.js");
 const logger_js_1 = __importDefault(require("../../../util/logger.js"));
 const timer_js_1 = __importDefault(require("../../../util/timer.js"));
 const volusion_fetch_js_1 = __importDefault(require("../../../logic/general/volusion_fetch.js"));

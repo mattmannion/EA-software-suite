@@ -18,7 +18,7 @@ const volusion_fetch_js_1 = __importDefault(require("../../../logic/general/volu
 const timer_js_1 = __importDefault(require("../../../util/timer.js"));
 const query_filter_js_1 = __importDefault(require("../../../logic/orders/insert/query_filter.js"));
 const duplicate_js_1 = __importDefault(require("../../../logic/orders/insert/duplicate.js"));
-const insert_orders_query_js_1 = require("../../../logic/queries/orders/insert/insert_orders_query.js");
+const insert_orders_query_js_1 = require("../../../sql/orders/insert/insert_orders_query.js");
 let order_advance = 55;
 let last_order_id = 0;
 exports.default = (req, res) => __awaiter(void 0, void 0, void 0, function* () {

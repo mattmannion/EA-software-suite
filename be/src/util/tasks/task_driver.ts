@@ -1,5 +1,5 @@
 import { scheduleJob, RecurrenceRule } from 'node-schedule';
-import { rules } from '../../../types/schedule/tasks/daily_task_driver';
+import { rules } from '../../../types/util/tasks/task_driver';
 
 const rule = new RecurrenceRule();
 

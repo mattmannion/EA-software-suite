@@ -12,13 +12,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const db_js_1 = __importDefault(require("../../util/db.js"));
-const logger_js_1 = require("../../util/logger.js");
-const timer_js_1 = __importDefault(require("../../util/timer.js"));
-const query_filter_js_1 = __importDefault(require("../../logic/orders/insert/query_filter.js"));
-const duplicate_js_1 = __importDefault(require("../../logic/orders/insert/duplicate.js"));
-const volusion_fetch_js_1 = __importDefault(require("../../logic/general/volusion_fetch.js"));
-const insert_orders_query_js_1 = require("../../logic/queries/orders/insert/insert_orders_query.js");
+const db_js_1 = __importDefault(require("../../db.js"));
+const logger_js_1 = require("../../logger.js");
+const timer_js_1 = __importDefault(require("../../timer.js"));
+const query_filter_js_1 = __importDefault(require("../../../logic/orders/insert/query_filter.js"));
+const duplicate_js_1 = __importDefault(require("../../../logic/orders/insert/duplicate.js"));
+const volusion_fetch_js_1 = __importDefault(require("../../../logic/general/volusion_fetch.js"));
+const insert_orders_query_js_1 = require("../../../sql/orders/insert/insert_orders_query.js");
 let order_advance = 55;
 let last_order_id = 0;
 exports.default = () => __awaiter(void 0, void 0, void 0, function* () {

@@ -16,22 +16,13 @@ const db_js_1 = __importDefault(require("../../util/db.js"));
 const node_fetch_1 = __importDefault(require("node-fetch"));
 const xml2js_1 = __importDefault(require("xml2js"));
 const timer_js_1 = __importDefault(require("../../util/timer.js"));
+const select_orders_js_1 = require("../../../sql/general/select_orders.js");
+const update_queries_js_1 = require("../../../sql/orders/update/update_queries.js");
 exports.default = () => __awaiter(void 0, void 0, void 0, function* () {
     (0, timer_js_1.default)();
     try {
         const db_query = yield db_js_1.default
-            .query(`
-        select id, order_id, order_detail_id from orders 
-        where (product_code like 'EA%' or product_code like 'ETA%' or product_code like 'LS%' ) 
-        and
-        order_status != 'Cancelled' 
-        and 
-        order_status != 'Shipped'
-        and 
-        order_status != 'Returned'
-        group by id, order_id, order_detail_id
-        order by id, order_id, order_detail_id;
-      `)
+            .query(select_orders_js_1.select_filtered_orders)
             .then(res => res.rows)
             .catch(err => console.log(err.stack));
         const db_tuple = db_query.map(({ id, order_id, order_detail_id }) => {
@@ -71,14 +62,7 @@ exports.default = () => __awaiter(void 0, void 0, void 0, function* () {
                 }).filter(filter => filter.order_id === order_id &&
                     filter.order_detail_id === order_detail_id)[0];
                 const { product_name, product_code, order_option, order_status } = vol_data;
-                db_js_1.default.query(`
-        update orders set
-        product_name = $4,
-        product_code = $5,
-        order_option = $6,
-        order_status = $7
-        where id = $1 and order_id = $2 and order_detail_id = $3;
-      `, [
+                db_js_1.default.query(update_queries_js_1.update_orders_query, [
                     id,
                     order_id,
                     order_detail_id,

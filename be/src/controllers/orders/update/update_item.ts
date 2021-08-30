@@ -1,34 +1,28 @@
+import { Request, Response } from 'express';
 import db from '../../../util/db.js';
 import logger from '../../../util/logger.js';
-import fetch from 'node-fetch';
-import xml2js from 'xml2js';
+import volusion_fetch from '../../../logic/general/volusion_fetch.js';
+import {
+  OrderDetails_el_filter,
+  OrderDetails_el_upd,
+} from '../../../../types/controllers/orders/insert/update/update_item.js';
+import { update_item_query } from '../../../sql/orders/update/update_queries.js';
 
 // this is a complicated function, please look over it carefully
-export default async (req, res) => {
+export default async (req: Request, res: Response) => {
   logger(req);
 
   try {
-    // o_id === order_id and order_detail_id === od_id for volousion
-    const { o_id, od_id } = req.params;
+    const { id, o_id, od_id } = req.params;
 
-    // volusion fetch
-    const volusion = await fetch(`${process.env.insert_order_v2}${o_id}`);
+    const vol_data = await volusion_fetch(id);
 
-    const { xmldata } = await xml2js.parseStringPromise(
-      await volusion.text(),
-      (err, res) => {
-        if (err) return console.log(err);
-        else return res;
-      }
-    );
-
-    const vol_data = xmldata.Orders[0];
     const { OrderID, OrderStatus } = vol_data;
 
     // all data is served in single element arrays for some reason
     // [0] to extract the element from array format
     // fr means filtered result
-    const fr = vol_data.OrderDetails.map(od => {
+    const fr = vol_data.OrderDetails.map((od: OrderDetails_el_upd) => {
       let order_id = OrderID !== undefined ? OrderID[0] : '';
       let order_detail_id =
         od.OrderDetailID !== undefined ? od.OrderDetailID[0] : '';
@@ -48,7 +42,7 @@ export default async (req, res) => {
         order_option_id,
       };
     }).filter(
-      ({ order_id, order_detail_id }) =>
+      ({ order_id, order_detail_id }: OrderDetails_el_filter) =>
         order_id === o_id && order_detail_id === od_id
     )[0];
 
@@ -63,23 +57,16 @@ export default async (req, res) => {
     } = fr;
 
     const data = await db
-      .query(
-        `
-        update orders set product_name = $3, product_code = $4,
-        order_status = $5, order_option = $6, order_option_id = $7
-        where order_id = $1 and order_detail_id = $2
-        returning *;
-      `,
-        [
-          order_id,
-          order_detail_id,
-          product_name,
-          product_code,
-          order_status,
-          order_option,
-          order_option_id,
-        ]
-      )
+      .query(update_item_query, [
+        id,
+        order_id,
+        order_detail_id,
+        product_name,
+        product_code,
+        order_status,
+        order_option,
+        order_option_id,
+      ])
       .then(res => res.rows[0])
       .catch(err => console.log(err.stack));
 

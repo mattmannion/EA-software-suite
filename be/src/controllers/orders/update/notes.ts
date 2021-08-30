@@ -1,8 +1,9 @@
+import { Request, Response } from 'express';
+import { update_orders_query } from '../../../sql/orders/update/update_queries.js';
 import db from '../../../util/db.js';
 import logger from '../../../util/logger.js';
 
-// this is a complicated function, please look over it carefully
-export default async (req, res) => {
+export default async (req: Request, res: Response) => {
   logger(req);
 
   try {
@@ -11,14 +12,7 @@ export default async (req, res) => {
 
     // select notes from orders
     const data = await db
-      .query(
-        `
-        update orders set notes = $4
-        where id = $1 and order_id = $2 and order_detail_id = $3
-        returning *;
-      `,
-        [id, o_id, od_id, notes]
-      )
+      .query(update_orders_query, [id, o_id, od_id, notes])
       .then(res => res.rows[0])
       .catch(err => console.log(err.stack));
 
