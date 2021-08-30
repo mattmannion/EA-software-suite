@@ -3,8 +3,22 @@ config();
 
 import pg from 'pg';
 
-export const pool = new pg.Pool();
+export const db = new pg.Pool({ idleTimeoutMillis: 100 });
 
-export default {
-  query: (text, params) => pool.query(text, params),
+export const dbq = async (query, array, rows = null) => {
+  if (!Array.isArray(array)) array = [];
+  if (rows === null)
+    return await db.query(query, array).catch(err => console.log(err));
+  if (rows === 0)
+    return await db
+      .query(query, array)
+      .then(res => res.rows[0])
+      .catch(err => console.log(err));
+  if (rows === 1)
+    return await db
+      .query(query, array)
+      .then(res => res.rows)
+      .catch(err => console.log(err));
 };
+
+export default db;

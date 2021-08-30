@@ -21,7 +21,11 @@ export default function Prod_Toolbar({
         FirstPage={FirstPage}
       />
       <div className='prod-toolbar__container'>
-        <PLModal getSearchResults={getSearchResults} getList={getList} />
+        <PLModal
+          getSearchResults={getSearchResults}
+          getList={getList}
+          SearchHandler={SearchHandler}
+        />
         <ul className='prod-toolbar__page-numbers'>
           <li onClick={FirstPage}>First</li>
           <li onClick={PrevPage}>Prev</li>

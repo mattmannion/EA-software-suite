@@ -36,7 +36,7 @@ export default function ProdTable({ currentItems, setList }) {
               full_name,
               product_name,
               product_code,
-              order_option,
+              order_options,
               order_status,
               completed,
               notes,
@@ -63,7 +63,7 @@ export default function ProdTable({ currentItems, setList }) {
                   <div>{RemoveXML(product_name)}</div>
                   <div>({product_code})</div>
                 </td>
-                <td className='production__options'>{order_option}</td>
+                <td className='production__options'>{order_options}</td>
                 <td>{order_status}</td>
                 <td>
                   <NotesModal

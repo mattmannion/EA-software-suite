@@ -11,12 +11,15 @@ import pallet from '../controllers/orders/update/process/pallet.js';
 import tack from '../controllers/orders/update/process/tack.js';
 import assembled from '../controllers/orders/update/process/assembled.js';
 import completed from '../controllers/orders/update/process/completed.js';
+import insert_new_db from '../controllers/orders/insert/insert_new_db.js';
 
 const router = new Router();
 
 router.route('/orders/production').get(get_orders_production);
 router.route('/orders/production/completed').get(get_orders_completed);
 router.route('/orders/production/shipped').get(get_orders_shipped);
+
+router.route('/orders/new_db').get(insert_new_db);
 
 router.route('/orders/insert_orders').get(insert_orders);
 router.route('/orders/insert_orders/:id').get(insert_orders);

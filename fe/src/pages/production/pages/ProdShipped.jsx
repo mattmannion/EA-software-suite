@@ -49,6 +49,8 @@ export default function Prod_Shipped() {
         NextPage={NextPage}
         LastPage={LastPage}
         pageNumber={pageNumber}
+        getList={getList}
+        getSearchResults={getSearchResults}
         getSearchTerm={getSearchTerm}
         SearchHandler={SearchHandler}
       />

@@ -11,7 +11,7 @@ export default async (req, res) => {
     const db_query = await db
       .query(
         `
-        select order_id, order_detail_id from orders 
+        select id, order_id, order_detail_id from orders 
         where (product_code like 'EA%' or product_code like 'ETA%' or product_code like 'LS%' ) 
         and
         order_status != 'Cancelled' 
@@ -19,15 +19,16 @@ export default async (req, res) => {
         order_status != 'Shipped'
         and 
         order_status != 'Returned'
-        group by order_id, order_detail_id
-        order by order_id, order_detail_id;
+        group by id, order_id, order_detail_id
+        order by id,order_id, order_detail_id;
       `
       )
       .then(res => res.rows)
       .catch(err => console.log(err.stack));
 
-    const db_tuple = db_query.map(({ order_id, order_detail_id }) => {
+    const db_tuple = db_query.map(({ id, order_id, order_detail_id }) => {
       return {
+        id,
         order_id,
         order_detail_id,
       };
@@ -38,7 +39,7 @@ export default async (req, res) => {
     //////////////////////////
     const MainLoop = async query_array => {
       try {
-        const { order_id, order_detail_id } = query_array;
+        const { id, order_id, order_detail_id } = query_array;
 
         // start volusion query
         const vol_query = await fetch(
@@ -89,13 +90,14 @@ export default async (req, res) => {
         db.query(
           `
         update orders set
-        product_name = $3,
-        product_code = $4,
-        order_option = $5,
-        order_status = $6
-        where order_id = $1 and order_detail_id = $2;
+        product_name = $4,
+        product_code = $5,
+        order_option = $6,
+        order_status = $7
+        where id = $1 and order_id = $2 and order_detail_id = $3;
       `,
           [
+            id,
             order_id,
             order_detail_id,
             product_name,

@@ -8,8 +8,8 @@ export const useModalHook = path => {
   const openModal = () => setIsModalOpen(true);
 
   function closeModal() {
-    setIsModalOpen(false);
     history.push(path);
+    setIsModalOpen(false);
   }
   return { history, getIsModalOpen, setIsModalOpen, openModal, closeModal };
 };

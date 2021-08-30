@@ -3,13 +3,13 @@ import fetch from 'node-fetch';
 import xml2js from 'xml2js';
 import { time_stamp } from '../../util/logger.js';
 import timer from '../../util/timer.js';
+import query_filter from '../../controllers/orders/logic/insert/query_filter.js';
+import duplicate from '../../controllers/orders/logic/insert/duplicate.js';
 
+let order_advance = 55;
+let last_order_id;
 export default async () => {
   time_stamp();
-
-  // sets how far the loop will look after the last found order_id
-  let order_advance = 55;
-  let last_order_id;
 
   try {
     let { order_id } = await db
@@ -26,165 +26,47 @@ export default async () => {
 
     last_order_id = +order_id + 1;
   } catch (error) {
-    error;
+    console.log(error);
   }
 
   const MainLoop = async id => {
     try {
-      let response = await fetch(`${process.env.insert_order_v2}${id}`);
+      let response = await fetch(`${process.env.insert_order_v3}${id}`);
 
       let { xmldata } = await xml2js.parseStringPromise(
         await response.text(),
-        { explicitArray: false },
         (err, res) => {
           if (err) return console.log(err);
           else return res;
         }
       );
 
-      let { Orders: data } = xmldata;
+      let data_array = xmldata.Orders;
 
-      // query string
-      const query = `
-        insert into orders (
-          order_id,
-          order_date,
-          order_status,
-          order_detail_id,
-          order_option,
-          order_option_id,
-          full_name,
-          shipped,
-          product_name,
-          product_code,
-          notes,
-          pallet,
-          tack,
-          assembled,
-          completed,
-          last_mod
-          )
-        values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)
-        returning *;
-      `;
+      let data_filter = await query_filter(data_array);
 
-      // checks for data inside response to volusion
-      if (data === null || data === undefined) return;
-      else if (data !== null || data !== undefined) {
-        // base query values
-        let {
-          OrderID,
-          OrderDate,
-          OrderStatus,
-          BillingFirstName,
-          BillingLastName,
-          Shipped,
-        } = data;
-
-        const full_name = BillingFirstName + ' ' + BillingLastName;
-        const notes = '';
-        const pallet = '';
-        const tack = '';
-        const assembled = '';
-        const completed = '';
-
-        const dod = data.OrderDetails;
-
-        if (Shipped === undefined) Shipped = 'N';
-        OrderDate = OrderDate.split(' ')[0];
-
-        // insert into orders by mapping over order details
-        // and filling in needed parent details
-        if (Array.isArray(dod)) {
-          const queryMap = dod.map(
-            ({
-              OrderDetailID,
-              OptionIDs,
-              Options,
-              ProductName,
-              ProductCode,
-              LastModified,
-            }) => {
-              return [
-                OrderID, // 1
-                OrderDate, // 2
-                OrderStatus, // 3
-                OrderDetailID, // 4
-                Options, // 5
-                OptionIDs, // 6
-                full_name, // 7
-                Shipped, // 8
-                ProductName, // 9
-                ProductCode, // 10
-                notes, // 11
-                pallet, // 12
-                tack, // 13
-                assembled, // 14
-                completed, // 15
-                LastModified, // 16
-              ];
-            }
-          );
-
-          for (let i = 0; i < queryMap.length; i++) {
-            // timer stops db overload
-            await timer(1500);
-            db.query(query, queryMap[i])
-              .then(res => {
-                return res.rows[0];
-              })
-              .catch(err => console.log(err.stack));
-          }
-          // end if
-        } else {
-          // base values
-          const {
-            OrderDetailID,
-            OptionIDs,
-            Options,
-            ProductName,
-            ProductCode,
-            LastModified,
-          } = dod;
-
-          db.query(query, [
-            OrderID,
-            OrderDate,
-            OrderStatus,
-            OrderDetailID,
-            Options,
-            OptionIDs,
-            full_name,
-            Shipped,
-            ProductName,
-            ProductCode,
-            notes,
-            pallet,
-            tack,
-            assembled,
-            completed,
-            LastModified,
-          ])
-            .then(res => res.rows[0])
-            .catch(err => console.log(err.stack));
-          // end else
-        }
-        return;
-        // end else if
-      } else return;
+      await duplicate(data_filter);
     } catch (err) {
       err;
     }
   };
 
-  // start outer loop
-  for (let id = last_order_id; id < last_order_id + order_advance + 1; id++) {
-    // timer stops db overload
-    await timer(3000);
-    console.log(id);
-    MainLoop(id);
+  async function testloop() {
+    console.log(last_order_id);
+    await MainLoop(last_order_id);
+  }
 
-    if (id === last_order_id + order_advance)
-      console.log('daily orders fetched');
-  } // end outer loop
+  async function loop() {
+    for (let id = last_order_id; id < last_order_id + order_advance + 1; id++) {
+      console.log(id);
+      await MainLoop(id);
+
+      // timer stops db overload
+      await timer(200);
+      if (id === last_order_id + order_advance) console.log('insert loop done');
+    }
+  }
+
+  // await testloop();
+  await loop();
 };

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
 import { UpdateNotes } from '../../../../axios/axios_production';
 import { btn_pd } from '../../../../util/util';
 
@@ -13,11 +14,13 @@ export default function NotesForm({
 }) {
   const [getCurrentNote, setCurrentNote] = useState(notes);
   const notesRef = useRef();
+  const history = useHistory();
 
   async function formSubmit(e) {
     e.preventDefault();
     if (getCurrentNote !== null || getCurrentNote !== undefined)
       await UpdateNotes(id, o_id, od_id, getCurrentNote, setList);
+    history.replace('/production');
     closeModal();
   }
 
@@ -33,12 +36,13 @@ export default function NotesForm({
     const keydown = async e => {
       if (e.key !== 'Enter' && getIsModalOpen === true) return;
       await UpdateNotesCB();
+      history.replace('/production');
       closeModal();
     };
 
     window.addEventListener('keydown', keydown);
     return () => window.removeEventListener('keydown', keydown);
-  }, [getIsModalOpen, closeModal, UpdateNotesCB]);
+  }, [getIsModalOpen, closeModal, UpdateNotesCB, history]);
 
   return (
     <>
@@ -53,6 +57,7 @@ export default function NotesForm({
           className='form-control m-3 notes-form__textarea'
           value={getCurrentNote}
           onChange={textareaOnChange}
+          autoFocus
         />
         <button
           className='btn btn-primary mt-3'

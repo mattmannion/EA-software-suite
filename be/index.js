@@ -5,7 +5,7 @@ import kaffeine from './routes/kaffeine.js';
 import users from './routes/users.js';
 import login from './routes/login.js';
 import orders from './routes/orders.js';
-import daily_task from './schedule/daily_tasks.js';
+import daily_task from './schedule/daily_task_driver.js';
 import daily_orders from './schedule/tasks/daily_orders.js';
 import daily_update from './schedule/tasks/daily_update.js';
 
@@ -24,7 +24,7 @@ app.use(json());
 //////////////////
 /// Daily Task ///
 //////////////////
-daily_task(daily_update, { second: 0, minute: 0, hour: 17 });
+// daily_task(daily_update, { second: 0, minute: 0, hour: 17 });
 daily_task(daily_orders, { second: 0, minute: 0, hour: 18 });
 //starts at 5pm est everyday
 
