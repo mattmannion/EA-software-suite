@@ -31,12 +31,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const logging_js_1 = __importStar(require("../../../util/logging.js"));
-const create_order_js_1 = __importDefault(require("../../../logic/orders/insert/create_order.js"));
+const logging_1 = __importStar(require("../../../util/logging"));
+const create_order_1 = __importDefault(require("../../../logic/orders/insert/create_order"));
 const order_advance = 7700;
 const last_order_id = 106702;
 exports.default = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    (0, logging_js_1.default)(req);
+    (0, logging_1.default)(req);
     res.status(200).json({
         status: 'success',
     });
@@ -44,8 +44,8 @@ exports.default = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         return __awaiter(this, void 0, void 0, function* () {
             for (let id = last_order_id; id < last_order_id + order_advance + 1; id++) {
                 console.log(id);
-                yield (0, create_order_js_1.default)(id);
-                yield (0, logging_js_1.timer)(250);
+                yield (0, create_order_1.default)(id);
+                yield (0, logging_1.timer)(250);
                 if (id === last_order_id + order_advance)
                     console.log('insert loop done');
             }

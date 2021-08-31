@@ -1,14 +1,11 @@
 require('dotenv').config();
 import express, { json } from 'express';
 import cors from 'cors';
+import router from './routes/router';
+import { path, port } from './env';
 // import daily_task from './util/tasks/task_driver.js';
 // import daily_orders from './util/tasks/daily/daily_orders.js';
-import router from './routes/router';
 // import daily_update from './util/tasks/daily_update.js';
-
-// init env
-const port = process.env.PORT! || 7890;
-const path = process.env.URL!;
 
 // init app
 const app = express();

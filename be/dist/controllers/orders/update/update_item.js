@@ -12,15 +12,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const db_js_1 = __importDefault(require("../../../util/db.js"));
-const logging_js_1 = __importDefault(require("../../../util/logging.js"));
-const volusion_fetch_js_1 = __importDefault(require("../../../logic/general/volusion_fetch.js"));
-const update_queries_js_1 = require("../../../sql/orders/update/update_queries.js");
+const db_1 = __importDefault(require("../../../util/db"));
+const logging_1 = __importDefault(require("../../../util/logging"));
+const volusion_fetch_1 = __importDefault(require("../../../logic/general/volusion_fetch"));
+const update_queries_1 = require("../../../sql/orders/update/update_queries");
 exports.default = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    (0, logging_js_1.default)(req);
+    (0, logging_1.default)(req);
     try {
         const { id, o_id, od_id } = req.params;
-        const vol_data = yield (0, volusion_fetch_js_1.default)(id);
+        const vol_data = yield (0, volusion_fetch_1.default)(id);
         const { OrderID, OrderStatus } = vol_data;
         const fr = vol_data.OrderDetails.map((od) => {
             let order_id = OrderID !== undefined ? OrderID[0] : '';
@@ -41,8 +41,8 @@ exports.default = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             };
         }).filter(({ order_id, order_detail_id }) => order_id === o_id && order_detail_id === od_id)[0];
         const { order_id, order_detail_id, product_name, product_code, order_status, order_option, order_option_id, } = fr;
-        const data = yield db_js_1.default
-            .query(update_queries_js_1.update_item_query, [
+        const data = yield db_1.default
+            .query(update_queries_1.update_item_query, [
             id,
             order_id,
             order_detail_id,

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { update_orders_query } from '../../../sql/orders/update/update_queries.js';
-import db from '../../../util/db.js';
-import logger from '../../../util/logging.js';
+import { update_orders_query } from '../../../sql/orders/update/update_queries';
+import db from '../../../util/db';
+import logger from '../../../util/logging';
 
 export default async (req: Request, res: Response) => {
   logger(req);

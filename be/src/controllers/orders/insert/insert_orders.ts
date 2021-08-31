@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import logger, { timer } from '../../../util/logging.js';
-import find_last_order from '../../../logic/orders/insert/find_last_order.js';
-import create_order from '../../../logic/orders/insert/create_order.js';
+import logger, { timer } from '../../../util/logging';
+import find_last_order from '../../../logic/orders/insert/find_last_order';
+import create_order from '../../../logic/orders/insert/create_order';
 
 let order_advance = 55;
 let last_order_id = 0;

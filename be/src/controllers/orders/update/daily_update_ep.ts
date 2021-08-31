@@ -1,14 +1,14 @@
-import db from '../../../util/db.js';
-import { select_filtered_orders } from '../../../sql/general/select_orders.js';
-import logger, { timer } from '../../../util/logging.js';
-import volusion_fetch from '../../../logic/general/volusion_fetch.js';
+import db from '../../../util/db';
+import { select_filtered_orders } from '../../../sql/general/select_orders';
+import logger, { timer } from '../../../util/logging';
+import volusion_fetch from '../../../logic/general/volusion_fetch';
 import { Request, Response } from 'express';
 import {
   d_u_ep_data,
   OrderDetails_elments,
   query_element,
-} from '../../../../types/controllers/orders/insert/update/daily_update_ep.js';
-import { update_orders_query } from '../../../sql/orders/update/update_queries.js';
+} from '../../../../types/controllers/orders/insert/update/daily_update_ep';
+import { update_orders_query } from '../../../sql/orders/update/update_queries';
 
 let db_tuple: void | any[] = [];
 

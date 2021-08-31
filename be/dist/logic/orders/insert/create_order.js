@@ -19,11 +19,11 @@ function create_order(id) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const data_array = yield (0, volusion_fetch_1.default)(id);
-            const data_filter = (0, query_filter_1.default)(data_array);
+            const data_filter = yield (0, query_filter_1.default)(data_array);
             if (Array.isArray(data_filter))
                 yield (0, duplicate_items_1.default)(data_filter);
             else
-                return console.log('Data not of type array');
+                return;
         }
         catch (err) {
             return console.log(err);

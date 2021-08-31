@@ -12,16 +12,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const users_queries_js_1 = require("../../sql/users/users_queries.js");
-const db_js_1 = __importDefault(require("../../util/db.js"));
-const logging_js_1 = __importDefault(require("../../util/logging.js"));
+const users_queries_1 = require("../../sql/users/users_queries");
+const db_1 = __importDefault(require("../../util/db"));
+const logging_1 = __importDefault(require("../../util/logging"));
 function create_one_user(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        (0, logging_js_1.default)(req);
+        (0, logging_1.default)(req);
         try {
             const { first_name, last_name, email, password, username, permissions, confirmed, } = req.body;
-            const data = yield db_js_1.default
-                .query(users_queries_js_1.create_one_user_query, [
+            const data = yield db_1.default
+                .query(users_queries_1.create_one_user_query, [
                 first_name,
                 last_name,
                 email,

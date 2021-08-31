@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
-import db from '../../../util/db.js';
-import logger from '../../../util/logging.js';
-import volusion_fetch from '../../../logic/general/volusion_fetch.js';
+import db from '../../../util/db';
+import logger from '../../../util/logging';
+import volusion_fetch from '../../../logic/general/volusion_fetch';
 import {
   OrderDetails_el_filter,
   OrderDetails_el_upd,
-} from '../../../../types/controllers/orders/insert/update/update_item.js';
-import { update_item_query } from '../../../sql/orders/update/update_queries.js';
+} from '../../../../types/controllers/orders/insert/update/update_item';
+import { update_item_query } from '../../../sql/orders/update/update_queries';
 
 // this is a complicated function, please look over it carefully
 export default async (req: Request, res: Response) => {

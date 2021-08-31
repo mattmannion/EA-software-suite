@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import logger, { timer } from '../../../util/logging.js';
-import create_order from '../../../logic/orders/insert/create_order.js';
+import logger, { timer } from '../../../util/logging';
+import create_order from '../../../logic/orders/insert/create_order';
 
 const order_advance = 7700;
 const last_order_id = 106702;
@@ -15,7 +15,7 @@ export default async (req: Request, res: Response) => {
   async function loop() {
     for (let id = last_order_id; id < last_order_id + order_advance + 1; id++) {
       console.log(id);
-      await create_order(id)
+      await create_order(id);
 
       // timer stops db overload
       await timer(250);

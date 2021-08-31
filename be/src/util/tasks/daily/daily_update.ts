@@ -1,12 +1,18 @@
-import db from '../../util/db.js';
-import fetch from 'node-fetch';
-import xml2js from 'xml2js';
-import timer from '../../util/timer.js';
-import { select_filtered_orders } from '../../../sql/general/select_orders.js';
-import { update_orders_query } from '../../../sql/orders/update/update_queries.js';
+import {
+  d_u_ep_data,
+  OrderDetails_elments,
+  query_element,
+} from '../../../../types/controllers/orders/insert/update/daily_update_ep';
+import volusion_fetch from '../../../logic/general/volusion_fetch';
+import { select_filtered_orders } from '../../../sql/general/select_orders';
+import { update_orders_query } from '../../../sql/orders/update/update_queries';
+import db from '../../db';
+import { timer, time_stamp } from '../../logging';
+
+let db_tuple: void | any[] = [];
 
 export default async () => {
-  timer();
+  time_stamp();
 
   try {
     const db_query = await db
@@ -14,36 +20,40 @@ export default async () => {
       .then(res => res.rows)
       .catch(err => console.log(err.stack));
 
-    const db_tuple = db_query.map(({ id, order_id, order_detail_id }) => {
-      return {
-        id,
-        order_id,
-        order_detail_id,
-      };
-    });
+    if (Array.isArray(db_query))
+      db_tuple = db_query.map(
+        ({
+          id,
+          order_id,
+          order_detail_id,
+        }: {
+          id: string;
+          order_id: string;
+          order_detail_id: string;
+        }) => {
+          return {
+            id,
+            order_id,
+            order_detail_id,
+          };
+        }
+      );
+    else {
+      return;
+    }
 
     //////////////////////////
     /// Start of Main Loop ///
     //////////////////////////
-    const MainLoop = async query_array => {
+    const MainLoop = async (query_element: query_element) => {
       try {
-        const { id, order_id, order_detail_id } = query_array;
+        const { id, order_id, order_detail_id }: query_element = query_element;
 
-        // start volusion query
-        const vol_query = await fetch(
-          `${process.env.insert_order_v2}${order_id}`
-        );
-        const { xmldata } = await xml2js.parseStringPromise(
-          await vol_query.text(),
-          (err, res) => {
-            if (err) return console.log(err);
-            else return res;
-          }
-        );
+        const data: d_u_ep_data = await volusion_fetch(id);
 
-        const { OrderStatus, OrderDetails } = xmldata.Orders[0];
+        const { OrderStatus, OrderDetails } = data[0];
 
-        const vol_data = OrderDetails.map(od => {
+        const vol_data = OrderDetails.map((od: OrderDetails_elments) => {
           let order_detail_id =
             od.OrderDetailID !== undefined ? od.OrderDetailID[0] : '';
           let product_name =
@@ -65,9 +75,7 @@ export default async () => {
             order_option_id,
           };
         }).filter(
-          filter =>
-            filter.order_id === order_id &&
-            filter.order_detail_id === order_detail_id
+          f => f.order_id === order_id && f.order_detail_id === order_detail_id
         )[0];
 
         // parse volusion query
@@ -90,15 +98,15 @@ export default async () => {
         //////////////////////
         /// Start of Error ///
         //////////////////////
-      } catch (err) {
-        err;
+      } catch (error) {
+        return console.log(error);
       }
     };
 
     // start outer loop
     for (let i = 0; i < db_tuple.length; i++) {
       // timer stops db overload
-      await timer(2000);
+      await timer(1000);
       console.log(i + 1, db_tuple[i]);
       MainLoop(db_tuple[i]);
 
