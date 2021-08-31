@@ -10,19 +10,6 @@ export default async (req: Request, res: Response) => {
 
   last_order_id = await find_last_order(last_order_id);
 
-  // try {
-  //   let { order_id } = await db
-  //     .query(find_last_order_query)
-  //     .then(res => {
-  //       return res.rows[0];
-  //     })
-  //     .catch(err => console.log(err.stack));
-
-  //   last_order_id = +order_id + 1;
-  // } catch (error) {
-  //   console.log(error);
-  // }
-
   res.status(200).json({
     status: 'success',
   });

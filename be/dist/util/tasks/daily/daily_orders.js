@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const logging_js_1 = require("../../logging.js");
 const create_order_js_1 = __importDefault(require("../../../logic/orders/insert/create_order.js"));
 const find_last_order_js_1 = __importDefault(require("../../../logic/orders/insert/find_last_order.js"));
-let order_advance = 55;
+const order_advance = 55;
 let last_order_id = 0;
 exports.default = () => __awaiter(void 0, void 0, void 0, function* () {
     (0, logging_js_1.time_stamp)();

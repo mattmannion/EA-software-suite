@@ -13,6 +13,6 @@ export default async function find_last_order(last_order_id: number) {
     return (last_order_id = +order_id + 1);
   } catch (error) {
     console.log(error);
-    return last_order_id;
+    return last_order_id++;
   }
 }

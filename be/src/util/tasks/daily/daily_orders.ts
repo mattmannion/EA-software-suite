@@ -2,7 +2,7 @@ import { timer, time_stamp } from '../../logging.js';
 import create_order from '../../../logic/orders/insert/create_order.js';
 import find_last_order from '../../../logic/orders/insert/find_last_order.js';
 
-let order_advance = 55;
+const order_advance = 55;
 let last_order_id = 0;
 export default async () => {
   time_stamp();

@@ -27,7 +27,7 @@ function find_last_order(last_order_id) {
         }
         catch (error) {
             console.log(error);
-            return last_order_id;
+            return last_order_id++;
         }
     });
 }
