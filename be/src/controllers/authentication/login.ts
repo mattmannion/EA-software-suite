@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import db from '../../util/db.js';
+import db from '../../util/db';
 import { login_query } from '../../sql/authentication/authentication_queries';
-import logger from '../../util/logging.js';
+import logger from '../../util/logging';
 
 export default async function login(req: Request, res: Response) {
   logger(req);

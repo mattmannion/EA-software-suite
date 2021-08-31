@@ -12,15 +12,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const db_js_1 = __importDefault(require("../../../util/db.js"));
-const logging_js_1 = __importDefault(require("../../../util/logging.js"));
+const get_orders_queries_1 = require("../../../sql/orders/get/get_orders_queries");
+const db_1 = __importDefault(require("../../../util/db"));
+const logging_1 = __importDefault(require("../../../util/logging"));
 exports.default = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    (0, logging_js_1.default)(req);
+    (0, logging_1.default)(req);
     try {
-        const data = yield db_js_1.default
-            .query(`
-        select * from orders order by order_id asc
-      `)
+        const data = yield db_1.default
+            .query(get_orders_queries_1.get_all_orders_query)
             .then(res => res.rows)
             .catch(err => console.log(err.stack));
         res.status(200).send({

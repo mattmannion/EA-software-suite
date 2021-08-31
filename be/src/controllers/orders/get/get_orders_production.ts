@@ -1,16 +1,14 @@
+import { Request, Response } from 'express';
+import { get_production_orders_query } from '../../../sql/orders/get/get_orders_queries.js';
 import db from '../../../util/db.js';
 import logger from '../../../util/logging.js';
 
-export default async (req, res) => {
+export default async (req: Request, res: Response) => {
   logger(req);
 
   try {
     const data = await db
-      .query(
-        `
-        select * from orders order by order_id asc
-      `
-      )
+      .query(get_production_orders_query)
       .then(res => res.rows)
       .catch(err => console.log(err.stack));
 

@@ -31,4 +31,3 @@ function create_order(id) {
     });
 }
 exports.default = create_order;
-;
