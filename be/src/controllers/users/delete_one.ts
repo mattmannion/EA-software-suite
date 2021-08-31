@@ -1,20 +1,16 @@
+import { Request, Response } from 'express';
+import { delete_one_user_query } from '../../sql/users/users_queries.js';
 import db from '../../util/db.js';
 import logger from '../../util/logging.js';
 
-export default async (req, res) => {
+export default async function delete_one_user(req: Request, res: Response) {
   logger(req);
 
   try {
     const { id } = req.params;
 
     const data = await db
-      .query(
-        `
-      delete from users where id = $1
-      returning *;
-      `,
-        [id]
-      )
+      .query(delete_one_user_query, [id])
       .then(res => res.rows[0])
       .catch(err => console.log(err.stack));
     if (data) {
@@ -30,4 +26,4 @@ export default async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-};
+}

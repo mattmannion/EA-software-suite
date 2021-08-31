@@ -1,14 +1,16 @@
+import { Request, Response } from 'express';
+import { update_one_user_query } from '../../sql/users/users_queries.js';
 import db from '../../util/db.js';
 import logger from '../../util/logging.js';
 
-export default async (req, res) => {
+export default async function update_one_user(req: Request, res: Response) {
   logger(req);
 
   try {
     const { id } = req.params;
 
     const query = await db
-      .query('select * from users where id = $1', [id])
+      .query(update_one_user_query, [id])
       .then(res => res.rows[0])
       .catch(err => console.log(err.stack));
 
@@ -63,4 +65,4 @@ export default async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-};
+}

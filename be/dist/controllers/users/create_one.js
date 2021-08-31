@@ -12,41 +12,41 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const users_queries_js_1 = require("../../sql/users/users_queries.js");
 const db_js_1 = __importDefault(require("../../util/db.js"));
 const logging_js_1 = __importDefault(require("../../util/logging.js"));
-exports.default = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    (0, logging_js_1.default)(req);
-    try {
-        const { first_name, last_name, email, password, username, permissions, confirmed, } = req.body;
-        const data = yield db_js_1.default
-            .query(`
-      insert into users (first_name, last_name, email, password, username, permissions, confirmed)
-      values ($1, $2, $3, $4, $5, $6, $7)
-      returning *;
-      `, [
-            first_name,
-            last_name,
-            email,
-            password,
-            username,
-            permissions,
-            confirmed,
-        ])
-            .then(res => res.rows[0])
-            .catch(err => console.log(err.stack));
-        if (data) {
-            res.status(201).json({
-                data,
-                status: 'success',
-            });
+function create_one_user(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        (0, logging_js_1.default)(req);
+        try {
+            const { first_name, last_name, email, password, username, permissions, confirmed, } = req.body;
+            const data = yield db_js_1.default
+                .query(users_queries_js_1.create_one_user_query, [
+                first_name,
+                last_name,
+                email,
+                password,
+                username,
+                permissions,
+                confirmed,
+            ])
+                .then(res => res.rows[0])
+                .catch(err => console.log(err.stack));
+            if (data) {
+                res.status(201).json({
+                    data,
+                    status: 'success',
+                });
+            }
+            else {
+                res.status(400).json({
+                    status: 'failure',
+                });
+            }
         }
-        else {
-            res.status(400).json({
-                status: 'failure',
-            });
+        catch (error) {
+            console.log(error);
         }
-    }
-    catch (error) {
-        console.log(error);
-    }
-});
+    });
+}
+exports.default = create_one_user;

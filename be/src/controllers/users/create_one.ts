@@ -1,7 +1,9 @@
+import { Request, Response } from 'express';
+import { create_one_user_query } from '../../sql/users/users_queries.js';
 import db from '../../util/db.js';
 import logger from '../../util/logging.js';
 
-export default async (req, res) => {
+export default async function create_one_user(req: Request, res: Response) {
   logger(req);
 
   try {
@@ -16,22 +18,15 @@ export default async (req, res) => {
     } = req.body;
 
     const data = await db
-      .query(
-        `
-      insert into users (first_name, last_name, email, password, username, permissions, confirmed)
-      values ($1, $2, $3, $4, $5, $6, $7)
-      returning *;
-      `,
-        [
-          first_name,
-          last_name,
-          email,
-          password,
-          username,
-          permissions,
-          confirmed,
-        ]
-      )
+      .query(create_one_user_query, [
+        first_name,
+        last_name,
+        email,
+        password,
+        username,
+        permissions,
+        confirmed,
+      ])
       .then(res => res.rows[0])
       .catch(err => console.log(err.stack));
     if (data) {
@@ -47,4 +42,4 @@ export default async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-};
+}

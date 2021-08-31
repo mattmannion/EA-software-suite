@@ -1,0 +1,16 @@
+{
+  "name": "fs",
+  "version": "1.0.0",
+  "description": "its a thing",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mattmannion/EA-software-suite.git"
+  },
+  "keywords": [],
+  "author": "Matt Mannion",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mattmannion/EA-software-suite/issues"
+  },
+  "homepage": "https://github.com/mattmannion/EA-software-suite#readme"
+}

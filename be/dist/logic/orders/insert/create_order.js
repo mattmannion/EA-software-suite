@@ -12,25 +12,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const users_queries_js_1 = require("../../sql/users/users_queries.js");
-const db_js_1 = __importDefault(require("../../util/db.js"));
-const logging_js_1 = __importDefault(require("../../util/logging.js"));
-function get_one_user(req, res) {
+const volusion_fetch_1 = __importDefault(require("../../general/volusion_fetch"));
+const query_filter_1 = __importDefault(require("./query_filter"));
+const duplicate_items_1 = __importDefault(require("./duplicate_items"));
+function create_order(id) {
     return __awaiter(this, void 0, void 0, function* () {
-        (0, logging_js_1.default)(req);
         try {
-            const data = yield db_js_1.default
-                .query(users_queries_js_1.get_one_user_query, [req.params.id])
-                .then(res => res.rows[0])
-                .catch(err => console.log(err.stack));
-            res.status(200).json({
-                data,
-                status: 'success',
-            });
+            const data_array = yield (0, volusion_fetch_1.default)(id);
+            const data_filter = (0, query_filter_1.default)(data_array);
+            if (Array.isArray(data_filter))
+                yield (0, duplicate_items_1.default)(data_filter);
+            else
+                return console.log('Data not of type array');
         }
-        catch (error) {
-            console.log(error);
+        catch (err) {
+            return console.log(err);
         }
     });
 }
-exports.default = get_one_user;
+exports.default = create_order;
+;

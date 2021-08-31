@@ -12,6 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const update_queries_js_1 = require("../../../../sql/orders/update/update_queries.js");
 const db_js_1 = __importDefault(require("../../../../util/db.js"));
 const logging_js_1 = __importDefault(require("../../../../util/logging.js"));
 exports.default = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -20,11 +21,7 @@ exports.default = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { id, o_id, od_id } = req.params;
         const { body } = req.body;
         const data = yield db_js_1.default
-            .query(`
-        update orders set tack = $4
-        where id = $1 and order_id = $2 and order_detail_id = $3
-        returning tack;
-      `, [id, o_id, od_id, body])
+            .query(update_queries_js_1.update_tack, [id, o_id, od_id, body])
             .then(res => res.rows[0])
             .catch(err => console.log(err.stack));
         if (data) {

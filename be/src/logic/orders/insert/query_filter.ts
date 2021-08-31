@@ -1,9 +1,11 @@
-import { data_el_base, dod_el } from '../../../../types/logic/orders/insert/query_filter';
+import { data_el_base, data_object, dod_el } from '../../../../types/logic/orders/insert/query_filter';
 
 const clean = (data: string) =>
   data === null || data === undefined ? '' : data[0];
 
-export default async function query_filter(data_array: any[])    {
+
+
+export default async function query_filter(data_array: data_object[])    {
   if (!Array.isArray(data_array)) return console.log('no data');
 
   // base query values

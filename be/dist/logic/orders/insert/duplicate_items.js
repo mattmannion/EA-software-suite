@@ -12,14 +12,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const insert_new_db_query_js_1 = __importDefault(require("../../../sql/orders/insert/insert_new_db_query.js"));
+const insert_order_queries_js_1 = require("../../../sql/orders/insert/insert_order_queries.js");
 const db_js_1 = __importDefault(require("../../../util/db.js"));
-const timer_js_1 = __importDefault(require("../../../util/timer.js"));
-function dupliate(data_filter) {
+const logging_js_1 = require("../../../util/logging.js");
+function dupliate_items(data_filter) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             let query_array = [];
-            const dupliate_items = (data, array) => __awaiter(this, void 0, void 0, function* () {
+            const dup_loop = (data, array) => __awaiter(this, void 0, void 0, function* () {
                 if (data)
                     data.forEach(data => {
                         let num_of_items = parseInt(data.product_qt);
@@ -30,10 +30,13 @@ function dupliate(data_filter) {
                 else
                     return;
             });
-            yield dupliate_items(data_filter, query_array);
+            if (Array.isArray(data_filter))
+                yield dup_loop(data_filter, query_array);
+            else
+                return console.log('Data format not of type array');
             for (let i = 0; i < query_array.length; i++) {
                 yield db_js_1.default
-                    .query(insert_new_db_query_js_1.default, [
+                    .query(insert_order_queries_js_1.insert_new_db_query, [
                     query_array[i].order_id,
                     query_array[i].order_date,
                     query_array[i].order_status,
@@ -61,7 +64,7 @@ function dupliate(data_filter) {
                     query_array[i].payment_method_id,
                 ])
                     .catch(err => console.log(err));
-                yield (0, timer_js_1.default)(200);
+                yield (0, logging_js_1.timer)(250);
             }
         }
         catch (err) {
@@ -69,4 +72,4 @@ function dupliate(data_filter) {
         }
     });
 }
-exports.default = dupliate;
+exports.default = dupliate_items;

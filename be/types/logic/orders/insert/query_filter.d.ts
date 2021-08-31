@@ -19,6 +19,25 @@ export type data_el_base = {
   PaymentMethodID:string,
 };
 
+export type data_object = {
+OrderID:string,
+OrderDate:string,
+OrderStatus:string,
+BillingFirstName:string,
+BillingLastName:string,
+CustomerID:string,
+ShipPhoneNumber:string,
+ShipCountry:string,
+ShipState:string,
+ShipCity:string,
+ShipAddress1:string,
+ShipPostalCode:string,
+TrackingNumbers:string,
+PaymentAmount:string,
+PaymentMethodID:string,
+OrderDetails: []
+}
+
 ////////////////////
 //// Interfaces ////
 ////////////////////

@@ -1,12 +1,13 @@
-import insert_new_db_query from '../../../sql/orders/insert/insert_new_db_query.js';
+import { filter_object } from '../../../../types/logic/orders/insert/duplicate.js';
+import { insert_new_db_query } from '../../../sql/orders/insert/insert_order_queries.js';
 import db from '../../../util/db.js';
 import { timer } from '../../../util/logging.js';
 
-export default async function dupliate(data_filter: any[]) {
+export default async function dupliate_items(data_filter: filter_object[]) {
   try {
     let query_array: any[] = [];
 
-    const dupliate_items = async (data: any[], array: any[]) => {
+    const dup_loop = async (data: any[], array: any[]) => {
       if (data)
         data.forEach(data => {
           let num_of_items = parseInt(data.product_qt);
@@ -17,7 +18,8 @@ export default async function dupliate(data_filter: any[]) {
       else return;
     };
 
-    await dupliate_items(data_filter, query_array);
+    if (Array.isArray(data_filter)) await dup_loop(data_filter, query_array);
+    else return console.log('Data format not of type array');
 
     // holds built query
     for (let i = 0; i < query_array.length; i++) {

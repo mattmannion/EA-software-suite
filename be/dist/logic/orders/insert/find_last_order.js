@@ -12,25 +12,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const users_queries_js_1 = require("../../sql/users/users_queries.js");
-const db_js_1 = __importDefault(require("../../util/db.js"));
-const logging_js_1 = __importDefault(require("../../util/logging.js"));
-function get_one_user(req, res) {
+const db_1 = __importDefault(require("../../../util/db"));
+const insert_order_queries_1 = require("../../../sql/orders/insert/insert_order_queries");
+function find_last_order(last_order_id) {
     return __awaiter(this, void 0, void 0, function* () {
-        (0, logging_js_1.default)(req);
         try {
-            const data = yield db_js_1.default
-                .query(users_queries_js_1.get_one_user_query, [req.params.id])
-                .then(res => res.rows[0])
+            let { order_id } = yield db_1.default
+                .query(insert_order_queries_1.find_last_order_query)
+                .then(res => {
+                return res.rows[0];
+            })
                 .catch(err => console.log(err.stack));
-            res.status(200).json({
-                data,
-                status: 'success',
-            });
+            return (last_order_id = +order_id + 1);
         }
         catch (error) {
             console.log(error);
+            return last_order_id;
         }
     });
 }
-exports.default = get_one_user;
+exports.default = find_last_order;
