@@ -13,16 +13,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const db_js_1 = __importDefault(require("../../util/db.js"));
+const authentication_queries_1 = require("../../sql/authentication/authentication_queries");
 const logging_js_1 = __importDefault(require("../../util/logging.js"));
 function login(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         (0, logging_js_1.default)(req);
         try {
             const data = yield db_js_1.default
-                .query(`
-        select * from users 
-        where username=$1 and password=$2;
-      `, [req.body.username, req.body.password])
+                .query(authentication_queries_1.login_query, [req.body.username, req.body.password])
                 .then(res => res.rows[0])
                 .catch(err => console.log(err.stack));
             if (data)

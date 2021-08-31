@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import db from '../../util/db.js';
+import { login_query } from '../../sql/authentication/authentication_queries';
 import logger from '../../util/logging.js';
 
 export default async function login(req: Request, res: Response) {
@@ -7,13 +8,7 @@ export default async function login(req: Request, res: Response) {
 
   try {
     const data = await db
-      .query(
-        `
-        select * from users 
-        where username=$1 and password=$2;
-      `,
-        [req.body.username, req.body.password]
-      )
+      .query(login_query, [req.body.username, req.body.password])
       .then(res => res.rows[0])
       .catch(err => console.log(err.stack));
 

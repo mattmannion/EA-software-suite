@@ -35,6 +35,7 @@ const db_js_1 = __importDefault(require("../../../util/db.js"));
 const select_orders_js_1 = require("../../../sql/general/select_orders.js");
 const logging_js_1 = __importStar(require("../../../util/logging.js"));
 const volusion_fetch_js_1 = __importDefault(require("../../../logic/general/volusion_fetch.js"));
+const update_queries_js_1 = require("../../../sql/orders/update/update_queries.js");
 let db_tuple = [];
 exports.default = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     (0, logging_js_1.default)(req);
@@ -80,8 +81,7 @@ exports.default = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                     };
                 }).filter(f => f.order_id === order_id && f.order_detail_id === order_detail_id)[0];
                 const { product_name, product_code, order_option, order_status } = vol_data;
-                db_js_1.default.query(`
-      `, [
+                db_js_1.default.query(update_queries_js_1.update_orders_query, [
                     id,
                     order_id,
                     order_detail_id,

@@ -8,6 +8,7 @@ import {
   OrderDetails_elments,
   query_element,
 } from '../../../../types/controllers/orders/insert/update/daily_update_ep.js';
+import { update_orders_query } from '../../../sql/orders/update/update_queries.js';
 
 let db_tuple: void | any[] = [];
 
@@ -86,19 +87,15 @@ export default async (req: Request, res: Response) => {
           vol_data;
 
         // update query
-        db.query(
-          `
-      `,
-          [
-            id,
-            order_id,
-            order_detail_id,
-            product_name,
-            product_code,
-            order_option,
-            order_status,
-          ]
-        )
+        db.query(update_orders_query, [
+          id,
+          order_id,
+          order_detail_id,
+          product_name,
+          product_code,
+          order_option,
+          order_status,
+        ])
           .then(res => res.rows)
           .catch(err => console.log(err.stack));
 
