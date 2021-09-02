@@ -5,9 +5,9 @@ import { timer } from '../../../util/logging.js';
 
 export default async function dupliate_items(data_filter: filter_object[]) {
   try {
-    let query_array: any[] = [];
+    let query_array: filter_object[] = [];
 
-    const dup_loop = async (data: any[], array: any[]) => {
+    const dup_loop = async (data: filter_object[], array: filter_object[]) => {
       if (data)
         data.forEach(data => {
           let num_of_items = parseInt(data.product_qt);
