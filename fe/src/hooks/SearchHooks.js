@@ -48,7 +48,7 @@ export const refresh_list = async (
   api_path,
   method
 ) => {
-  await fetch(api_path, { method });
+  await fetch(api_path, { method, withCredentials: true });
 
   await FetchOrdersJSON(path, current_data_set);
 };

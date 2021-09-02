@@ -20,9 +20,9 @@ exports.default = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     (0, logging_1.default)(req);
     try {
         const { id, o_id, od_id } = req.params;
-        const vol_data = yield (0, volusion_fetch_1.default)(id);
-        const { OrderID, OrderStatus } = vol_data;
-        const fr = vol_data.OrderDetails.map((od) => {
+        let vol_data = yield (0, volusion_fetch_1.default)(o_id);
+        let { OrderID, OrderStatus, OrderDetails } = vol_data[0];
+        let fr = yield OrderDetails.map((od) => {
             let order_id = OrderID !== undefined ? OrderID[0] : '';
             let order_detail_id = od.OrderDetailID !== undefined ? od.OrderDetailID[0] : '';
             let product_name = od.ProductName !== undefined ? od.ProductName[0] : '';
@@ -39,8 +39,8 @@ exports.default = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 order_option,
                 order_option_id,
             };
-        }).filter(({ order_id, order_detail_id }) => order_id === o_id && order_detail_id === od_id)[0];
-        const { order_id, order_detail_id, product_name, product_code, order_status, order_option, order_option_id, } = fr;
+        }).filter(({ order_id, order_detail_id }) => o_id === order_id && od_id === order_detail_id)[0];
+        let { order_id, order_detail_id, product_name, product_code, order_status, order_option, order_option_id, } = fr;
         const data = yield db_1.default
             .query(update_queries_1.update_item_query, [
             id,

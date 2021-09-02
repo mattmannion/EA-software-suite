@@ -52,6 +52,7 @@ export default function ProdTable({ currentItems, setList }) {
                 </th>
                 <td>
                   <RefreshBtn
+                    id={id}
                     order_id={order_id}
                     order_detail_id={order_detail_id}
                     setList={setList}

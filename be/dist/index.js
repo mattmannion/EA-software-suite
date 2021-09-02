@@ -33,11 +33,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 require('dotenv').config();
 const express_1 = __importStar(require("express"));
-const cors_1 = __importDefault(require("cors"));
 const router_1 = __importDefault(require("./routes/router"));
 const env_1 = require("./env");
+const cors_settings_1 = __importDefault(require("./middleware/cors_settings"));
+const redis_session_1 = __importDefault(require("./middleware/redis-session"));
 const app = (0, express_1.default)();
-app.use((0, cors_1.default)());
+app.use(redis_session_1.default);
+app.options('*', cors_settings_1.default);
+app.use(cors_settings_1.default);
 app.use((0, express_1.json)());
 app.use(...router_1.default);
-(() => __awaiter(void 0, void 0, void 0, function* () { return app.listen(env_1.port, () => console.log(`server live at ${env_1.path + env_1.port}`)); }))();
+(() => __awaiter(void 0, void 0, void 0, function* () { return app.listen(env_1.port, () => console.log(`live @ ${env_1.path + env_1.port}`)); }))();

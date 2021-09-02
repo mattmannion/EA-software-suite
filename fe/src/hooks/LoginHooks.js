@@ -47,8 +47,8 @@ export const useLogin = () => {
 
         // sets cookie for site
         let current_user = {
-          username: login.data[0].username || null,
-          permissions: login.data[0].permissions || null,
+          username: login.username || null,
+          permissions: login.permissions || null,
         };
         cookies.set(process.env.REACT_APP_COOKIE_NAME, current_user, {
           path: '/',

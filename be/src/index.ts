@@ -1,8 +1,9 @@
 require('dotenv').config();
 import express, { json } from 'express';
-import cors from 'cors';
 import router from './routes/router';
 import { path, port } from './env';
+import cors_settings from './middleware/cors_settings';
+import session from './middleware/redis-session';
 // import daily_task from './util/tasks/task_driver.js';
 // import daily_orders from './util/tasks/daily/daily_orders.js';
 // import daily_update from './util/tasks/daily_update.js';
@@ -10,8 +11,13 @@ import { path, port } from './env';
 // init app
 const app = express();
 
+// redis session
+app.use(session);
+
 // core middleware
-app.use(cors());
+app.options('*', cors_settings);
+app.use(cors_settings);
+
 app.use(json());
 
 //////////////////
@@ -28,5 +34,4 @@ app.use(json());
 app.use(...router);
 
 // init async IIFE main
-(async () =>
-  app.listen(port, () => console.log(`server live at ${path + port}`)))();
+(async () => app.listen(port, () => console.log(`live @ ${path + port}`)))();

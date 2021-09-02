@@ -1,6 +1,7 @@
 import { refresh_list } from '../../../../hooks/SearchHooks';
 
 export default function RefreshBtn({
+  id,
   order_id,
   order_detail_id,
   setList,
@@ -14,7 +15,7 @@ export default function RefreshBtn({
           refresh_list(
             setList,
             path,
-            `${process.env.REACT_APP_API_PATH}/orders/update/${order_id}&${order_detail_id}`,
+            `${process.env.REACT_APP_API_PATH}/orders/update/${id}&${order_id}&${order_detail_id}`,
             'put'
           )
         }

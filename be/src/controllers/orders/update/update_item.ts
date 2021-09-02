@@ -15,14 +15,14 @@ export default async (req: Request, res: Response) => {
   try {
     const { id, o_id, od_id } = req.params;
 
-    const vol_data = await volusion_fetch(id);
+    let vol_data = await volusion_fetch(o_id);
 
-    const { OrderID, OrderStatus } = vol_data;
+    let { OrderID, OrderStatus, OrderDetails } = vol_data[0];
 
     // all data is served in single element arrays for some reason
     // [0] to extract the element from array format
     // fr means filtered result
-    const fr = vol_data.OrderDetails.map((od: OrderDetails_el_upd) => {
+    let fr = await OrderDetails.map((od: OrderDetails_el_upd) => {
       let order_id = OrderID !== undefined ? OrderID[0] : '';
       let order_detail_id =
         od.OrderDetailID !== undefined ? od.OrderDetailID[0] : '';
@@ -43,10 +43,10 @@ export default async (req: Request, res: Response) => {
       };
     }).filter(
       ({ order_id, order_detail_id }: OrderDetails_el_filter) =>
-        order_id === o_id && order_detail_id === od_id
+        o_id === order_id && od_id === order_detail_id
     )[0];
 
-    const {
+    let {
       order_id,
       order_detail_id,
       product_name,

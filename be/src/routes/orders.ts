@@ -4,7 +4,7 @@ import get_orders_production from '../controllers/orders/get/get_orders_producti
 import get_orders_completed from '../controllers/orders/get/get_orders_completed.js';
 import get_orders_shipped from '../controllers/orders/get/get_orders_shipped.js';
 import insert_orders from '../controllers/orders/insert/insert_orders.js';
-import update_order from '../controllers/orders/update/update_item.js';
+import update_item from '../controllers/orders/update/update_item.js';
 import daily_update from '../controllers/orders/update/daily_update_ep.js';
 import notes from '../controllers/orders/update/notes.js';
 import pallet from '../controllers/orders/update/process/pallet.js';
@@ -25,7 +25,7 @@ orders.route('/orders/insert_orders').get(insert_orders);
 orders.route('/orders/insert_orders/:id').get(insert_orders);
 
 orders.route('/orders/update').put(daily_update);
-orders.route('/orders/update/:o_id&:od_id').put(update_order);
+orders.route('/orders/update/:id&:o_id&:od_id').put(update_item);
 orders.route('/orders/update/notes/:id&:o_id&:od_id').put(notes);
 
 orders.route('/orders/update/process/pallet/:id&:o_id&:od_id').put(pallet);
