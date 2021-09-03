@@ -11,6 +11,7 @@ const RedisStore = (0, connect_redis_1.default)(express_session_1.default);
 const redisClient = (0, redis_1.createClient)({
     port: env_1.redis_port,
     host: env_1.redis_host,
+    password: env_1.redis_password,
 });
 exports.default = (0, express_session_1.default)({
     store: new RedisStore({ client: redisClient }),

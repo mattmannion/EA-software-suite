@@ -19,27 +19,26 @@ function login(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         (0, logging_1.default)(req);
         try {
-            const { body, session: sess } = req;
+            const { body, session } = req;
             const data = yield db_1.default
                 .query(authentication_queries_1.login_query, [body.username, body.password])
                 .then(res => res.rows[0])
                 .catch(err => console.log(err.stack));
-            if (sess.username || sess.permissions)
+            if (!data)
+                return res.status(401).json({
+                    status: 'wrong username or password',
+                });
+            if (session.username || session.permissions)
                 return res.status(409).json({
                     status: 'already logged in',
                 });
-            sess.username = data.username;
-            sess.permissions = [data.permissions];
-            if (data)
-                return res.status(200).json({
-                    username: sess.username,
-                    permissions: sess.permissions,
-                    status: 'logged in',
-                });
-            else
-                return res.status(204).json({
-                    status: 'login failed',
-                });
+            session.username = data.username;
+            session.permissions = [data.permissions];
+            return res.status(200).json({
+                username: session.username,
+                permissions: session.permissions,
+                status: 'logged in',
+            });
         }
         catch (error) {
             return console.log(error);

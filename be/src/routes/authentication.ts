@@ -1,9 +1,11 @@
 import { Router } from 'express';
-import check_login from '../controllers/authentication/check_login.js';
 import login from '../controllers/authentication/login.js';
+import login_info from '../controllers/authentication/login_info.js';
+import logout from '../controllers/authentication/logout.js';
 
 const authentication = Router();
 
-authentication.route('/login').post(login).get(check_login);
+authentication.route('/login').post(login).get(login_info);
+authentication.route('/logout').delete(logout);
 
 export default authentication;

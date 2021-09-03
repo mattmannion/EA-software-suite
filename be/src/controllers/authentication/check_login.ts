@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import logger from '../../util/logging';
 
-export default async function check_login(req: Request, res: Response) {
+export default async function login_info(req: Request, res: Response) {
   logger(req);
 
   try {

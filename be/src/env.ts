@@ -9,6 +9,9 @@ export const path: string = prod ? env.URL! : 'http://localhost:';
 
 export const redis_port: number = prod ? +env.REDIS_PORT! : 6379;
 export const redis_host: string = prod ? env.REDIS_HOST! : 'localhost';
+export const redis_password: string | undefined = prod
+  ? env.REDIS_PASSWORD!
+  : undefined;
 
 // APIs and other resources
 export const vol_url: string = env.insert_order_v3!;
