@@ -1,12 +1,12 @@
 require('dotenv').config();
 import express, { json } from 'express';
 import router from './routes/router';
-import { path, port } from './env';
+import { path, port, prod } from './env';
 import cors_settings from './middleware/cors_settings';
 import session from './middleware/redis-session';
-// import daily_task from './util/tasks/task_driver.js';
-// import daily_orders from './util/tasks/daily/daily_orders.js';
-// import daily_update from './util/tasks/daily_update.js';
+import task_driver from './util/tasks/task_driver';
+import daily_update from './util/tasks/daily/daily_update';
+import daily_orders from './util/tasks/daily/daily_orders';
 
 // init app
 const app = express();
@@ -23,8 +23,10 @@ app.use(json());
 //////////////////
 /// Daily Task ///
 //////////////////
-// daily_task(daily_update, { second: 0, minute: 0, hour: 17 });
-// daily_task(daily_orders, { second: 0, minute: 0, hour: 18 });
+if (prod) {
+  task_driver(daily_update, { second: 0, minute: 0, hour: 17 });
+  task_driver(daily_orders, { second: 0, minute: 0, hour: 18 });
+}
 //starts at 5pm est everyday
 
 //////////////
@@ -34,4 +36,4 @@ app.use(json());
 app.use(...router);
 
 // init async IIFE main
-(async () => app.listen(port, () => console.log(`live @ ${path + port}`)))();
+app.listen(port, () => console.log(`live @ ${path + port}`));

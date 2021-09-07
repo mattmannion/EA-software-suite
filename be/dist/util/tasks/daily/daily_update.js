@@ -76,9 +76,9 @@ exports.default = () => __awaiter(void 0, void 0, void 0, function* () {
             }
         });
         for (let i = 0; i < db_tuple.length; i++) {
-            yield (0, logging_1.timer)(1000);
+            yield (0, logging_1.timer)(300);
             console.log(i + 1, db_tuple[i]);
-            MainLoop(db_tuple[i]);
+            yield MainLoop(db_tuple[i]);
             if (i === db_tuple.length - 1)
                 console.log('product info update complete');
         }

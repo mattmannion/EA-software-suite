@@ -106,9 +106,9 @@ export default async () => {
     // start outer loop
     for (let i = 0; i < db_tuple.length; i++) {
       // timer stops db overload
-      await timer(1000);
+      await timer(300);
       console.log(i + 1, db_tuple[i]);
-      MainLoop(db_tuple[i]);
+      await MainLoop(db_tuple[i]);
 
       if (i === db_tuple.length - 1)
         console.log('product info update complete');

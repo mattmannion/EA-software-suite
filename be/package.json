@@ -6,8 +6,9 @@
   "scripts": {
     "tsw": "tsc -w",
     "rf:d": "rimraf dist/*",
-    "dev": "run-s rf:d tsw",
+    "del": "run-s rf:d tsw",
     "mon": "NODE_ENV=dev nodemon dist/index.js",
+    "dev": "run-p del mon",
     "start": "NODE_ENV=prod node dist/index.js"
   },
   "author": "",
