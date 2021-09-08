@@ -1,8 +1,19 @@
-import { withRouter } from 'react-router-dom';
-import { handleDelete } from '../../../handles/FormHandles';
+import { handleDelete, InitialFormDataIF } from '../../../handles/FormHandles';
 import { users_slug } from '../../../axios/axios_user';
 
-function Delete({ id, closeModal, setData, history }: any) {
+interface DeleteProps {
+  id: number;
+  closeModal: () => void;
+  setData: React.Dispatch<React.SetStateAction<InitialFormDataIF[]>>;
+  history: any;
+}
+
+export default function Delete({
+  id,
+  closeModal,
+  setData,
+  history,
+}: DeleteProps) {
   return (
     <div
       className='d-flex flex-row justify-content-evenly
@@ -24,5 +35,3 @@ function Delete({ id, closeModal, setData, history }: any) {
     </div>
   );
 }
-
-export default withRouter(Delete);

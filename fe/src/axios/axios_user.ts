@@ -14,5 +14,5 @@ export const createUser = async (fields: any) =>
 export const updateUser = async (id: string, fields: any) =>
   await axios.put(`${users_path}/${id}`, { ...fields });
 
-export const deleteUser = async (id: string) =>
+export const deleteUser = async (id: number) =>
   await axios.delete(`${users_path}/${id}`);

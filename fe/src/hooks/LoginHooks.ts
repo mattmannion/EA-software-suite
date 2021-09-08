@@ -2,7 +2,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import { CookieContext, UserCheck, UserContext } from '../context/UserContext';
 import { PostLogin } from '../axios/axios_login';
-import { fetchData } from '../handles/FormHandles';
+import { fetchUsers } from '../handles/FormHandles';
 import { FetchOrdersJSON } from '../axios/axios_production';
 
 export const useLogin = () => {
@@ -91,7 +91,7 @@ export const useFetchGateLogin_Users = (current_data_set: any) => {
   );
 
   useEffect(() => {
-    if (getFetchGate) fetchData(current_data_set);
+    if (getFetchGate) fetchUsers(current_data_set);
   }, [getFetchGate, pathname, current_data_set]);
 
   return getUser;

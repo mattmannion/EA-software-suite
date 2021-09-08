@@ -1,13 +1,19 @@
 import { useHistory, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Modal from 'react-modal';
 import { modalStyles, users_slug } from '../../../util/modal_util';
 import Update from './Update';
 import Delete from './Delete';
+import { InitialFormDataIF } from '../../../handles/FormHandles';
 
-export default function Table({ getData, setData }: any) {
-  const history = useHistory();
+interface TableProps {
+  getData: InitialFormDataIF[];
+  setData: React.Dispatch<React.SetStateAction<InitialFormDataIF[]>>;
+}
+
+export default function Table({ getData, setData }: TableProps) {
+  const history = useHistory<any>();
 
   const { id }: any = useParams();
 
@@ -24,10 +30,10 @@ export default function Table({ getData, setData }: any) {
 
   const openDeleteModal = () => setIsDeleteOpen(true);
 
-  function closeDeleteModal() {
+  const closeDeleteModal = () => {
     setIsDeleteOpen(false);
     history.push(users_slug);
-  }
+  };
 
   return (
     <table className='table table-striped table-dark table-hover '>
@@ -114,6 +120,7 @@ export default function Table({ getData, setData }: any) {
                     setData={setData}
                     closeModal={closeDeleteModal}
                     id={id}
+                    history={history}
                   />
                 </Modal>
               </td>

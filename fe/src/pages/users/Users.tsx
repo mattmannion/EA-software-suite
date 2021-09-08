@@ -1,18 +1,15 @@
-import { withRouter } from 'react-router-dom';
 import {
   EndPointData,
   FormData,
   handleSubmitCreate,
   handleChange,
-  handleDelete,
 } from '../../handles/FormHandles';
 import UserForm from './components/UserForm';
 import Table from './components/Table';
 import NavBar from '../../components/NavBar';
 import { useFetchGateLogin_Users } from '../../hooks/LoginHooks';
-import { FC } from 'react';
 
-const Home: FC = () => {
+export default function Home() {
   const [getData, setData] = EndPointData();
 
   const [getFormData, setFormData] = FormData();
@@ -33,13 +30,7 @@ const Home: FC = () => {
         }
         handleChange={(e: any) => handleChange(e, getFormData, setFormData)}
       />
-      <Table
-        getData={getData}
-        setData={setData}
-        handleDelete={(id: any) => handleDelete(id, setData)}
-      />
+      <Table getData={getData} setData={setData} />
     </>
   );
-};
-
-export default withRouter(Home);
+}

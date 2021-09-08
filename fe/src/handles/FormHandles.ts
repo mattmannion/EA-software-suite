@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import {
   createUser,
   deleteUser,
@@ -6,7 +6,17 @@ import {
   updateUser,
 } from '../axios/axios_user';
 
-const InitialFormData = {
+export interface InitialFormDataIF {
+  first_name: string;
+  last_name: string;
+  email: string;
+  password: string;
+  username: string;
+  permissions: string;
+  confirmed: boolean;
+}
+
+const InitialFormData: InitialFormDataIF = {
   first_name: '',
   last_name: '',
   email: '',
@@ -17,22 +27,28 @@ const InitialFormData = {
 };
 
 // fetch function for populating the table when needed
-export const fetchData = async (setData: any) => {
+export const fetchUsers = async (
+  setData: React.Dispatch<React.SetStateAction<InitialFormDataIF[]>>
+) => {
   const { data } = await getUsers();
   setData(data.data);
 };
 
 // state definitions for the endpoint call data and form
 export function EndPointData() {
-  return useState([]);
+  return useState<InitialFormDataIF[]>([]);
 }
 
 export function FormData() {
-  return useState(InitialFormData);
+  return useState<InitialFormDataIF>(InitialFormData);
 }
 
 // grabs input field values and sets formData state
-export const handleChange = (e: any, getFormData: any, setFormData: any) => {
+export const handleChange = (
+  e: any,
+  getFormData: InitialFormDataIF,
+  setFormData: React.Dispatch<React.SetStateAction<InitialFormDataIF>>
+) => {
   setFormData({
     ...getFormData,
     [e.target.name]: e.target.value.trim(),
@@ -42,9 +58,9 @@ export const handleChange = (e: any, getFormData: any, setFormData: any) => {
 // form submit handle - create new record
 export const handleSubmitCreate = async (
   e: any,
-  getFormData: any,
-  setFormData: any,
-  setData: any
+  getFormData: InitialFormDataIF,
+  setFormData: React.Dispatch<React.SetStateAction<InitialFormDataIF>>,
+  setData: React.Dispatch<React.SetStateAction<InitialFormDataIF[]>>
 ) => {
   e.preventDefault();
 
@@ -62,16 +78,16 @@ export const handleSubmitCreate = async (
   setFormData(InitialFormData);
 
   // refreshes table
-  await fetchData(setData);
+  await fetchUsers(setData);
 };
 
 // update record by id
 export const handleSubmitUpdate = async (
   e: any,
   id: string,
-  getFormData: any,
-  setFormData: any,
-  setData: any
+  getFormData: InitialFormDataIF,
+  setFormData: React.Dispatch<React.SetStateAction<InitialFormDataIF>>,
+  setData: React.Dispatch<React.SetStateAction<InitialFormDataIF[]>>
 ) => {
   e.preventDefault();
 
@@ -102,14 +118,17 @@ export const handleSubmitUpdate = async (
   setFormData(InitialFormData);
 
   // refetches records
-  fetchData(setData);
+  fetchUsers(setData);
 };
 
 // delete record from db / list
-export const handleDelete = async (id: string, setData: any) => {
+export const handleDelete = async (
+  id: number,
+  setData: React.Dispatch<React.SetStateAction<InitialFormDataIF[]>>
+) => {
   // delete request to backend server
   await deleteUser(id);
 
   // refreshes table
-  fetchData(setData);
+  fetchUsers(setData);
 };
