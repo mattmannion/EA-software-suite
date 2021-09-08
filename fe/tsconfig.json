@@ -1,36 +1,40 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
-    "moduleResolution": "node",
+    "target": "ES6",
+    "module": "ESNext",
+    "moduleResolution": "Node",
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "lib": ["ESNext"],
+    "lib": [
+      "ESNext",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "skipLibCheck": true,
-    // "allowJs": true,
-    // "checkJs": false,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "removeComments": true,
     "rootDir": "src",
     "outDir": "dist",
-    // "declaration": true,
-    // "declarationDir": "./types",
     "strict": true,
     "noImplicitReturns": true,
     "noUnusedLocals": true,
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
+    "noEmit": true,
     "allowUnreachableCode": false,
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "allowJs": true
   },
-  "exclude": ["node_modules"],
+  "exclude": [
+    "node_modules"
+  ],
   "include": [
     "src/**/*.tsx",
     "src/**/*.ts",
     "types/**/*.ts"
-    // "src/**/*.js",
-    // "src/**/*.jsx"
   ]
 }

@@ -22,8 +22,8 @@ function login(req, res) {
             const { body, session } = req;
             const data = yield db_1.default
                 .query(authentication_queries_1.login_query, [body.username, body.password])
-                .then(res => res.rows[0])
-                .catch(err => console.log(err.stack));
+                .then((res) => res.rows[0])
+                .catch((err) => console.log(err.stack));
             if (!data)
                 return res.status(401).json({
                     status: 'wrong username or password',

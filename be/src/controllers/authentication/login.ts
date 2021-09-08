@@ -11,8 +11,8 @@ export default async function login(req: Request, res: Response) {
 
     const data = await db
       .query(login_query, [body.username, body.password])
-      .then(res => res.rows[0])
-      .catch(err => console.log(err.stack));
+      .then((res) => res.rows[0])
+      .catch((err) => console.log(err.stack));
     if (!data)
       return res.status(401).json({
         status: 'wrong username or password',
