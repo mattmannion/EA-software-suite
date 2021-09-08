@@ -76,7 +76,7 @@ export const usePaginationInit = (
     pages.push(i);
   }
 
-  const renderPageNumbers = pages.map((number: number) => {
+  const renderPageNumbers = pages.map((number: number): JSX.Element => {
     if (number < getMaxPNL + 1 && number > getMinPNL)
       return (
         <li
