@@ -5,11 +5,7 @@
     "moduleResolution": "Node",
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "lib": [
-      "ESNext",
-      "DOM",
-      "DOM.Iterable"
-    ],
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
     "jsx": "react-jsx",
     "removeComments": true,
@@ -29,12 +25,6 @@
     "isolatedModules": true,
     "allowJs": true
   },
-  "exclude": [
-    "node_modules"
-  ],
-  "include": [
-    "src/**/*.tsx",
-    "src/**/*.ts",
-    "types/**/*.ts"
-  ]
+  "exclude": ["node_modules"],
+  "include": ["src/**/*.tsx", "src/**/*.ts", "types/**/*.ts"]
 }
