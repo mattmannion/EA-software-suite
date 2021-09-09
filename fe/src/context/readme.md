@@ -1,0 +1,1 @@
+all interfaces and types defined in these Context files are purely for documentation only. values used throughout the application have their type defined when the value is extracted from their respective Context.
