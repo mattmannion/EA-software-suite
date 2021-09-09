@@ -2,7 +2,7 @@ export const update_orders_query = `
   update orders set
     product_name = $4,
     product_code = $5,
-    order_option = $6,
+    order_options = $6,
     order_status = $7
   where id = $1 
   and order_id = $2 

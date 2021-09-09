@@ -1,7 +1,6 @@
-import { FC } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 
-const ProductionTabs: FC = () => {
+export default function ProductionTabs() {
   const { path } = useRouteMatch();
   return (
     <>
@@ -33,6 +32,4 @@ const ProductionTabs: FC = () => {
       </div>
     </>
   );
-};
-
-export default ProductionTabs;
+}

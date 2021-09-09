@@ -3,17 +3,16 @@ import { modalStyles } from '../../../../util/modal_util';
 import { useModalHook } from '../../../../hooks/ModalHooks';
 import { btn_pd } from '../../../../util/util';
 import { PLModalData } from './PLModalData';
-import { OrderList } from '../../../../../types/pages/production/pages/production';
-import { FC } from 'react';
+import { OrderListIF } from '../../../../../types/pages/production/pages/production';
 
 interface PLModalProps {
-  getList: OrderList[];
-  SearchHandler: any;
+  getList: OrderListIF[];
+  SearchHandler: (current_search_term: string) => void;
 }
 
 Modal.setAppElement('#root');
 
-const PLModal: FC<PLModalProps> = ({ getList, SearchHandler }) => {
+export default function PLModal({ getList, SearchHandler }: PLModalProps) {
   const slug = '/production';
   const { getIsModalOpen, openModal, closeModal } = useModalHook(slug);
 
@@ -28,7 +27,7 @@ const PLModal: FC<PLModalProps> = ({ getList, SearchHandler }) => {
     const item_count = (value: any) =>
       getList
         .map(({ product_code }: { product_code: string }) => product_code)
-        .filter((f: any) => f.includes(value)).length;
+        .filter((f: string) => f.includes(value)).length;
     return (
       <>
         <table className='table table-hover table-sm'>
@@ -39,24 +38,26 @@ const PLModal: FC<PLModalProps> = ({ getList, SearchHandler }) => {
             </tr>
           </thead>
           <tbody>
-            {table_body.map(([key, value]: any, i: any) => {
-              return (
-                <tr key={i}>
-                  <th>
-                    <button
-                      className='btn'
-                      onClick={() => SearchHandler(value)}
-                      onMouseDown={btn_pd}
-                    >
-                      {key}
-                    </button>
-                  </th>
-                  <td>
-                    <strong>{item_count(value)}</strong>
-                  </td>
-                </tr>
-              );
-            })}
+            {table_body.map(
+              ([key, value]: [key: string, value: string], i: number) => {
+                return (
+                  <tr key={i}>
+                    <th>
+                      <button
+                        className='btn'
+                        onClick={() => SearchHandler(value)}
+                        onMouseDown={btn_pd}
+                      >
+                        {key}
+                      </button>
+                    </th>
+                    <td>
+                      <strong>{item_count(value)}</strong>
+                    </td>
+                  </tr>
+                );
+              }
+            )}
           </tbody>
         </table>
       </>
@@ -92,6 +93,4 @@ const PLModal: FC<PLModalProps> = ({ getList, SearchHandler }) => {
       </Modal>
     </>
   );
-};
-
-export default PLModal;
+}

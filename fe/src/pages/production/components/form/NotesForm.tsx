@@ -1,7 +1,18 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
+import { OrderListIF } from '../../../../../types/pages/production/pages/production';
 import { UpdateNotes } from '../../../../axios/axios_production';
 import { btn_pd } from '../../../../util/util';
+
+interface NotesFormProps {
+  notes: string;
+  closeModal: () => void;
+  getIsModalOpen: boolean;
+  id: number;
+  o_id: string;
+  od_id: string;
+  setList: React.Dispatch<React.SetStateAction<OrderListIF[]>>;
+}
 
 export default function NotesForm({
   notes,
@@ -11,9 +22,9 @@ export default function NotesForm({
   o_id,
   od_id,
   setList,
-}: any) {
+}: NotesFormProps) {
   const [getCurrentNote, setCurrentNote] = useState(notes);
-  const notesRef: any = useRef();
+  const notesRef = useRef<HTMLTextAreaElement | null>(null);
   const history = useHistory();
 
   async function formSubmit(e: any) {
@@ -29,7 +40,10 @@ export default function NotesForm({
   }, [id, o_id, od_id, getCurrentNote, setList]);
 
   function textareaOnChange() {
-    setCurrentNote(() => notesRef.current.value);
+    setCurrentNote(() => {
+      if (!notesRef.current) return notes;
+      return notesRef.current.value;
+    });
   }
 
   useEffect(() => {

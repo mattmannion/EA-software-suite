@@ -1,14 +1,14 @@
-import { FC, useState } from 'react';
+import { useState } from 'react';
 import ProdTable from '../components/tables/ProdTable';
 import ProdToolbar from '../components/inputs/ProdToolbar';
 import ProductionTabs from '../components/inputs/ProductionTabs';
 import { usePaginationInit } from '../../../hooks/PaginationHooks';
 import { useSearchArrayFlush, useSearchInit } from '../../../hooks/SearchHooks';
 import { useFetchGateLogin_Prod } from '../../../hooks/LoginHooks';
-import { OrderList } from '../../../../types/pages/production/pages/production';
+import { OrderListIF } from '../../../../types/pages/production/pages/production';
 
-const Production: FC = () => {
-  const [getList, setList] = useState<OrderList[]>([]);
+export default function Production() {
+  const [getList, setList] = useState<OrderListIF[]>([]);
 
   useFetchGateLogin_Prod('/production', setList);
 
@@ -61,6 +61,4 @@ const Production: FC = () => {
       <ProductionTabs />
     </>
   );
-};
-
-export default Production;
+}

@@ -1,19 +1,19 @@
-import { FC, useRef } from 'react';
+import { useRef } from 'react';
 
 interface ProdSearchProps {
-  getSearchTerm: any;
-  SearchHandler: any;
-  FirstPage: any;
+  getSearchTerm: string;
+  SearchHandler: (e: any) => void;
+  FirstPage: () => void;
 }
 
-const Prod_Search: FC<ProdSearchProps> = ({
+export default function Prod_Search({
   getSearchTerm,
   SearchHandler,
   FirstPage,
-}) => {
-  const inputElement: any = useRef('');
-
+}: ProdSearchProps) {
+  const inputElement = useRef<HTMLInputElement | null>(null);
   const SearchKeyword = () => {
+    if (!inputElement.current) return;
     SearchHandler(inputElement.current.value);
     FirstPage();
   };
@@ -34,6 +34,4 @@ const Prod_Search: FC<ProdSearchProps> = ({
       </label>
     </>
   );
-};
-
-export default Prod_Search;
+}

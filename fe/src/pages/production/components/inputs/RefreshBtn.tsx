@@ -1,22 +1,21 @@
-import { FC } from 'react';
-import { OrderList } from '../../../../../types/pages/production/pages/production';
+import { OrderListIF } from '../../../../../types/pages/production/pages/production';
 import { refresh_list } from '../../../../hooks/SearchHooks';
 
 interface RefreshBtnProps {
   id: number;
   order_id: string;
   order_detail_id: string;
-  setList: React.Dispatch<React.SetStateAction<OrderList[]>>;
+  setList: React.Dispatch<React.SetStateAction<OrderListIF[]>>;
   path: string;
 }
 
-const RefreshBtn: FC<RefreshBtnProps> = ({
+export default function RefreshBtn({
   id,
   order_id,
   order_detail_id,
   setList,
   path,
-}) => {
+}: RefreshBtnProps) {
   return (
     <>
       <button
@@ -34,6 +33,4 @@ const RefreshBtn: FC<RefreshBtnProps> = ({
       </button>
     </>
   );
-};
-
-export default RefreshBtn;
+}

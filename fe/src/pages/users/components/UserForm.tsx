@@ -1,17 +1,18 @@
-import { FC } from 'react';
+import { InitialFormDataIF } from '../../../handles/FormHandles';
 import UserFormFields from './FormFields';
 
-const Form: FC<any> = ({
+interface FormProps {
+  getFormData: InitialFormDataIF;
+  setFormData: React.Dispatch<React.SetStateAction<InitialFormDataIF>>;
+  handleChange: (e: any) => void;
+  handleSubmit: (e: any) => void;
+}
+export default function Form({
   getFormData,
   setFormData,
   handleChange,
   handleSubmit,
-}: {
-  getFormData: any;
-  setFormData: any;
-  handleChange: any;
-  handleSubmit: any;
-}) => {
+}: FormProps) {
   return (
     <div className='container mt-1'>
       <form
@@ -27,5 +28,4 @@ const Form: FC<any> = ({
       </form>
     </div>
   );
-};
-export default Form;
+}

@@ -21,9 +21,9 @@ exports.default = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { id, o_id, od_id } = req.params;
         const { notes } = req.body;
         const data = yield db_1.default
-            .query(update_queries_1.update_orders_query, [id, o_id, od_id, notes])
-            .then(res => res.rows[0])
-            .catch(err => console.log(err.stack));
+            .query(update_queries_1.update_notes, [id, o_id, od_id, notes])
+            .then((res) => res.rows[0])
+            .catch((err) => console.log(err.stack));
         if (data) {
             res.status(201).json({
                 data,

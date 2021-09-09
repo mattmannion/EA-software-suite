@@ -1,15 +1,17 @@
-import { FC } from 'react';
-import { OrderList } from '../../../../../types/pages/production/pages/production';
+import { OrderListIF } from '../../../../../types/pages/production/pages/production';
 import { WaitTime, RemoveXML } from '../../../../util/util';
 import OrderLink from '../inputs/OrderLink';
 import RefreshBtn from '../inputs/RefreshBtn';
 
 interface CompletedTableProps {
-  currentItems: OrderList[];
-  setList: React.Dispatch<React.SetStateAction<OrderList[]>>;
+  currentItems: OrderListIF[];
+  setList: React.Dispatch<React.SetStateAction<OrderListIF[]>>;
 }
 
-const CompletedTable: FC<CompletedTableProps> = ({ currentItems, setList }) => {
+export default function CompletedTable({
+  currentItems,
+  setList,
+}: CompletedTableProps) {
   return (
     <>
       <table className='table table-striped table-dark table-hover table-sm table-responsive-sm'>
@@ -77,6 +79,4 @@ const CompletedTable: FC<CompletedTableProps> = ({ currentItems, setList }) => {
       </table>
     </>
   );
-};
-
-export default CompletedTable;
+}

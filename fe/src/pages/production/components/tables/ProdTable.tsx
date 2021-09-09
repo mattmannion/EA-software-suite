@@ -4,15 +4,14 @@ import { production_slug } from '../../../../util/modal_util';
 import OrderLink from '../inputs/OrderLink';
 import RefreshBtn from '../inputs/RefreshBtn';
 import Process from '../inputs/Process';
-import { OrderList } from '../../../../../types/pages/production/pages/production';
-import { FC } from 'react';
+import { OrderListIF } from '../../../../../types/pages/production/pages/production';
 
 interface ProdTableProps {
-  currentItems: OrderList[];
-  setList: React.Dispatch<React.SetStateAction<OrderList[]>>;
+  currentItems: OrderListIF[];
+  setList: React.Dispatch<React.SetStateAction<OrderListIF[]>>;
 }
 
-const ProdTable: FC<ProdTableProps> = ({ currentItems, setList }) => {
+export default function ProdTable({ currentItems, setList }: ProdTableProps) {
   return (
     <>
       <table className='table table-striped table-dark table-hover production__table'>
@@ -34,7 +33,7 @@ const ProdTable: FC<ProdTableProps> = ({ currentItems, setList }) => {
           </tr>
         </thead>
         <tbody>
-          {currentItems.map((data: any) => {
+          {currentItems.map((data: OrderListIF, i) => {
             let {
               id,
               order_detail_id,
@@ -52,7 +51,7 @@ const ProdTable: FC<ProdTableProps> = ({ currentItems, setList }) => {
               assembled,
             } = data;
             return (
-              <tr key={id}>
+              <tr key={i}>
                 <th>{order_date}</th>
                 <th>
                   <OrderLink order_id={order_id} />
@@ -109,6 +108,4 @@ const ProdTable: FC<ProdTableProps> = ({ currentItems, setList }) => {
       </table>
     </>
   );
-};
-
-export default ProdTable;
+}

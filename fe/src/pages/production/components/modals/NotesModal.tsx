@@ -3,8 +3,7 @@ import Modal from 'react-modal';
 import { modalStyles } from '../../../../util/modal_util';
 import NotesForm from '../form/NotesForm';
 import { useModalHook } from '../../../../hooks/ModalHooks';
-import { OrderList } from '../../../../../types/pages/production/pages/production';
-import { FC } from 'react';
+import { OrderListIF } from '../../../../../types/pages/production/pages/production';
 
 interface NoteProps {
   slug: string;
@@ -13,12 +12,12 @@ interface NoteProps {
   id: number;
   o_id: string;
   od_id: string;
-  setList: React.Dispatch<React.SetStateAction<OrderList[]>>;
+  setList: React.Dispatch<React.SetStateAction<OrderListIF[]>>;
 }
 
 Modal.setAppElement('#root');
 
-const NoteModal: FC<NoteProps> = ({
+export default function NoteModal({
   slug,
   name,
   notes,
@@ -26,7 +25,7 @@ const NoteModal: FC<NoteProps> = ({
   o_id,
   od_id,
   setList,
-}) => {
+}: NoteProps) {
   const { getIsModalOpen, openModal, closeModal } = useModalHook(slug);
 
   return (
@@ -60,6 +59,4 @@ const NoteModal: FC<NoteProps> = ({
       </Modal>
     </>
   );
-};
-
-export default NoteModal;
+}

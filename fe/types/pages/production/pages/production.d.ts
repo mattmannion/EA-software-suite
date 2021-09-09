@@ -1,4 +1,4 @@
-export interface OrderList {
+export interface OrderListIF {
   id: number;
   order_id: string;
   order_date: string;
@@ -11,6 +11,6 @@ export interface OrderList {
   notes: string;
   pallet: string;
   tack: string;
-  assmebled: string;
+  assembled: string;
   order_detail_id: string;
 }

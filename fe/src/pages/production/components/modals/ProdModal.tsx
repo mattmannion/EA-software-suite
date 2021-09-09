@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import Modal from 'react-modal';
 import { modalStyles } from '../../../../util/modal_util';
@@ -11,7 +11,7 @@ interface ProdModalProps {
 
 Modal.setAppElement('#root');
 
-const ProdModal: FC<ProdModalProps> = ({ slug, name, children }) => {
+export default function ProdModal({ slug, name, children }: ProdModalProps) {
   const history = useHistory();
   const [getIsModalOpen, setIsModalOpen] = useState(false);
 
@@ -46,6 +46,4 @@ const ProdModal: FC<ProdModalProps> = ({ slug, name, children }) => {
       </Modal>
     </>
   );
-};
-
-export default ProdModal;
+}

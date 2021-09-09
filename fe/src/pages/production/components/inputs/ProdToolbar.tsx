@@ -1,21 +1,20 @@
-import { FC } from 'react';
-import { OrderList } from '../../../../../types/pages/production/pages/production';
+import { OrderListIF } from '../../../../../types/pages/production/pages/production';
 import PLModal from '../modals/PLModal';
 import ProdSearch from './ProdSearch';
 
 interface ProdToolbarProps {
-  renderPageNumbers: any;
-  FirstPage: any;
-  PrevPage: any;
-  NextPage: any;
-  LastPage: any;
+  renderPageNumbers: JSX.Element[];
+  FirstPage: () => void;
+  PrevPage: () => void;
+  NextPage: () => void;
+  LastPage: () => void;
   pageNumber: number;
-  getSearchTerm: any;
-  SearchHandler: any;
-  getList: OrderList[];
+  getSearchTerm: string;
+  SearchHandler: (e: any) => void;
+  getList: OrderListIF[];
 }
 
-const Prod_Toolbar: FC<ProdToolbarProps> = ({
+export default function Prod_Toolbar({
   renderPageNumbers,
   FirstPage,
   PrevPage,
@@ -25,7 +24,7 @@ const Prod_Toolbar: FC<ProdToolbarProps> = ({
   getSearchTerm,
   SearchHandler,
   getList,
-}) => {
+}: ProdToolbarProps) {
   return (
     <div className='prod-toolbar'>
       <ProdSearch
@@ -48,6 +47,4 @@ const Prod_Toolbar: FC<ProdToolbarProps> = ({
       </div>
     </div>
   );
-};
-
-export default Prod_Toolbar;
+}

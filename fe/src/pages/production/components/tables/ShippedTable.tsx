@@ -1,18 +1,17 @@
-import { FC } from 'react';
-import { OrderList } from '../../../../../types/pages/production/pages/production';
+import { OrderListIF } from '../../../../../types/pages/production/pages/production';
 import { WaitTime, RemoveXML } from '../../../../util/util';
 import OrderLink from '../inputs/OrderLink';
 import RefreshBtn from '../inputs/RefreshBtn';
 
 interface ShippedTableProps {
-  currentItems: OrderList[];
-  setList: React.Dispatch<React.SetStateAction<OrderList[]>>;
+  currentItems: OrderListIF[];
+  setList: React.Dispatch<React.SetStateAction<OrderListIF[]>>;
 }
 
-const ShippedTable: FC<ShippedTableProps> = ({
+export default function ShippedTable({
   currentItems,
   setList,
-}: any) => {
+}: ShippedTableProps) {
   return (
     <>
       <table className='table table-striped table-dark table-hover table-sm table-responsive-sm'>
@@ -79,6 +78,4 @@ const ShippedTable: FC<ShippedTableProps> = ({
       </table>
     </>
   );
-};
-
-export default ShippedTable;
+}

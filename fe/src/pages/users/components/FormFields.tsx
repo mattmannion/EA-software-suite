@@ -1,18 +1,21 @@
+import React, { useState } from 'react';
 import Select, { OptionTypeBase } from 'react-select';
-import { FC, useState } from 'react';
+import { InitialFormDataIF } from '../../../handles/FormHandles';
 
-const UserFormFields: FC<any> = ({
+interface UserFFProps {
+  getFormData: InitialFormDataIF;
+  setFormData: React.Dispatch<React.SetStateAction<InitialFormDataIF>>;
+  handleChange: (e: any) => void;
+  createUser: boolean;
+}
+
+export default function UserFormFields({
   getFormData,
   setFormData,
   handleChange,
   // created user toggles the required field (true, on/false, off)
   createUser,
-}: {
-  getFormData: any;
-  setFormData: any;
-  handleChange: any;
-  createUser: any;
-}) => {
+}: UserFFProps) {
   const options = [
     { value: 'admin', label: 'Admin' },
     { value: 'user', label: 'User' },
@@ -97,6 +100,4 @@ const UserFormFields: FC<any> = ({
       </button>
     </>
   );
-};
-
-export default UserFormFields;
+}

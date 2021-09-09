@@ -3,9 +3,8 @@ import NavBar from '../../components/NavBar';
 import Production from './pages/Production';
 import Completed from './pages/ProdCompleted';
 import Shipped from './pages/ProdShipped';
-import { FC } from 'react';
 
-const ProductionHome: FC = () => {
+export default function ApplicationRouter() {
   let { path } = useRouteMatch();
 
   return (
@@ -33,6 +32,4 @@ const ProductionHome: FC = () => {
       </Switch>
     </>
   );
-};
-
-export default ProductionHome;
+}

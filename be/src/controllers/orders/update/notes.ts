@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { update_orders_query } from '../../../sql/orders/update/update_queries';
+import { update_notes } from '../../../sql/orders/update/update_queries';
 import db from '../../../util/db';
 import logger from '../../../util/logging';
 
@@ -12,9 +12,9 @@ export default async (req: Request, res: Response) => {
 
     // select notes from orders
     const data = await db
-      .query(update_orders_query, [id, o_id, od_id, notes])
-      .then(res => res.rows[0])
-      .catch(err => console.log(err.stack));
+      .query(update_notes, [id, o_id, od_id, notes])
+      .then((res) => res.rows[0])
+      .catch((err) => console.log(err.stack));
 
     if (data) {
       res.status(201).json({

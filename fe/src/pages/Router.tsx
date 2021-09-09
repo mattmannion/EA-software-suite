@@ -1,4 +1,4 @@
-import { useState, Suspense, lazy, FC } from 'react';
+import { useState, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import {
   UserContext,
@@ -16,8 +16,7 @@ const ProductionHome = lazy(() => import('./production/ProductionHome'));
 // create cookie
 const cookies = new Cookies();
 
-// function ApplicationRouter({ getUser, setUser }) {
-const ApplicationRouter: FC = () => {
+export default function ApplicationRouter() {
   const [getUser, setUser] = useState(DefaultUserProperties);
   const UserProvider = { getUser, setUser };
 
@@ -40,6 +39,4 @@ const ApplicationRouter: FC = () => {
       </UserContext.Provider>
     </>
   );
-};
-
-export default ApplicationRouter;
+}
