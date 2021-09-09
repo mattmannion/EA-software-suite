@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import NavBar from '../../components/NavBar';
 import { useLoggedIn } from '../../hooks/LoginHooks';
 
-function Home() {
+export default function Home() {
   useLoggedIn();
 
   return (
@@ -22,5 +22,3 @@ function Home() {
     </>
   );
 }
-
-export default Home;
