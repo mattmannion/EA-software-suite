@@ -1,8 +1,8 @@
 import { createContext } from 'react';
 import Cookies from 'universal-cookie';
 
-interface DefaultUserContext {
-  getUser: null | {
+interface DefaultUserContextIF {
+  getUser: {
     username: string | null;
     permissions: string | null;
   };
@@ -16,8 +16,10 @@ interface DefaultUserContext {
 
 export const DefaultUserProperties = { username: null, permissions: null };
 
-export const CookieContext = createContext<Cookies | any>(null);
-export const UserContext = createContext<DefaultUserContext | any>(null);
+export const CookieContext = createContext<Cookies | null>(null);
+export const UserContext = createContext<DefaultUserContextIF>(
+  {} as DefaultUserContextIF
+);
 
 export const UserCheck = async (
   cookies: any,

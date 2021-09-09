@@ -18,4 +18,16 @@ interface ListCtxIF {
   LastPage: () => void;
 }
 
-export const ListCtx = createContext<ListCtxIF | any>(null);
+export const ListCtx = createContext<ListCtxIF>({} as ListCtxIF);
+
+interface ListCtxProviderIF {
+  children: React.ReactNode;
+  value: ListCtxIF;
+}
+
+export default function ListCtxProvider({
+  children,
+  value,
+}: ListCtxProviderIF) {
+  return <ListCtx.Provider value={value}>{children}</ListCtx.Provider>;
+}

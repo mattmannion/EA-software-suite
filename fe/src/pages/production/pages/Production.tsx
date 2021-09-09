@@ -6,7 +6,7 @@ import { usePaginationInit } from '../../../hooks/PaginationHooks';
 import { useFlushSearchArray, useSearchInit } from '../../../hooks/SearchHooks';
 import { useFetchGateLogin_Prod } from '../../../hooks/LoginHooks';
 import { OrderListIF } from '../../../../types/pages/production/pages/production';
-import { ListCtx } from '../../../context/ProdContext';
+import ListCtxProvider from '../../../context/ProdContext';
 
 export default function Production() {
   const [getList, setList] = useState<OrderListIF[]>([]);
@@ -59,13 +59,13 @@ export default function Production() {
     );
 
   return (
-    <ListCtx.Provider value={ListState}>
+    <ListCtxProvider value={ListState}>
       <ProdToolbar />
       <div className='d-flex justify-content-center align-items-center bg-primary text-white p-2 production__header'>
         <strong>Production</strong>
       </div>
       <ProdTable currentItems={currentItems} />
       <ProductionTabs />
-    </ListCtx.Provider>
+    </ListCtxProvider>
   );
 }
