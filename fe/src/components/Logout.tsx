@@ -5,15 +5,17 @@ import {
   DefaultUserProperties,
   UserContext,
 } from '../context/UserContext';
+import { CookiesCtxType, setUserType } from '../hooks/LoginHooks';
 
 export default function Logout() {
   const history = useHistory();
 
-  const { setUser }: any = useContext(UserContext);
-  const cookies: any = useContext(CookieContext);
+  const { setUser }: setUserType = useContext(UserContext);
+  const cookies: CookiesCtxType = useContext(CookieContext);
 
   const LogoutHandler = () => {
-    cookies.remove(process.env.REACT_APP_COOKIE_NAME);
+    if (!cookies) return;
+    cookies.remove(process.env.REACT_APP_COOKIE_NAME!);
     setUser(DefaultUserProperties);
     history.push('/login');
   };

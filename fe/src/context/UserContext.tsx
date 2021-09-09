@@ -16,8 +16,8 @@ interface DefaultUserContext {
 
 export const DefaultUserProperties = { username: null, permissions: null };
 
-export const CookieContext = createContext<Cookies | null>(null);
-export const UserContext = createContext<DefaultUserContext | null>(null);
+export const CookieContext = createContext<Cookies | any>(null);
+export const UserContext = createContext<DefaultUserContext | any>(null);
 
 export const UserCheck = async (
   cookies: any,

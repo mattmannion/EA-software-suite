@@ -1,9 +1,26 @@
 import { useHistory, useLocation } from 'react-router-dom';
-import { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { CookieContext, UserCheck, UserContext } from '../context/UserContext';
 import { PostLogin } from '../axios/axios_login';
-import { fetchUsers } from '../handles/FormHandles';
+import { fetchUsers, InitialFormDataIF } from '../handles/FormHandles';
 import { FetchOrdersJSON } from '../axios/axios_production';
+import Cookies from 'universal-cookie';
+
+export interface getUserIF {
+  getUser: {
+    username: null;
+    permissions: null;
+  };
+}
+export interface setUserType {
+  setUser: React.Dispatch<
+    React.SetStateAction<{
+      username: null;
+      permissions: null;
+    }>
+  >;
+}
+export type CookiesCtxType = Cookies | null;
 
 export const useLogin = () => {
   // set initial login state values
@@ -22,7 +39,7 @@ export const useLogin = () => {
   const [getLoginStatus, setLoginStatus] = useState(true);
 
   // set Context and Check User
-  const cookies: any = useContext(CookieContext);
+  const cookies: CookiesCtxType = useContext(CookieContext);
 
   // handles the input box on change data
   const LoginChangeHandler = (e: any) => {
@@ -46,9 +63,10 @@ export const useLogin = () => {
           username: login.username || null,
           permissions: login.permissions || null,
         };
-        cookies.set(process.env.REACT_APP_COOKIE_NAME, current_user, {
+        if (!cookies) return;
+        cookies.set(process.env.REACT_APP_COOKIE_NAME!, current_user, {
           path: '/',
-          maxAge: process.env.REACT_APP_COOKIE_AGE,
+          maxAge: +process.env.REACT_APP_COOKIE_AGE!,
           secure: true,
         });
 
@@ -70,13 +88,15 @@ export const useLogin = () => {
 };
 
 // for users
-export const useFetchGateLogin_Users = (current_data_set: any) => {
+export const useFetchGateLogin_Users = (
+  current_data_set: React.Dispatch<React.SetStateAction<InitialFormDataIF[]>>
+) => {
   const history = useHistory();
   const { pathname } = useLocation();
 
   const { getUser, setUser }: any = useContext(UserContext);
 
-  const cookies: any = useContext(CookieContext);
+  const cookies: CookiesCtxType = useContext(CookieContext);
 
   const [getFetchGate, setFetchGate] = useState(false);
 
@@ -103,7 +123,7 @@ export const useLoggedIn = () => {
 
   const { getUser, setUser }: any = useContext(UserContext);
 
-  const cookies = useContext(CookieContext);
+  const cookies: CookiesCtxType = useContext(CookieContext);
 
   useEffect(
     () => {
@@ -127,7 +147,7 @@ export const useFetchGateLogin_Prod = (
 
   const { getUser, setUser }: any = useContext(UserContext);
 
-  const cookies = useContext(CookieContext);
+  const cookies: CookiesCtxType = useContext(CookieContext);
 
   const [getFetchGate, setFetchGate] = useState(false);
 
