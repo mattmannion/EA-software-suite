@@ -1,17 +1,16 @@
-import { WaitTime, RemoveXML } from '../../../../util/util';
+import { WaitTime, RemoveXML } from '../../../../../util/util';
 import NotesModal from '../modals/NotesModal';
-import { production_slug } from '../../../../util/modal_util';
+import { production_slug } from '../../../../../util/modal_util';
 import OrderLink from '../inputs/OrderLink';
 import RefreshBtn from '../inputs/RefreshBtn';
 import Process from '../inputs/Process';
-import { OrderListIF } from '../../../../../types/pages/production/pages/production';
+import { OrderListIF } from '../../../../../../types/pages/production/pages/production';
 
 interface ProdTableProps {
   currentItems: OrderListIF[];
-  setList: React.Dispatch<React.SetStateAction<OrderListIF[]>>;
 }
 
-export default function ProdTable({ currentItems, setList }: ProdTableProps) {
+export default function ProdTable({ currentItems }: ProdTableProps) {
   return (
     <>
       <table className='table table-striped table-dark table-hover production__table'>
@@ -61,7 +60,6 @@ export default function ProdTable({ currentItems, setList }: ProdTableProps) {
                     id={id}
                     order_id={order_id}
                     order_detail_id={order_detail_id}
-                    setList={setList}
                     path='/production'
                   />
                 </td>
@@ -84,7 +82,6 @@ export default function ProdTable({ currentItems, setList }: ProdTableProps) {
                     id={id}
                     o_id={order_id}
                     od_id={order_detail_id}
-                    setList={setList}
                   />
                 </td>
                 <Process
@@ -92,7 +89,6 @@ export default function ProdTable({ currentItems, setList }: ProdTableProps) {
                   tack={tack}
                   assembled={assembled}
                   completed={completed}
-                  setList={setList}
                   id={id}
                   o_id={order_id}
                   od_id={order_detail_id}

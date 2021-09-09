@@ -1,6 +1,8 @@
-import { OrderListIF } from '../../../../../types/pages/production/pages/production';
-import { UpdateProcess } from '../../../../axios/axios_process';
-import { btn_pd, time_stamp } from '../../../../util/util';
+import { useContext } from 'react';
+import { UpdateProcess } from '../../../../../axios/axios_process';
+import { ListCtx } from '../../../../../context/ProdContext';
+import { btn_pd, time_stamp } from '../../../../../util/util';
+import { setListIF } from '../../../ProductionHome';
 
 const check = <span>&#10003;</span>;
 
@@ -40,7 +42,6 @@ interface ProcessProps {
   id: number;
   o_id: string;
   od_id: string;
-  setList: React.Dispatch<React.SetStateAction<OrderListIF[]>>;
 }
 
 export default function Process({
@@ -51,8 +52,9 @@ export default function Process({
   id,
   o_id,
   od_id,
-  setList,
 }: ProcessProps) {
+  const { setList }: setListIF = useContext(ListCtx);
+
   const date_completed = async (e: any, path: string, process_type: string) => {
     btn_pd(e);
     if (process_type === '')

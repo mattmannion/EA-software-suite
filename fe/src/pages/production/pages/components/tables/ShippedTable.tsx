@@ -1,5 +1,5 @@
-import { OrderListIF } from '../../../../../types/pages/production/pages/production';
-import { WaitTime, RemoveXML } from '../../../../util/util';
+import { OrderListIF } from '../../../../../../types/pages/production/pages/production';
+import { WaitTime, RemoveXML } from '../../../../../util/util';
 import OrderLink from '../inputs/OrderLink';
 import RefreshBtn from '../inputs/RefreshBtn';
 
@@ -57,7 +57,6 @@ export default function ShippedTable({
                     id={id}
                     order_id={order_id}
                     order_detail_id={order_detail_id}
-                    setList={setList}
                     path='/production/shipped'
                   />
                 </td>

@@ -1,8 +1,10 @@
-import { OrderListIF } from '../../../../../types/pages/production/pages/production';
+import { useContext } from 'react';
+import { OrderListIF } from '../../../../../../types/pages/production/pages/production';
+import { ListCtx } from '../../../../../context/ProdContext';
 import PLModal from '../modals/PLModal';
 import ProdSearch from './ProdSearch';
 
-interface ProdToolbarProps {
+interface ProdToolbarCtx {
   renderPageNumbers: JSX.Element[];
   FirstPage: () => void;
   PrevPage: () => void;
@@ -14,26 +16,21 @@ interface ProdToolbarProps {
   getList: OrderListIF[];
 }
 
-export default function Prod_Toolbar({
-  renderPageNumbers,
-  FirstPage,
-  PrevPage,
-  NextPage,
-  LastPage,
-  pageNumber,
-  getSearchTerm,
-  SearchHandler,
-  getList,
-}: ProdToolbarProps) {
+export default function Prod_Toolbar() {
+  const {
+    renderPageNumbers,
+    FirstPage,
+    PrevPage,
+    NextPage,
+    LastPage,
+    pageNumber,
+  }: ProdToolbarCtx = useContext(ListCtx);
+
   return (
     <div className='prod-toolbar'>
-      <ProdSearch
-        getSearchTerm={getSearchTerm}
-        SearchHandler={SearchHandler}
-        FirstPage={FirstPage}
-      />
+      <ProdSearch />
       <div className='prod-toolbar__container'>
-        <PLModal getList={getList} SearchHandler={SearchHandler} />
+        <PLModal />
         <ul className='prod-toolbar__page-numbers'>
           <li onClick={FirstPage}>First</li>
           <li onClick={PrevPage}>Prev</li>

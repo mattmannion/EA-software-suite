@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
-import { OrderListIF } from '../../../../../types/pages/production/pages/production';
-import { UpdateNotes } from '../../../../axios/axios_production';
-import { btn_pd } from '../../../../util/util';
+import { OrderListIF } from '../../../../../../types/pages/production/pages/production';
+import { UpdateNotes } from '../../../../../axios/axios_production';
+import { btn_pd } from '../../../../../util/util';
 
 interface NotesFormProps {
   notes: string;

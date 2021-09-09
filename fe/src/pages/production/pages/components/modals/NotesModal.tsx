@@ -1,9 +1,11 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Modal from 'react-modal';
-import { modalStyles } from '../../../../util/modal_util';
+import { modalStyles } from '../../../../../util/modal_util';
 import NotesForm from '../form/NotesForm';
-import { useModalHook } from '../../../../hooks/ModalHooks';
-import { OrderListIF } from '../../../../../types/pages/production/pages/production';
+import { useModalHook } from '../../../../../hooks/ModalHooks';
+import { ListCtx } from '../../../../../context/ProdContext';
+import { setListIF } from '../../../ProductionHome';
 
 interface NoteProps {
   slug: string;
@@ -12,7 +14,6 @@ interface NoteProps {
   id: number;
   o_id: string;
   od_id: string;
-  setList: React.Dispatch<React.SetStateAction<OrderListIF[]>>;
 }
 
 Modal.setAppElement('#root');
@@ -24,9 +25,9 @@ export default function NoteModal({
   id,
   o_id,
   od_id,
-  setList,
 }: NoteProps) {
   const { getIsModalOpen, openModal, closeModal } = useModalHook(slug);
+  const { setList }: setListIF = useContext(ListCtx);
 
   return (
     <>

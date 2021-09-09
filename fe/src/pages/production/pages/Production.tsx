@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import ProdTable from '../components/tables/ProdTable';
-import ProdToolbar from '../components/inputs/ProdToolbar';
-import ProductionTabs from '../components/inputs/ProductionTabs';
+import ProdTable from './components/tables/ProdTable';
+import ProdToolbar from './components/inputs/ProdToolbar';
+import ProductionTabs from './components/inputs/ProductionTabs';
 import { usePaginationInit } from '../../../hooks/PaginationHooks';
-import { useSearchArrayFlush, useSearchInit } from '../../../hooks/SearchHooks';
+import { useFlushSearchArray, useSearchInit } from '../../../hooks/SearchHooks';
 import { useFetchGateLogin_Prod } from '../../../hooks/LoginHooks';
 import { OrderListIF } from '../../../../types/pages/production/pages/production';
+import { ListCtx } from '../../../context/ProdContext';
 
 export default function Production() {
   const [getList, setList] = useState<OrderListIF[]>([]);
@@ -15,7 +16,7 @@ export default function Production() {
   const { getSearchTerm, getSearchResults, SearchHandler } =
     useSearchInit(getList);
 
-  useSearchArrayFlush(getList, getSearchTerm, SearchHandler);
+  useFlushSearchArray(getList, getSearchTerm, SearchHandler);
 
   const {
     currentItems,
@@ -26,6 +27,22 @@ export default function Production() {
     NextPage,
     LastPage,
   } = usePaginationInit(10, 20, getList, getSearchTerm, getSearchResults);
+
+  // Production Context
+  const ListState = {
+    getList,
+    setList,
+    getSearchTerm,
+    getSearchResults,
+    SearchHandler,
+    currentItems,
+    pageNumber,
+    renderPageNumbers,
+    FirstPage,
+    PrevPage,
+    NextPage,
+    LastPage,
+  };
 
   // placeholder for list while its loading
   if (getList.length === 0)
@@ -42,23 +59,13 @@ export default function Production() {
     );
 
   return (
-    <>
-      <ProdToolbar
-        renderPageNumbers={renderPageNumbers}
-        FirstPage={FirstPage}
-        PrevPage={PrevPage}
-        NextPage={NextPage}
-        LastPage={LastPage}
-        pageNumber={pageNumber}
-        getList={getList}
-        getSearchTerm={getSearchTerm}
-        SearchHandler={SearchHandler}
-      />
+    <ListCtx.Provider value={ListState}>
+      <ProdToolbar />
       <div className='d-flex justify-content-center align-items-center bg-primary text-white p-2 production__header'>
         <strong>Production</strong>
       </div>
-      <ProdTable currentItems={currentItems} setList={setList} />
+      <ProdTable currentItems={currentItems} />
       <ProductionTabs />
-    </>
+    </ListCtx.Provider>
   );
 }

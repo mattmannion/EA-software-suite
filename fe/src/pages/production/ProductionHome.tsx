@@ -3,6 +3,11 @@ import NavBar from '../../components/NavBar';
 import Production from './pages/Production';
 import Completed from './pages/ProdCompleted';
 import Shipped from './pages/ProdShipped';
+import { OrderListIF } from '../../../types/pages/production/pages/production';
+
+export interface setListIF {
+  setList: React.Dispatch<React.SetStateAction<OrderListIF[]>>;
+}
 
 export default function ApplicationRouter() {
   let { path } = useRouteMatch();

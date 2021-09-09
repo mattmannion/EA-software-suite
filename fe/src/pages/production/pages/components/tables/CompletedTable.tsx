@@ -1,17 +1,13 @@
-import { OrderListIF } from '../../../../../types/pages/production/pages/production';
-import { WaitTime, RemoveXML } from '../../../../util/util';
+import { OrderListIF } from '../../../../../../types/pages/production/pages/production';
+import { WaitTime, RemoveXML } from '../../../../../util/util';
 import OrderLink from '../inputs/OrderLink';
 import RefreshBtn from '../inputs/RefreshBtn';
 
 interface CompletedTableProps {
   currentItems: OrderListIF[];
-  setList: React.Dispatch<React.SetStateAction<OrderListIF[]>>;
 }
 
-export default function CompletedTable({
-  currentItems,
-  setList,
-}: CompletedTableProps) {
+export default function CompletedTable({ currentItems }: CompletedTableProps) {
   return (
     <>
       <table className='table table-striped table-dark table-hover table-sm table-responsive-sm'>
@@ -57,7 +53,6 @@ export default function CompletedTable({
                     id={id}
                     order_id={order_id}
                     order_detail_id={order_detail_id}
-                    setList={setList}
                     path='/production/completed'
                   />
                 </td>

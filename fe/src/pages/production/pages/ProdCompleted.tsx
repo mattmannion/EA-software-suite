@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import ProdToolbar from '../components/inputs/ProdToolbar';
-import ProductionTabs from '../components/inputs/ProductionTabs';
-import CompletedTable from '../components/tables/CompletedTable';
+import ProdToolbar from './components/inputs/ProdToolbar';
+import ProductionTabs from './components/inputs/ProductionTabs';
+import CompletedTable from './components/tables/CompletedTable';
 import { usePaginationInit } from '../../../hooks/PaginationHooks';
-import { useSearchArrayFlush, useSearchInit } from '../../../hooks/SearchHooks';
+import { useFlushSearchArray, useSearchInit } from '../../../hooks/SearchHooks';
 import { useFetchGateLogin_Prod } from '../../../hooks/LoginHooks';
 import { OrderListIF } from '../../../../types/pages/production/pages/production';
+import { ListCtx } from '../../../context/ProdContext';
 
 export default function Prod_Completed() {
   const [getList, setList] = useState<OrderListIF[]>([]);
@@ -15,7 +16,7 @@ export default function Prod_Completed() {
   const { getSearchTerm, getSearchResults, SearchHandler } =
     useSearchInit(getList);
 
-  useSearchArrayFlush(getList, getSearchTerm, SearchHandler);
+  useFlushSearchArray(getList, getSearchTerm, SearchHandler);
 
   const {
     currentItems,
@@ -26,6 +27,22 @@ export default function Prod_Completed() {
     NextPage,
     LastPage,
   } = usePaginationInit(10, 15, getList, getSearchTerm, getSearchResults);
+
+  // Completed Context
+  const ListState = {
+    getList,
+    setList,
+    getSearchTerm,
+    getSearchResults,
+    SearchHandler,
+    currentItems,
+    pageNumber,
+    renderPageNumbers,
+    FirstPage,
+    PrevPage,
+    NextPage,
+    LastPage,
+  };
 
   // placeholder for list while its loading
   if (getList.length === 0)
@@ -42,23 +59,13 @@ export default function Prod_Completed() {
     );
 
   return (
-    <>
-      <ProdToolbar
-        renderPageNumbers={renderPageNumbers}
-        FirstPage={FirstPage}
-        PrevPage={PrevPage}
-        NextPage={NextPage}
-        LastPage={LastPage}
-        pageNumber={pageNumber}
-        getSearchTerm={getSearchTerm}
-        SearchHandler={SearchHandler}
-        getList={getList}
-      />
+    <ListCtx.Provider value={ListState}>
+      <ProdToolbar />
       <strong className='d-flex justify-content-center align-items-center bg-success text-white p-2'>
         Completed Orders
       </strong>
-      <CompletedTable currentItems={currentItems} setList={setList} />
+      <CompletedTable currentItems={currentItems} />
       <ProductionTabs />
-    </>
+    </ListCtx.Provider>
   );
 }

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import Modal from 'react-modal';
-import { modalStyles } from '../../../../util/modal_util';
+import { modalStyles } from '../../../../../util/modal_util';
 
 interface ProdModalProps {
   slug: string;

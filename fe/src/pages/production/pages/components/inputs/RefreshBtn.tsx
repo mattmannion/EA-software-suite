@@ -1,11 +1,12 @@
-import { OrderListIF } from '../../../../../types/pages/production/pages/production';
-import { refresh_list } from '../../../../hooks/SearchHooks';
+import { useContext } from 'react';
+import { ListCtx } from '../../../../../context/ProdContext';
+import { refresh_list } from '../../../../../hooks/SearchHooks';
+import { setListIF } from '../../../ProductionHome';
 
 interface RefreshBtnProps {
   id: number;
   order_id: string;
   order_detail_id: string;
-  setList: React.Dispatch<React.SetStateAction<OrderListIF[]>>;
   path: string;
 }
 
@@ -13,9 +14,9 @@ export default function RefreshBtn({
   id,
   order_id,
   order_detail_id,
-  setList,
   path,
 }: RefreshBtnProps) {
+  const { setList }: setListIF = useContext(ListCtx);
   return (
     <>
       <button

@@ -32,7 +32,7 @@ export const useSearchInit = (current_data_set: OrderListIF[]) => {
 // works correctly to flush the current search results
 // array; refreshing the list to the newest state.
 // only renders when the current data set has changed.
-export const useSearchArrayFlush = (
+export const useFlushSearchArray = (
   current_data_set: OrderListIF[],
   current_search_term: string,
   SearchHandler: (current_search_term: string) => void

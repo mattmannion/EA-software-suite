@@ -16,7 +16,7 @@ const ProductionHome = lazy(() => import('./production/ProductionHome'));
 // create cookie
 const cookies = new Cookies();
 
-export default function ApplicationRouter() {
+export default function AppRouter() {
   const [getUser, setUser] = useState(DefaultUserProperties);
   const UserProvider = { getUser, setUser };
 

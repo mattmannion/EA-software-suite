@@ -1,18 +1,22 @@
 import Modal from 'react-modal';
-import { modalStyles } from '../../../../util/modal_util';
-import { useModalHook } from '../../../../hooks/ModalHooks';
-import { btn_pd } from '../../../../util/util';
+import { modalStyles } from '../../../../../util/modal_util';
+import { useModalHook } from '../../../../../hooks/ModalHooks';
+import { btn_pd } from '../../../../../util/util';
 import { PLModalData } from './PLModalData';
-import { OrderListIF } from '../../../../../types/pages/production/pages/production';
+import { OrderListIF } from '../../../../../../types/pages/production/pages/production';
+import { useContext } from 'react';
+import { ListCtx } from '../../../../../context/ProdContext';
 
-interface PLModalProps {
+interface PLModalCtx {
   getList: OrderListIF[];
   SearchHandler: (current_search_term: string) => void;
 }
 
 Modal.setAppElement('#root');
 
-export default function PLModal({ getList, SearchHandler }: PLModalProps) {
+export default function PLModal() {
+  const { getList, SearchHandler }: PLModalCtx = useContext(ListCtx);
+
   const slug = '/production';
   const { getIsModalOpen, openModal, closeModal } = useModalHook(slug);
 
