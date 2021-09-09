@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState, useCallback, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import { OrderListIF } from '../../../../../../types/pages/production/pages/production';
 import { UpdateNotes } from '../../../../../axios/axios_production';
+import { ListCtx } from '../../../../../context/ProdContext';
 import { btn_pd } from '../../../../../util/util';
+import { setListIF } from '../../../ProductionHome';
 
 interface NotesFormProps {
   notes: string;
@@ -11,7 +12,6 @@ interface NotesFormProps {
   id: number;
   o_id: string;
   od_id: string;
-  setList: React.Dispatch<React.SetStateAction<OrderListIF[]>>;
 }
 
 export default function NotesForm({
@@ -21,8 +21,8 @@ export default function NotesForm({
   id,
   o_id,
   od_id,
-  setList,
 }: NotesFormProps) {
+  const { setList }: setListIF = useContext(ListCtx)!;
   const [getCurrentNote, setCurrentNote] = useState(notes);
   const notesRef = useRef<HTMLTextAreaElement | null>(null);
   const history = useHistory();
