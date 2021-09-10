@@ -7,9 +7,10 @@ import Process from '../io/Process';
 import { OrderListIF } from '../../../../../../types/pages/production/pages/production';
 import { useContext } from 'react';
 import { ListCtx } from '../../../../../context/ProdContext';
+import QueueNumber from '../io/QueueNumber';
 
 export default function ProdTable() {
-  const { currentItems, getCurrentPage, getItemsPP } = useContext(ListCtx);
+  const { currentItems } = useContext(ListCtx);
 
   return (
     <>
@@ -52,7 +53,9 @@ export default function ProdTable() {
             } = data;
             return (
               <tr key={i}>
-                <th>{i + 1 + getCurrentPage * getItemsPP - getItemsPP}</th>
+                <th>
+                  <QueueNumber i={i} />
+                </th>
                 <th>{order_date}</th>
                 <th>
                   <OrderLink order_id={order_id} />
