@@ -6,6 +6,7 @@ import { PLModalData } from './PLModalData';
 import { OrderListIF } from '../../../../../../types/pages/production/pages/production';
 import { useContext } from 'react';
 import { ListCtx } from '../../../../../context/ProdContext';
+import ItemCounter from '../io/ItemCounter';
 
 interface PLModalCtx {
   getList: OrderListIF[];
@@ -69,7 +70,7 @@ export default function PLModal() {
   };
 
   return (
-    <>
+    <div className='d-flex justify-content-center align-items-center'>
       <button
         className='btn btn-success'
         onClick={openModal}
@@ -95,6 +96,7 @@ export default function PLModal() {
           <Table table_body={td} />
         </div>
       </Modal>
-    </>
+      <ItemCounter />
+    </div>
   );
 }

@@ -14,14 +14,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const node_fetch_1 = __importDefault(require("node-fetch"));
 const xml2js_1 = __importDefault(require("xml2js"));
+const env_1 = require("../../env");
 function volusion_fetch(id) {
     return __awaiter(this, void 0, void 0, function* () {
-        let response = yield (0, node_fetch_1.default)(`${process.env.insert_order_v3}${id}`);
-        let { xmldata } = yield xml2js_1.default
+        let response = yield (0, node_fetch_1.default)(`${env_1.vol_url}${id}`);
+        yield xml2js_1.default
             .parseStringPromise(yield response.text())
-            .then(res => res)
-            .catch(err => console.log(err));
-        return xmldata.Orders;
+            .then((res) => console.log(res))
+            .catch((err) => console.log(err));
     });
 }
 exports.default = volusion_fetch;

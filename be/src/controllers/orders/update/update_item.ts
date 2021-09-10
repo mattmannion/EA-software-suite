@@ -17,6 +17,8 @@ export default async (req: Request, res: Response) => {
 
     let vol_data = await volusion_fetch(o_id);
 
+    return;
+
     let { OrderID, OrderStatus, OrderDetails } = vol_data[0];
 
     // all data is served in single element arrays for some reason
@@ -67,8 +69,8 @@ export default async (req: Request, res: Response) => {
         order_option,
         order_option_id,
       ])
-      .then(res => res.rows[0])
-      .catch(err => console.log(err.stack));
+      .then((res) => res.rows[0])
+      .catch((err) => console.log(err.stack));
 
     if (vol_data) {
       res.status(201).json({

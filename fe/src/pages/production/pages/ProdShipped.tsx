@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import ProductionTabs from './components/inputs/ProductionTabs';
-import ProdToolbar from './components/inputs/ProdToolbar';
+import ProductionTabs from './components/io/ProductionTabs';
+import ProdToolbar from './components/io/ProdToolbar';
 import ShippedTable from './components/tables/ShippedTable';
 import { usePaginationInit } from '../../../hooks/PaginationHooks';
 import { useFlushSearchArray, useSearchInit } from '../../../hooks/SearchHooks';

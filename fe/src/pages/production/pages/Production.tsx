@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import ProdTable from './components/tables/ProdTable';
-import ProdToolbar from './components/inputs/ProdToolbar';
-import ProductionTabs from './components/inputs/ProductionTabs';
+import ProdToolbar from './components/io/ProdToolbar';
+import ProductionTabs from './components/io/ProductionTabs';
 import { usePaginationInit } from '../../../hooks/PaginationHooks';
 import { useFlushSearchArray, useSearchInit } from '../../../hooks/SearchHooks';
 import { useFetchGateLogin_Prod } from '../../../hooks/LoginHooks';

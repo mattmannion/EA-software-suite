@@ -21,6 +21,7 @@ exports.default = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id, o_id, od_id } = req.params;
         let vol_data = yield (0, volusion_fetch_1.default)(o_id);
+        return;
         let { OrderID, OrderStatus, OrderDetails } = vol_data[0];
         let fr = yield OrderDetails.map((od) => {
             let order_id = OrderID !== undefined ? OrderID[0] : '';
@@ -52,8 +53,8 @@ exports.default = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             order_option,
             order_option_id,
         ])
-            .then(res => res.rows[0])
-            .catch(err => console.log(err.stack));
+            .then((res) => res.rows[0])
+            .catch((err) => console.log(err.stack));
         if (vol_data) {
             res.status(201).json({
                 data,

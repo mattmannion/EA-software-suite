@@ -1,9 +1,9 @@
 import { WaitTime, RemoveXML } from '../../../../../util/util';
 import NotesModal from '../modals/NotesModal';
 import { production_slug } from '../../../../../util/modal_util';
-import OrderLink from '../inputs/OrderLink';
-import RefreshBtn from '../inputs/RefreshBtn';
-import Process from '../inputs/Process';
+import OrderLink from '../io/OrderLink';
+import RefreshBtn from '../io/RefreshBtn';
+import Process from '../io/Process';
 import { OrderListIF } from '../../../../../../types/pages/production/pages/production';
 
 interface ProdTableProps {

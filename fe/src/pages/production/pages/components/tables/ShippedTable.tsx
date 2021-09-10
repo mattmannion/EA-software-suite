@@ -1,7 +1,7 @@
 import { OrderListIF } from '../../../../../../types/pages/production/pages/production';
 import { WaitTime, RemoveXML } from '../../../../../util/util';
-import OrderLink from '../inputs/OrderLink';
-import RefreshBtn from '../inputs/RefreshBtn';
+import OrderLink from '../io/OrderLink';
+import RefreshBtn from '../io/RefreshBtn';
 
 interface ShippedTableProps {
   currentItems: OrderListIF[];
