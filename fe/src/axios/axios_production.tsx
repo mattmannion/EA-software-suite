@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { OrderListIF } from '../../types/pages/production/pages/production';
-import { api_path } from './axios_properties';
+import { api_path } from '../env';
 
 // this fetch exposes the raw data resp for text search
 export const FetchOrdersJSON = async (path: string, setData: any) => {

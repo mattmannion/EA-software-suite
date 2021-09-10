@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { api_path } from './axios_properties';
+import { api_path } from '../env';
 
 export const users_path = `${api_path}/users`;
 export const users_slug = '/users';
