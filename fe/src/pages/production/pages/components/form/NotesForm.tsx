@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback, useContext } from 'react';
+import { useRef, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { UpdateNotes } from '../../../../../axios/axios_production';
 import { ListCtx } from '../../../../../context/ProdContext';
@@ -8,7 +8,7 @@ import { setListIF } from '../../../ProductionHome';
 interface NotesFormProps {
   notes: string;
   closeModal: () => void;
-  getIsModalOpen: boolean;
+  // getIsModalOpen: boolean;
   id: number;
   o_id: string;
   od_id: string;
@@ -17,7 +17,7 @@ interface NotesFormProps {
 export default function NotesForm({
   notes,
   closeModal,
-  getIsModalOpen,
+  // getIsModalOpen,
   id,
   o_id,
   od_id,
@@ -35,10 +35,6 @@ export default function NotesForm({
     closeModal();
   }
 
-  const UpdateNotesCB = useCallback(async () => {
-    await UpdateNotes(id, o_id, od_id, getCurrentNote, setList);
-  }, [id, o_id, od_id, getCurrentNote, setList]);
-
   function textareaOnChange() {
     setCurrentNote(() => {
       if (!notesRef.current) return notes;
@@ -46,17 +42,21 @@ export default function NotesForm({
     });
   }
 
-  useEffect(() => {
-    const keydown = async (e: any) => {
-      if (e.key !== 'Enter' && getIsModalOpen === true) return;
-      await UpdateNotesCB();
-      history.replace('/production');
-      closeModal();
-    };
+  // const UpdateNotesCB = useCallback(async () => {
+  //   await UpdateNotes(id, o_id, od_id, getCurrentNote, setList);
+  // }, [id, o_id, od_id, getCurrentNote, setList]);
 
-    window.addEventListener('keydown', keydown);
-    return () => window.removeEventListener('keydown', keydown);
-  }, [getIsModalOpen, closeModal, UpdateNotesCB, history]);
+  // useEffect(() => {
+  //   const keydown = async (e: any) => {
+  //     if (e.key !== 'Enter' && getIsModalOpen === true) return;
+  //     await UpdateNotesCB();
+  //     history.replace('/production');
+  //     closeModal();
+  //   };
+
+  //   window.addEventListener('keydown', keydown);
+  //   return () => window.removeEventListener('keydown', keydown);
+  // }, [getIsModalOpen, closeModal, UpdateNotesCB, history]);
 
   return (
     <>

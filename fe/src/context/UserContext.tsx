@@ -1,5 +1,6 @@
 import { createContext } from 'react';
 import Cookies from 'universal-cookie';
+import { CookiesCtxType } from '../hooks/LoginHooks';
 
 interface DefaultUserContextIF {
   getUser: {
@@ -22,12 +23,13 @@ export const UserContext = createContext<DefaultUserContextIF>(
 );
 
 export const UserCheck = async (
-  cookies: any,
+  cookies: CookiesCtxType,
   pathname: string,
   history: any,
   setUser: any
 ): Promise<boolean> => {
-  let current_cookie = cookies.get(process.env.REACT_APP_COOKIE_NAME);
+  if (!cookies) return false;
+  let current_cookie = cookies.get(process.env.REACT_APP_COOKIE_NAME!);
   if (pathname === '/login') return false;
   if (!current_cookie) {
     await history.push('/login');

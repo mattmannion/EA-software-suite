@@ -47,7 +47,7 @@ export default function NoteModal({
         <NotesForm
           notes={notes}
           closeModal={closeModal}
-          getIsModalOpen={getIsModalOpen}
+          // getIsModalOpen={getIsModalOpen}
           id={id}
           o_id={o_id}
           od_id={od_id}
