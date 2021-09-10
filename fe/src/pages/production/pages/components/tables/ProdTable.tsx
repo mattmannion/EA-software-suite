@@ -5,17 +5,18 @@ import OrderLink from '../io/OrderLink';
 import RefreshBtn from '../io/RefreshBtn';
 import Process from '../io/Process';
 import { OrderListIF } from '../../../../../../types/pages/production/pages/production';
+import { useContext } from 'react';
+import { ListCtx } from '../../../../../context/ProdContext';
 
-interface ProdTableProps {
-  currentItems: OrderListIF[];
-}
+export default function ProdTable() {
+  const { currentItems, getCurrentPage, getItemsPP } = useContext(ListCtx);
 
-export default function ProdTable({ currentItems }: ProdTableProps) {
   return (
     <>
       <table className='table table-striped table-dark table-hover production__table'>
         <thead>
           <tr>
+            <th>Q #</th>
             <th>Order Date</th>
             <th>Order ID (DetailID)</th>
             <th>Refresh</th>
@@ -51,6 +52,7 @@ export default function ProdTable({ currentItems }: ProdTableProps) {
             } = data;
             return (
               <tr key={i}>
+                <th>{i + 1 + getCurrentPage * getItemsPP - getItemsPP}</th>
                 <th>{order_date}</th>
                 <th>
                   <OrderLink order_id={order_id} />

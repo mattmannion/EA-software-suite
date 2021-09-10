@@ -70,7 +70,7 @@ export default function Production() {
       <div className='d-flex justify-content-center align-items-center bg-primary text-white p-2 production__header'>
         <strong>Production</strong>
       </div>
-      <ProdTable currentItems={currentItems} />
+      <ProdTable />
       <ProductionTabs />
     </ListCtxProvider>
   );
