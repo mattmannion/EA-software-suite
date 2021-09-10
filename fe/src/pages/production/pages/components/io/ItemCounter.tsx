@@ -2,11 +2,17 @@ import { useContext } from 'react';
 import { ListCtx } from '../../../../../context/ProdContext';
 
 export default function ItemCounter() {
-  const { currentItems, getSearchResults } = useContext(ListCtx);
+  const { currentItems, getSearchResults, getCurrentPage, getItemsPP } =
+    useContext(ListCtx);
+
+  const calcCurrentItems: number =
+    currentItems.length !== getItemsPP
+      ? getSearchResults.length
+      : currentItems.length * getCurrentPage;
   return (
     <>
       <strong className='px-4'>
-        {currentItems.length}&nbsp;/{getSearchResults.length}
+        {calcCurrentItems}&nbsp;/{getSearchResults.length}
       </strong>
     </>
   );

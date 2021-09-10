@@ -16,6 +16,9 @@ interface ListCtxIF {
   PrevPage: () => void;
   NextPage: () => void;
   LastPage: () => void;
+  getItemsPP: number;
+  setItemsPP: React.Dispatch<React.SetStateAction<number>>;
+  getCurrentPage: number;
 }
 
 export const ListCtx = createContext<ListCtxIF>({} as ListCtxIF);

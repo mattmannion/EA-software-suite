@@ -26,6 +26,9 @@ export default function Prod_Completed() {
     PrevPage,
     NextPage,
     LastPage,
+    getItemsPP,
+    setItemsPP,
+    getCurrentPage,
   } = usePaginationInit(10, 15, getList, getSearchTerm, getSearchResults);
 
   // Completed Context
@@ -42,6 +45,9 @@ export default function Prod_Completed() {
     PrevPage,
     NextPage,
     LastPage,
+    getItemsPP,
+    setItemsPP,
+    getCurrentPage,
   };
 
   // placeholder for list while its loading

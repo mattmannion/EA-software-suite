@@ -26,6 +26,9 @@ export default function Prod_Shipped() {
     PrevPage,
     NextPage,
     LastPage,
+    getItemsPP,
+    setItemsPP,
+    getCurrentPage,
   } = usePaginationInit(10, 30, getList, getSearchTerm, getSearchResults);
 
   // Shipping Context
@@ -42,6 +45,9 @@ export default function Prod_Shipped() {
     PrevPage,
     NextPage,
     LastPage,
+    getItemsPP,
+    setItemsPP,
+    getCurrentPage,
   };
 
   // placeholder for list while its loading

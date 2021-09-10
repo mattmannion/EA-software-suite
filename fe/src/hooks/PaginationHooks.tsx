@@ -12,11 +12,10 @@ export const usePaginationInit = (
   const [getCurrentPage, setCurrentPage] = useState(1);
   const [getMaxPNL, setMaxPNL] = useState(maxPNL);
   const [getMinPNL, setMinPNL] = useState(0);
+  const [getItemsPP, setItemsPP] = useState<number>(itemsPP);
 
-  const itemsPerPage = itemsPP;
-
-  const indexOfLastItem = getCurrentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const indexOfLastItem = getCurrentPage * getItemsPP;
+  const indexOfFirstItem = indexOfLastItem - getItemsPP;
   // currentItems is the pagination entry point array
   let currentItems =
     current_search_term.length < 1
@@ -26,8 +25,8 @@ export const usePaginationInit = (
   // dynamic page number calculated on current number of items
   const pageNumber =
     current_search_term.length < 1
-      ? Math.ceil(getList.length / itemsPerPage)
-      : Math.ceil(current_search_results.length / itemsPerPage);
+      ? Math.ceil(getList.length / getItemsPP)
+      : Math.ceil(current_search_results.length / getItemsPP);
 
   const pageNumberLimit = 10;
 
@@ -102,5 +101,8 @@ export const usePaginationInit = (
     PrevPage,
     NextPage,
     LastPage,
+    getItemsPP,
+    setItemsPP,
+    getCurrentPage,
   };
 };

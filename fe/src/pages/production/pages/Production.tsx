@@ -26,6 +26,9 @@ export default function Production() {
     PrevPage,
     NextPage,
     LastPage,
+    getItemsPP,
+    setItemsPP,
+    getCurrentPage,
   } = usePaginationInit(10, 20, getList, getSearchTerm, getSearchResults);
 
   // Production Context
@@ -42,6 +45,9 @@ export default function Production() {
     PrevPage,
     NextPage,
     LastPage,
+    getItemsPP,
+    setItemsPP,
+    getCurrentPage,
   };
 
   // placeholder for list while its loading
