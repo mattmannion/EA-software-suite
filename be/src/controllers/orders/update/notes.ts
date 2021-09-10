@@ -7,12 +7,12 @@ export default async (req: Request, res: Response) => {
   logger(req);
 
   try {
-    const { id, o_id, od_id } = req.params;
+    const { id } = req.params;
     const { notes } = req.body;
 
     // select notes from orders
     const data = await db
-      .query(update_notes, [id, o_id, od_id, notes])
+      .query(update_notes, [id, notes])
       .then((res) => res.rows[0])
       .catch((err) => console.log(err.stack));
 

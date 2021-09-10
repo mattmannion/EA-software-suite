@@ -13,7 +13,7 @@ select * from orders
   order_status != 'Cancelled' 
   and 
   order_status != 'Returned'
-  order by order_id, order_detail_id;
+  order by id, order_id, order_detail_id;
 `;
 
 export const get_production_orders_query = `
@@ -30,7 +30,7 @@ completed, notes, pallet, tack, assembled, order_detail_id
   order_status != 'Returned'
   and
   order_status != 'Payment Declined'
-  order by order_id, order_detail_id;
+  order by id, order_id, order_detail_id;
 `;
 
 export const get_shipped_orders_query = `
@@ -46,5 +46,5 @@ select * from orders
   order_status != 'Cancelled' 
   and 
   order_status != 'Returned'
-  order by order_id, order_detail_id;
+  order by id,order_id, order_detail_id;
 `;

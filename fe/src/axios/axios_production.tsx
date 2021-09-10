@@ -19,12 +19,10 @@ export const FetchOrdersJSON = async (path: string, setData: any) => {
 
 export const UpdateNotes = async (
   id: number,
-  o_id: string,
-  od_id: string,
   getCurrentNote: any,
   setList: React.Dispatch<React.SetStateAction<OrderListIF[]>>
 ) => {
-  await axios.put(`${api_path}/orders/update/notes/${id}&${o_id}&${od_id}`, {
+  await axios.put(`${api_path}/orders/update/notes/${id}`, {
     notes: getCurrentNote,
   });
 

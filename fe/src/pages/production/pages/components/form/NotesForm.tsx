@@ -1,4 +1,5 @@
 import { useRef, useState, useContext } from 'react';
+// import { useEffect, useCallback, useRef, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { UpdateNotes } from '../../../../../axios/axios_production';
 import { ListCtx } from '../../../../../context/ProdContext';
@@ -8,20 +9,20 @@ import { setListIF } from '../../../ProductionHome';
 interface NotesFormProps {
   notes: string;
   closeModal: () => void;
-  // getIsModalOpen: boolean;
   id: number;
-  o_id: string;
-  od_id: string;
+  // getIsModalOpen: boolean;
+  // o_id: string;
+  // od_id: string;
 }
 
 export default function NotesForm({
   notes,
   closeModal,
-  // getIsModalOpen,
   id,
-  o_id,
-  od_id,
-}: NotesFormProps) {
+}: // getIsModalOpen,
+// o_id,
+// od_id,
+NotesFormProps) {
   const { setList }: setListIF = useContext(ListCtx)!;
   const [getCurrentNote, setCurrentNote] = useState(notes);
   const notesRef = useRef<HTMLTextAreaElement | null>(null);
@@ -30,7 +31,7 @@ export default function NotesForm({
   async function formSubmit(e: any) {
     e.preventDefault();
     if (getCurrentNote !== null || getCurrentNote !== undefined)
-      await UpdateNotes(id, o_id, od_id, getCurrentNote, setList);
+      await UpdateNotes(id, getCurrentNote, setList);
     history.replace('/production');
     closeModal();
   }
@@ -43,7 +44,7 @@ export default function NotesForm({
   }
 
   // const UpdateNotesCB = useCallback(async () => {
-  //   await UpdateNotes(id, o_id, od_id, getCurrentNote, setList);
+  //   await UpdateNotes(id, getCurrentNote, setList);
   // }, [id, o_id, od_id, getCurrentNote, setList]);
 
   // useEffect(() => {

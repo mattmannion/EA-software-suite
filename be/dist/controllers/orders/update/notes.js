@@ -18,10 +18,10 @@ const logging_1 = __importDefault(require("../../../util/logging"));
 exports.default = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     (0, logging_1.default)(req);
     try {
-        const { id, o_id, od_id } = req.params;
+        const { id } = req.params;
         const { notes } = req.body;
         const data = yield db_1.default
-            .query(update_queries_1.update_notes, [id, o_id, od_id, notes])
+            .query(update_queries_1.update_notes, [id, notes])
             .then((res) => res.rows[0])
             .catch((err) => console.log(err.stack));
         if (data) {

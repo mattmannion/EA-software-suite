@@ -22,10 +22,8 @@ exports.update_item_query = `
   returning *;
 `;
 exports.update_notes = `
-  update orders set notes = $4
+  update orders set notes = $2
   where id = $1 
-  and order_id = $2 
-  and order_detail_id = $3
   returning *;
 `;
 exports.update_pallet = `

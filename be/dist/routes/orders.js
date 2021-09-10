@@ -26,7 +26,7 @@ orders.route('/orders/insert_orders').get(insert_orders_js_1.default);
 orders.route('/orders/insert_orders/:id').get(insert_orders_js_1.default);
 orders.route('/orders/update').put(daily_update_ep_js_1.default);
 orders.route('/orders/update/:id&:o_id&:od_id').put(update_item_js_1.default);
-orders.route('/orders/update/notes/:id&:o_id&:od_id').put(notes_js_1.default);
+orders.route('/orders/update/notes/:id').put(notes_js_1.default);
 orders.route('/orders/update/process/pallet/:id&:o_id&:od_id').put(pallet_js_1.default);
 orders.route('/orders/update/process/tack/:id&:o_id&:od_id').put(tack_js_1.default);
 orders

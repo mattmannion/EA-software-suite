@@ -26,7 +26,7 @@ orders.route('/orders/insert_orders/:id').get(insert_orders);
 
 orders.route('/orders/update').put(daily_update);
 orders.route('/orders/update/:id&:o_id&:od_id').put(update_item);
-orders.route('/orders/update/notes/:id&:o_id&:od_id').put(notes);
+orders.route('/orders/update/notes/:id').put(notes);
 
 orders.route('/orders/update/process/pallet/:id&:o_id&:od_id').put(pallet);
 orders.route('/orders/update/process/tack/:id&:o_id&:od_id').put(tack);
