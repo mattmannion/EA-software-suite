@@ -18,10 +18,11 @@ const env_1 = require("../../env");
 function volusion_fetch(id) {
     return __awaiter(this, void 0, void 0, function* () {
         let response = yield (0, node_fetch_1.default)(`${env_1.vol_url}${id}`);
-        yield xml2js_1.default
+        let { xmldata } = yield xml2js_1.default
             .parseStringPromise(yield response.text())
-            .then((res) => console.log(res))
+            .then((res) => res)
             .catch((err) => console.log(err));
+        return xmldata.Orders;
     });
 }
 exports.default = volusion_fetch;
