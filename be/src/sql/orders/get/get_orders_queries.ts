@@ -28,6 +28,8 @@ completed, notes, pallet, tack, assembled, order_detail_id
   order_status != 'Shipped'
   and 
   order_status != 'Returned'
+  and
+  order_status != 'Payment Declined'
   order by order_id, order_detail_id;
 `;
 
