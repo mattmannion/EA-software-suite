@@ -1,8 +1,6 @@
 import { createContext } from 'react';
 import { OrderListIF } from '../../types/pages/production/pages/production';
 
-// just for documentation
-// this is what is stored
 interface ListCtxIF {
   getList: OrderListIF[];
   setList: React.Dispatch<React.SetStateAction<OrderListIF[]>>;
