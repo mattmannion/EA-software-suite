@@ -32,11 +32,11 @@ const task_driver_1 = __importDefault(require("./util/tasks/task_driver"));
 const daily_update_1 = __importDefault(require("./util/tasks/daily/daily_update"));
 const daily_orders_1 = __importDefault(require("./util/tasks/daily/daily_orders"));
 const app = (0, express_1.default)();
-app.use(redis_session_1.default);
 app.options('*', cors_settings_1.default);
 app.use(cors_settings_1.default);
 app.use((0, express_1.json)());
-if (env_1.prod) {
+app.use(redis_session_1.default);
+if (!env_1.prod) {
     (0, task_driver_1.default)(daily_update_1.default, { second: 0, minute: 0, hour: 17 });
     (0, task_driver_1.default)(daily_orders_1.default, { second: 0, minute: 0, hour: 18 });
 }

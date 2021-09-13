@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { update_one_user_query } from '../../sql/users/users_queries';
 import db from '../../util/db';
 import logger from '../../util/logging';
+import bcrypt from 'bcryptjs';
 
 export default async function update_one_user(req: Request, res: Response) {
   logger(req);
@@ -11,8 +12,8 @@ export default async function update_one_user(req: Request, res: Response) {
 
     const query = await db
       .query(update_one_user_query, [id])
-      .then(res => res.rows[0])
-      .catch(err => console.log(err.stack));
+      .then((res) => res.rows[0])
+      .catch((err) => console.log(err.stack));
 
     let {
       first_name,
@@ -24,13 +25,17 @@ export default async function update_one_user(req: Request, res: Response) {
       confirmed,
     } = req.body;
 
-    if (!first_name) first_name = query.first_name;
-    if (!last_name) last_name = query.last_name;
-    if (!email) email = query.email;
-    if (!password) password = query.password;
-    if (!username) username = query.username;
-    if (!permissions) permissions = query.permissions;
-    if (!confirmed) confirmed = query.confirmed;
+    if (password) {
+      password = await bcrypt.hash(password, 12);
+    }
+
+    if (!first_name) first_name = query.first_name as string;
+    if (!last_name) last_name = query.last_name as string;
+    if (!email) email = query.email as string;
+    if (!password) password = query.password as string;
+    if (!username) username = query.username as string;
+    if (!permissions) permissions = query.permissions as string;
+    if (!confirmed) confirmed = query.confirmed as string;
 
     const data = await db
       .query(
@@ -50,8 +55,8 @@ export default async function update_one_user(req: Request, res: Response) {
           confirmed,
         ]
       )
-      .then(res => res.rows[0])
-      .catch(err => console.log(err.stack));
+      .then((res) => res.rows[0])
+      .catch((err) => console.log(err.stack));
     if (data) {
       res.status(201).json({
         data,

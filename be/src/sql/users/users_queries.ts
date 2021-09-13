@@ -10,7 +10,7 @@ export const create_one_user_query = `
     values 
     ($1, $2, $3, 
      $4, $5, $6, $7)
-  returning *;
+  returning first_name, last_name, email, permissions;
 `;
 
 export const delete_one_user_query = `

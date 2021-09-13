@@ -15,16 +15,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const db_1 = __importDefault(require("../../util/db"));
 const authentication_queries_1 = require("../../sql/authentication/authentication_queries");
 const logging_1 = __importDefault(require("../../util/logging"));
+const bcryptjs_1 = __importDefault(require("bcryptjs"));
 function login(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         (0, logging_1.default)(req);
         try {
             const { body, session } = req;
             const data = yield db_1.default
-                .query(authentication_queries_1.login_query, [body.username, body.password])
+                .query(authentication_queries_1.login_query, [body.username])
                 .then((res) => res.rows[0])
                 .catch((err) => console.log(err.stack));
-            if (!data)
+            if (!body.password)
+                return;
+            const authenticated = yield bcryptjs_1.default.compare(body.password, data.password);
+            if (!authenticated)
                 return res.status(401).json({
                     status: 'wrong username or password',
                 });

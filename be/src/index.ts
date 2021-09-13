@@ -12,7 +12,6 @@ import daily_orders from './util/tasks/daily/daily_orders';
 const app = express();
 
 // core middleware
-app.set('trust proxy', true);
 app.options('*', cors_settings);
 app.use(cors_settings);
 
@@ -24,7 +23,7 @@ app.use(session);
 //////////////////
 /// Daily Task ///
 //////////////////
-if (prod) {
+if (!prod) {
   task_driver(daily_update, { second: 0, minute: 0, hour: 17 });
   task_driver(daily_orders, { second: 0, minute: 0, hour: 18 });
 }
