@@ -11,14 +11,15 @@ import daily_orders from './util/tasks/daily/daily_orders';
 // init app
 const app = express();
 
-// redis session
-app.use(session);
-
 // core middleware
+app.set('trust proxy', true);
 app.options('*', cors_settings);
 app.use(cors_settings);
 
 app.use(json());
+
+// redis session
+app.use(session);
 
 //////////////////
 /// Daily Task ///

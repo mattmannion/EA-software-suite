@@ -18,6 +18,7 @@ const redisClient = createClient({
   host: redis_host,
   password: redis_password,
 });
+console.log(prod);
 
 export default session({
   store: new RedisStore({ client: redisClient }),
@@ -28,7 +29,7 @@ export default session({
   unset: 'destroy',
   cookie: {
     secure: prod,
-    httpOnly: true,
+    httpOnly: false,
     maxAge: session_age,
   },
 });
