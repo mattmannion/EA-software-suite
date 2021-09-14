@@ -28,13 +28,21 @@ export const UserCheck = async (
   history: any,
   setUser: any
 ): Promise<boolean> => {
-  if (!cookies) return false;
-  let current_cookie = cookies.get(process.env.REACT_APP_COOKIE_NAME!);
-  if (pathname === '/login') return false;
+  const current_cookie = cookies?.get(process.env.REACT_APP_COOKIE_NAME!);
+
+  // checked to see if you are logged in and are trying to login again
+  if (pathname === '/login' && current_cookie) {
+    history.push('/');
+    return true;
+  }
+  // if (pathname === '/login') return false;
+  // moves you to login if you are not logged in
   if (!current_cookie) {
     await history.push('/login');
     return false;
   }
+  // sets user info based on cookie info
+  // empty or otherwise
   await setUser(current_cookie);
   return true;
 };

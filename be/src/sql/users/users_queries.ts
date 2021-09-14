@@ -16,15 +16,29 @@ export const create_one_user_query = `
 export const delete_one_user_query = `
   delete from users 
     where id = $1
-  returning *;
+  returning username;
 `;
 
 export const get_all_users_query = `
-  select * from users order by id
+  select 
+    id, 
+    first_name, 
+    last_name,
+    email,
+    username,
+    permissions
+  from users order by id
 `;
 
 export const get_one_user_query = `
-  select * from users where id = $1
+  select 
+    id, 
+    first_name, 
+    last_name,
+    email,
+    username,
+    permissions
+  from users where id = $1
 `;
 
 export const update_one_user_query = `

@@ -15,11 +15,11 @@ export default async function login(req: Request, res: Response) {
       .then((res) => res.rows[0])
       .catch((err) => console.log(err.stack));
 
-    if (!body.password) return;
+    if (!body.password || !data) return;
     const authenticated = await bcrypt.compare(body.password, data.password);
 
-    if (!authenticated)
-      return res.status(401).json({
+    if (!authenticated || !data)
+      return res.status(206).json({
         status: 'wrong username or password',
       });
 

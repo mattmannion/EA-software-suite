@@ -25,11 +25,11 @@ function login(req, res) {
                 .query(authentication_queries_1.login_query, [body.username])
                 .then((res) => res.rows[0])
                 .catch((err) => console.log(err.stack));
-            if (!body.password)
+            if (!body.password || !data)
                 return;
             const authenticated = yield bcryptjs_1.default.compare(body.password, data.password);
-            if (!authenticated)
-                return res.status(401).json({
+            if (!authenticated || !data)
+                return res.status(206).json({
                     status: 'wrong username or password',
                 });
             if (session.username || session.permissions)

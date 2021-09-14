@@ -6,7 +6,8 @@ exports.update_orders_query = `
     product_name = $4,
     product_code = $5,
     order_options = $6,
-    order_status = $7
+    order_status = $7,
+    order_option_ids = $8
   where id = $1 
   and order_id = $2 
   and order_detail_id = $3;
@@ -19,7 +20,6 @@ exports.update_item_query = `
     order_id = $2 
     and 
     order_detail_id = $3
-  returning *;
 `;
 exports.update_notes = `
   update orders set notes = $2
@@ -51,7 +51,7 @@ exports.update_assembled = `
 
 `;
 exports.update_completed = `
-  update orders set completed = $3
+  update orders set completed = $4
     where id = $1 
     and order_id = $2 
     and order_detail_id = $3

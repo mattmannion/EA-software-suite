@@ -1,10 +1,14 @@
+// import { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import CurrentUser from '../../components/CurrentUser';
-import { useLogin } from '../../hooks/LoginHooks';
+import { useLoggedIn, useLogin } from '../../hooks/LoginHooks';
 
 function Login() {
+  // const history = useHistory();
   const { getLoginData, getLoginStatus, LoginChangeHandler, LoginSubmit } =
     useLogin();
+
+  useLoggedIn();
 
   return (
     <>
@@ -38,8 +42,8 @@ function Login() {
             onChange={LoginChangeHandler}
           />
         </label>
-        {getLoginStatus === true ? (
-          <p></p>
+        {getLoginStatus ? (
+          <p>&nbsp;</p>
         ) : (
           <p className='mt-3'>Incorrect username or password</p>
         )}
