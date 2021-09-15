@@ -14,8 +14,8 @@ function Update({ id, history, setData, closeModal }: any) {
     <>
       <div className='container mt-4'>
         <form
-          onSubmit={async (e) => {
-            await handleSubmitUpdate(e, id, getFormData, setFormData, setData);
+          onSubmit={(e) => {
+            handleSubmitUpdate(e, id, getFormData, setFormData, setData);
             closeModal();
             history.push(users_slug);
           }}

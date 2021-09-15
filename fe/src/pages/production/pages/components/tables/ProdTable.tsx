@@ -8,9 +8,10 @@ import { OrderListIF } from '../../../../../../types/pages/production/pages/prod
 import { useContext } from 'react';
 import { ListCtx } from '../../../../../context/ProdContext';
 import QueueNumber from '../io/QueueNumber';
+import DeleteConfirmModal from '../modals/DeleteConfirmModal';
 
 export default function ProdTable() {
-  const { currentItems } = useContext(ListCtx);
+  const { currentItems, setList } = useContext(ListCtx);
 
   return (
     <>
@@ -30,7 +31,9 @@ export default function ProdTable() {
             <th>Tacked</th>
             <th>Assem</th>
             <th>Compl</th>
-            <th>Wait Time</th>
+            <th>Since</th>
+            <th>Ordered</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -85,8 +88,6 @@ export default function ProdTable() {
                     }
                     notes={notes}
                     id={id}
-                    o_id={order_id}
-                    od_id={order_detail_id}
                   />
                 </td>
                 <Process
@@ -98,9 +99,10 @@ export default function ProdTable() {
                   o_id={order_id}
                   od_id={order_detail_id}
                 />
+                <td>{WaitTime(order_date).weeks} weeks</td>
+                <td>{WaitTime(order_date).days} days</td>
                 <td>
-                  {/* <div>{WaitTime(order_date).days} days</div> */}
-                  <div>{WaitTime(order_date).weeks} weeks</div>
+                  <DeleteConfirmModal setList={setList} id={id} />
                 </td>
               </tr>
             );

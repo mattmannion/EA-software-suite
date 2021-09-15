@@ -4,35 +4,39 @@ import { ListCtx } from '../../../../../context/ProdContext';
 import { btn_pd, time_stamp } from '../../../../../util/util';
 import { setListIF } from '../../../ProductionHome';
 
-const check = <span>&#10003;</span>;
+// const check = <span>&#10003;</span>;
 
 interface MarkItemProps {
+  label: string;
   process_type: string;
   callback: (e: any) => void;
 }
 
-const MarkItem = ({ process_type, callback }: MarkItemProps) => (
-  <td>
-    <div className='production__process'>
-      <button
-        onClick={callback}
-        onMouseDown={btn_pd}
-        className={`production__marked-item btn btn-${
-          process_type === '' ? 'secondary' : 'success'
-        }`}
-      >
-        {check}
-      </button>
-      <div className='mt-2'>
-        {process_type === '' || process_type === null ? (
-          <div>&nbsp;</div>
-        ) : (
-          <strong>{process_type}</strong>
-        )}
+function MarkItem({ label, process_type, callback }: MarkItemProps) {
+  return (
+    <td>
+      <div className='production__process'>
+        <button
+          onClick={callback}
+          onMouseDown={btn_pd}
+          className={`production__marked-item btn btn-${
+            process_type === '' ? 'secondary' : 'success'
+          }`}
+        >
+          {/* {check} */}
+          {label}
+        </button>
+        <div className='mt-2'>
+          {process_type === '' || process_type === null ? (
+            <div>&nbsp;</div>
+          ) : (
+            <strong>{process_type}</strong>
+          )}
+        </div>
       </div>
-    </div>
-  </td>
-);
+    </td>
+  );
+}
 
 interface ProcessProps {
   pallet: string;
@@ -82,18 +86,22 @@ export default function Process({
   return (
     <>
       <MarkItem
+        label='P'
         process_type={pallet}
         callback={(e: any) => date_completed(e, '/pallet', pallet)}
       />
       <MarkItem
+        label='T'
         process_type={tack}
         callback={(e: any) => date_completed(e, '/tack', tack)}
       />
       <MarkItem
+        label='A'
         process_type={assembled}
         callback={(e: any) => date_completed(e, '/assembled', assembled)}
       />
       <MarkItem
+        label='C'
         process_type={completed}
         callback={(e: any) => mark_completed(e, '/completed', completed)}
       />

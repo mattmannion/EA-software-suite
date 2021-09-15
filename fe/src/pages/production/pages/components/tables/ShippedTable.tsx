@@ -5,13 +5,9 @@ import RefreshBtn from '../io/RefreshBtn';
 
 interface ShippedTableProps {
   currentItems: OrderListIF[];
-  setList: React.Dispatch<React.SetStateAction<OrderListIF[]>>;
 }
 
-export default function ShippedTable({
-  currentItems,
-  setList,
-}: ShippedTableProps) {
+export default function ShippedTable({ currentItems }: ShippedTableProps) {
   return (
     <>
       <table className='table table-striped table-dark table-hover table-sm table-responsive-sm'>

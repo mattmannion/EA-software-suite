@@ -6,13 +6,16 @@ export const users_slug = '/users';
 
 export const getUsers = async () => await axios.get(users_path);
 
-export const createUser = async (fields: any) =>
-  await axios.post(users_path, {
+export function createUser(fields: any) {
+  axios.post(users_path, {
     ...fields,
   });
+}
 
-export const updateUser = async (id: string, fields: any) =>
-  await axios.put(`${users_path}/${id}`, { ...fields });
+export function updateUser(id: string, fields: any) {
+  axios.put(`${users_path}/${id}`, { ...fields });
+}
 
-export const deleteUser = async (id: number) =>
-  await axios.delete(`${users_path}/${id}`);
+export function deleteUser(id: number) {
+  axios.delete(`${users_path}/${id}`);
+}

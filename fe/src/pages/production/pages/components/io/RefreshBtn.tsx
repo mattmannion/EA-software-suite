@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { ListCtx } from '../../../../../context/ProdContext';
+import { api_path } from '../../../../../env';
 import { refresh_list } from '../../../../../hooks/SearchHooks';
 import { setListIF } from '../../../ProductionHome';
 
@@ -25,7 +26,7 @@ export default function RefreshBtn({
           refresh_list(
             setList,
             path,
-            `${process.env.REACT_APP_API_PATH}/orders/update/${id}&${order_id}&${order_detail_id}`,
+            `${api_path}/orders/update/${id}&${order_id}&${order_detail_id}`,
             'put'
           )
         }

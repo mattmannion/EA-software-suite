@@ -12,6 +12,8 @@ import tack from '../controllers/orders/update/process/tack.js';
 import assembled from '../controllers/orders/update/process/assembled.js';
 import completed from '../controllers/orders/update/process/completed.js';
 import insert_new_db from '../controllers/orders/insert/insert_new_db.js';
+import delete_order_row from '../controllers/orders/delete/delete_order_row';
+import insert_order_by_id from '../controllers/orders/insert/insert_order_by_id';
 
 const orders = Router();
 
@@ -21,8 +23,8 @@ orders.route('/orders/production/shipped').get(get_orders_shipped);
 
 orders.route('/orders/new_db').get(insert_new_db);
 
+orders.route('/orders/insert_order/:id').post(insert_order_by_id);
 orders.route('/orders/insert_orders').get(insert_orders);
-orders.route('/orders/insert_orders/:id').get(insert_orders);
 
 orders.route('/orders/update').put(daily_update);
 orders.route('/orders/update/:id&:o_id&:od_id').put(update_item);
@@ -36,6 +38,8 @@ orders
 orders
   .route('/orders/update/process/completed/:id&:o_id&:od_id')
   .put(completed);
+
+orders.route('/orders/delete/:id').delete(delete_order_row);
 
 orders.route('/orders').get(get_orders);
 

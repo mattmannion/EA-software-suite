@@ -15,11 +15,12 @@ exports.update_orders_query = `
 exports.update_item_query = `
   update orders set product_name = $4, product_code = $5,
   order_status = $6, order_options = $7, order_option_ids = $8
-    where id = $1 
+    where 
+    id = $1 
     and
     order_id = $2 
     and 
-    order_detail_id = $3
+    order_detail_id = $3;
 `;
 exports.update_notes = `
   update orders set notes = $2

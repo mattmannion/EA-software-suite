@@ -18,15 +18,16 @@ exports.default = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     (0, logging_1.default)(req);
     const { id } = req.params;
     try {
+        console.log(id);
         yield (0, create_order_1.default)(id);
         res.status(201).json({
-            status: 'order created',
+            status: `order ${id} fetched and created`,
         });
     }
     catch (err) {
         console.log(err);
         res.status(500).json({
-            status: 'failure',
+            status: 'db failure',
         });
     }
 });

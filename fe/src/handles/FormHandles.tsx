@@ -56,15 +56,15 @@ export const handleChange = (
 };
 
 // form submit handle - create new record
-export const handleSubmitCreate = async (
+export function handleSubmitCreate(
   e: any,
   getFormData: InitialFormDataIF,
   setFormData: React.Dispatch<React.SetStateAction<InitialFormDataIF>>,
   setData: React.Dispatch<React.SetStateAction<InitialFormDataIF[]>>
-) => {
+) {
   e.preventDefault();
 
-  await createUser({
+  createUser({
     first_name: getFormData.first_name,
     last_name: getFormData.last_name,
     email: getFormData.email,
@@ -78,8 +78,8 @@ export const handleSubmitCreate = async (
   setFormData(InitialFormData);
 
   // refreshes table
-  await fetchUsers(setData);
-};
+  fetchUsers(setData);
+}
 
 // update record by id
 export const handleSubmitUpdate = async (
@@ -122,13 +122,13 @@ export const handleSubmitUpdate = async (
 };
 
 // delete record from db / list
-export const handleDelete = async (
+export function handleDelete(
   id: number,
   setData: React.Dispatch<React.SetStateAction<InitialFormDataIF[]>>
-) => {
+) {
   // delete request to backend server
-  await deleteUser(id);
+  deleteUser(id);
 
   // refreshes table
   fetchUsers(setData);
-};
+}

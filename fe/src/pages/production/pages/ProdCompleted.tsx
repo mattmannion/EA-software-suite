@@ -29,7 +29,7 @@ export default function Prod_Completed() {
     getItemsPP,
     setItemsPP,
     getCurrentPage,
-  } = usePaginationInit(10, 15, getList, getSearchTerm, getSearchResults);
+  } = usePaginationInit(10, 100, getList, getSearchTerm, getSearchResults);
 
   // Completed Context
   const ListState = {

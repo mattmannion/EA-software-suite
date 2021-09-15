@@ -32,7 +32,7 @@ NotesFormProps) {
     e.preventDefault();
     if (getCurrentNote !== null || getCurrentNote !== undefined)
       await UpdateNotes(id, getCurrentNote, setList);
-    history.replace('/production');
+    history.push('/production');
     closeModal();
   }
 
@@ -62,7 +62,7 @@ NotesFormProps) {
   return (
     <>
       <form
-        onSubmit={(e) => formSubmit(e)}
+        onSubmit={formSubmit}
         className='form-group d-flex flex-column justify-content-center align-items-center'
       >
         <textarea

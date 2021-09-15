@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { CookieContext, UserCheck, UserContext } from '../context/UserContext';
 import { PostLogin } from '../axios/axios_login';
 import { fetchUsers, InitialFormDataIF } from '../handles/FormHandles';
-import { FetchOrdersJSON } from '../axios/axios_production';
+import { FetchList } from '../axios/axios_production';
 import Cookies from 'universal-cookie';
 
 export interface getUserIF {
@@ -162,7 +162,7 @@ export const useFetchGateLogin_Prod = (
   );
 
   useEffect(() => {
-    if (getFetchGate) FetchOrdersJSON(current_path, current_data_set);
+    if (getFetchGate) FetchList(current_path, current_data_set);
   }, [getFetchGate, pathname, current_path, current_data_set]);
 
   return getUser;

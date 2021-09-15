@@ -3,20 +3,15 @@ import { modalStyles } from '../../../../../util/modal_util';
 import { useModalHook } from '../../../../../hooks/ModalHooks';
 import { btn_pd } from '../../../../../util/util';
 import { PLModalData } from './PLModalData';
-import { OrderListIF } from '../../../../../../types/pages/production/pages/production';
 import { useContext } from 'react';
 import { ListCtx } from '../../../../../context/ProdContext';
 import ItemCounter from '../io/ItemCounter';
-
-interface PLModalCtx {
-  getList: OrderListIF[];
-  SearchHandler: (current_search_term: string) => void;
-}
-
-Modal.setAppElement('#root');
+import AddItem from '../modals/AddItem';
+import { useLocation } from 'react-router';
 
 export default function PLModal() {
-  const { getList, SearchHandler }: PLModalCtx = useContext(ListCtx);
+  const { pathname } = useLocation();
+  const { getList, SearchHandler } = useContext(ListCtx);
 
   const slug = '/production';
   const { getIsModalOpen, openModal, closeModal } = useModalHook(slug);
@@ -71,6 +66,7 @@ export default function PLModal() {
 
   return (
     <div className='d-flex justify-content-center align-items-center'>
+      {pathname.startsWith('/production') ? <AddItem /> : null}
       <button
         className='btn btn-success'
         onClick={openModal}

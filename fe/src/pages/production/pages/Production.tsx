@@ -29,7 +29,7 @@ export default function Production() {
     getItemsPP,
     setItemsPP,
     getCurrentPage,
-  } = usePaginationInit(10, 20, getList, getSearchTerm, getSearchResults);
+  } = usePaginationInit(10, 100, getList, getSearchTerm, getSearchResults);
 
   // Production Context
   const ListState = {

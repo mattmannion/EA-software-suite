@@ -1,35 +1,31 @@
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import Modal from 'react-modal';
 import { modalStyles } from '../../../../../util/modal_util';
 import NotesForm from '../form/NotesForm';
 import { useModalHook } from '../../../../../hooks/ModalHooks';
+import { btn_pd } from '../../../../../util/util';
 
 interface NoteProps {
   slug: string;
   name: string;
   notes: string;
   id: number;
-  o_id: string;
-  od_id: string;
 }
 
 Modal.setAppElement('#root');
 
-export default function NoteModal({
-  slug,
-  name,
-  notes,
-  id,
-  o_id,
-  od_id,
-}: NoteProps) {
+export default function NoteModal({ slug, name, notes, id }: NoteProps) {
   const { getIsModalOpen, openModal, closeModal } = useModalHook(slug);
 
   return (
     <>
-      <Link to={slug} className='production__edit-notes' onClick={openModal}>
+      <button
+        className='production__edit-notes'
+        onClick={openModal}
+        onMouseDown={btn_pd}
+      >
         <div>{name}</div>
-      </Link>
+      </button>
       <Modal
         isOpen={getIsModalOpen}
         onRequestClose={closeModal}

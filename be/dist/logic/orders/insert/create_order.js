@@ -15,10 +15,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const volusion_fetch_1 = __importDefault(require("../../general/volusion_fetch"));
 const query_filter_1 = __importDefault(require("./query_filter"));
 const duplicate_items_1 = __importDefault(require("./duplicate_items"));
-function create_order(id) {
+function create_order(order_id) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const data_array = yield (0, volusion_fetch_1.default)(id);
+            const data_array = yield (0, volusion_fetch_1.default)(order_id);
             const data_filter = yield (0, query_filter_1.default)(data_array);
             if (Array.isArray(data_filter))
                 yield (0, duplicate_items_1.default)(data_filter);

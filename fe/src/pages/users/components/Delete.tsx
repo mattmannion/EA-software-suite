@@ -29,7 +29,7 @@ export default function Delete({
       >
         Yes
       </button>
-      <button className='btn btn-secondary' onClick={() => closeModal()}>
+      <button className='btn btn-secondary' onClick={closeModal}>
         No
       </button>
     </div>

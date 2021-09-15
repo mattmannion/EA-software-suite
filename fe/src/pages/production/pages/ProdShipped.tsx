@@ -29,7 +29,7 @@ export default function Prod_Shipped() {
     getItemsPP,
     setItemsPP,
     getCurrentPage,
-  } = usePaginationInit(10, 30, getList, getSearchTerm, getSearchResults);
+  } = usePaginationInit(10, 100, getList, getSearchTerm, getSearchResults);
 
   // Shipping Context
   const ListState = {
@@ -70,7 +70,7 @@ export default function Prod_Shipped() {
       <strong className='d-flex justify-content-center align-items-center bg-warning p-2'>
         Shipped Orders
       </strong>
-      <ShippedTable currentItems={currentItems} setList={setList} />
+      <ShippedTable currentItems={currentItems} />
       <ProductionTabs />
     </ListCtxProvider>
   );
