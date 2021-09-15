@@ -24,10 +24,9 @@ export default function RefreshBtn({
         className='btn btn-success reset-button'
         onClick={() =>
           refresh_list(
-            setList,
-            path,
             `${api_path}/orders/update/${id}&${order_id}&${order_detail_id}`,
-            'put'
+            setList,
+            path
           )
         }
       >

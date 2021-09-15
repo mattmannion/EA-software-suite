@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { OrderListIF } from '../../types/pages/production/pages/production';
 import { FetchList } from '../axios/axios_production';
@@ -45,12 +46,11 @@ export function useFlushSearchArray(
 }
 
 export async function refresh_list(
-  setList: React.Dispatch<React.SetStateAction<OrderListIF[]>>,
-  path: string,
   api_path: string,
-  method: string
+  setList: React.Dispatch<React.SetStateAction<OrderListIF[]>>,
+  path: string
 ) {
-  await fetch(api_path, { method });
+  await axios.put(api_path);
 
   await FetchList(path, setList);
 }
