@@ -10,7 +10,7 @@ interface CompletedTableProps {
 export default function CompletedTable({ currentItems }: CompletedTableProps) {
   return (
     <>
-      <table className='table table-striped table-dark table-hover table-sm table-responsive-sm'>
+      <table className='table table-striped table-dark table-sm table-responsive-sm'>
         <thead>
           <tr>
             <th>Order Date</th>

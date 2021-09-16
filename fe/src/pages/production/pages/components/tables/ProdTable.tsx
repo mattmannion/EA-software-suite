@@ -15,7 +15,7 @@ export default function ProdTable() {
 
   return (
     <>
-      <table className='table table-striped table-dark table-hover production__table'>
+      <table className='table table-striped table-dark production__table'>
         <thead>
           <tr>
             <th>Q #</th>
@@ -80,7 +80,7 @@ export default function ProdTable() {
                 <td>{order_status}</td>
                 <td>
                   <NotesModal
-                    slug={`${production_slug}/${order_id}&${order_detail_id}`}
+                    slug={production_slug}
                     name={
                       notes === '' || notes === '\n' || notes === null
                         ? 'Click to Add'

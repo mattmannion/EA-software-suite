@@ -15,7 +15,6 @@ export default async (req: Request, res: Response) => {
 
     if (data) {
       await db.query(delete_order_query, [id]);
-      console.log('order found');
       res.status(202).json({
         status: 'order deleted',
       });

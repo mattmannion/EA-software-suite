@@ -11,12 +11,12 @@ import {
 
 const path = '/production';
 
-function delete_row(
+async function delete_row(
   id: number,
   setList: React.Dispatch<React.SetStateAction<OrderListIF[]>>
 ) {
   console.log(id);
-  DeleteItemRow(id);
+  await DeleteItemRow(id);
   FetchList(path, setList);
 }
 
@@ -27,8 +27,8 @@ interface DeleteBtnIF {
 }
 
 function DeleteBtn({ id, closeModal, setList }: DeleteBtnIF) {
-  function handleOnClick() {
-    delete_row(id, setList);
+  async function handleOnClick() {
+    await delete_row(id, setList);
     closeModal();
   }
   return (

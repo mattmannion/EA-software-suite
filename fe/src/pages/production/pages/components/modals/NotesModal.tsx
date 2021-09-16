@@ -1,4 +1,3 @@
-// import { Link } from 'react-router-dom';
 import Modal from 'react-modal';
 import { modalStyles } from '../../../../../util/modal_util';
 import NotesForm from '../form/NotesForm';
@@ -40,14 +39,7 @@ export default function NoteModal({ slug, name, notes, id }: NoteProps) {
         >
           &#x2715;
         </button>
-        <NotesForm
-          notes={notes}
-          closeModal={closeModal}
-          id={id}
-          // getIsModalOpen={getIsModalOpen}
-          // o_id={o_id}
-          // od_id={od_id}
-        />
+        <NotesForm notes={notes} closeModal={closeModal} id={id} />
       </Modal>
     </>
   );

@@ -1,6 +1,4 @@
 import { useRef, useState, useContext } from 'react';
-// import { useEffect, useCallback, useRef, useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
 import { UpdateNotes } from '../../../../../axios/axios_production';
 import { ListCtx } from '../../../../../context/ProdContext';
 import { btn_pd } from '../../../../../util/util';
@@ -10,29 +8,17 @@ interface NotesFormProps {
   notes: string;
   closeModal: () => void;
   id: number;
-  // getIsModalOpen: boolean;
-  // o_id: string;
-  // od_id: string;
 }
 
-export default function NotesForm({
-  notes,
-  closeModal,
-  id,
-}: // getIsModalOpen,
-// o_id,
-// od_id,
-NotesFormProps) {
+export default function NotesForm({ notes, closeModal, id }: NotesFormProps) {
   const { setList }: setListIF = useContext(ListCtx)!;
   const [getCurrentNote, setCurrentNote] = useState(notes);
   const notesRef = useRef<HTMLTextAreaElement | null>(null);
-  const history = useHistory();
 
   async function formSubmit(e: any) {
     e.preventDefault();
     if (getCurrentNote !== null || getCurrentNote !== undefined)
       await UpdateNotes(id, getCurrentNote, setList);
-    history.push('/production');
     closeModal();
   }
 
@@ -42,22 +28,6 @@ NotesFormProps) {
       return notesRef.current.value;
     });
   }
-
-  // const UpdateNotesCB = useCallback(async () => {
-  //   await UpdateNotes(id, getCurrentNote, setList);
-  // }, [id, o_id, od_id, getCurrentNote, setList]);
-
-  // useEffect(() => {
-  //   const keydown = async (e: any) => {
-  //     if (e.key !== 'Enter' && getIsModalOpen === true) return;
-  //     await UpdateNotesCB();
-  //     history.replace('/production');
-  //     closeModal();
-  //   };
-
-  //   window.addEventListener('keydown', keydown);
-  //   return () => window.removeEventListener('keydown', keydown);
-  // }, [getIsModalOpen, closeModal, UpdateNotesCB, history]);
 
   return (
     <>

@@ -10,7 +10,7 @@ interface ShippedTableProps {
 export default function ShippedTable({ currentItems }: ShippedTableProps) {
   return (
     <>
-      <table className='table table-striped table-dark table-hover table-sm table-responsive-sm'>
+      <table className='table table-striped table-dark table-sm table-responsive-sm'>
         <thead>
           <tr>
             <th>Order Date</th>
