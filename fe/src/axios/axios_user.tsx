@@ -12,10 +12,10 @@ export function createUser(fields: any) {
   });
 }
 
-export function updateUser(id: string, fields: any) {
-  axios.put(`${users_path}/${id}`, { ...fields });
+export async function updateUser(id: string, fields: any) {
+  await axios.put(`${users_path}/${id}`, { ...fields });
 }
 
-export function deleteUser(id: number) {
-  axios.delete(`${users_path}/${id}`);
+export async function deleteUser(id: number) {
+  await axios.delete(`${users_path}/${id}`);
 }

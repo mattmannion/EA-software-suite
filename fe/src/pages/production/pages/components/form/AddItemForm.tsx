@@ -18,7 +18,7 @@ async function handleSubmit(
 ) {
   e.preventDefault();
   await InsertOrderById(id);
-  await FetchList(path, setList);
+  FetchList(path, setList);
   closeModal();
 }
 

@@ -45,7 +45,7 @@ export function FormData() {
 
 // grabs input field values and sets formData state
 export const handleChange = (
-  e: any,
+  e: React.ChangeEvent<HTMLInputElement>,
   getFormData: InitialFormDataIF,
   setFormData: React.Dispatch<React.SetStateAction<InitialFormDataIF>>
 ) => {
@@ -57,7 +57,7 @@ export const handleChange = (
 
 // form submit handle - create new record
 export function handleSubmitCreate(
-  e: any,
+  e: React.FormEvent<HTMLFormElement>,
   getFormData: InitialFormDataIF,
   setFormData: React.Dispatch<React.SetStateAction<InitialFormDataIF>>,
   setData: React.Dispatch<React.SetStateAction<InitialFormDataIF[]>>
@@ -83,7 +83,7 @@ export function handleSubmitCreate(
 
 // update record by id
 export const handleSubmitUpdate = async (
-  e: any,
+  e: React.FormEvent<HTMLFormElement>,
   id: string,
   getFormData: InitialFormDataIF,
   setFormData: React.Dispatch<React.SetStateAction<InitialFormDataIF>>,

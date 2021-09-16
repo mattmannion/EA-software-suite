@@ -25,7 +25,7 @@ export default function NotesForm({ notes, closeModal, id }: NotesFormProps) {
   function textareaOnChange() {
     setCurrentNote(() => {
       if (!notesRef.current) return notes;
-      return notesRef.current.value;
+      return notesRef.current.value.trim();
     });
   }
 
@@ -42,7 +42,6 @@ export default function NotesForm({ notes, closeModal, id }: NotesFormProps) {
           className='form-control m-3 notes-form__textarea'
           value={getCurrentNote}
           onChange={textareaOnChange}
-          autoFocus
         />
         <button
           className='btn btn-primary mt-3'
