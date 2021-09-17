@@ -1,11 +1,12 @@
+import React from 'react';
 import { InitialFormDataIF } from '../../../handles/FormHandles';
 import UserFormFields from './FormFields';
 
 interface FormProps {
   getFormData: InitialFormDataIF;
   setFormData: React.Dispatch<React.SetStateAction<InitialFormDataIF>>;
-  handleChange: (e: any) => void;
-  handleSubmit: (e: any) => void;
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 export default function Form({
   getFormData,

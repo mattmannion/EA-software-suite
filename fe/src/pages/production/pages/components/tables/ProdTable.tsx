@@ -82,7 +82,11 @@ export default function ProdTable() {
                   <NotesModal
                     slug={production_slug}
                     name={
-                      notes === '' || notes === '\n' || notes === null
+                      notes === '' ||
+                      notes === '\n' ||
+                      notes === '\n\n' ||
+                      notes === '\n\n\n' ||
+                      notes === null
                         ? 'Click to Add'
                         : notes
                     }
