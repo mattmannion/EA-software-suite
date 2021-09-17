@@ -8,6 +8,7 @@ import UserForm from './components/UserForm';
 import Table from './components/Table';
 import NavBar from '../../components/NavBar';
 import { useFetchGateLogin_Users } from '../../hooks/LoginHooks';
+import React from 'react';
 
 export default function Home() {
   const [getData, setData] = EndPointData();
@@ -25,10 +26,12 @@ export default function Home() {
       <UserForm
         getFormData={getFormData}
         setFormData={setFormData}
-        handleSubmit={(e: any) =>
+        handleSubmit={(e: React.FormEvent<HTMLFormElement>) =>
           handleSubmitCreate(e, getFormData, setFormData, setData)
         }
-        handleChange={(e: any) => handleChange(e, getFormData, setFormData)}
+        handleChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          handleChange(e, getFormData, setFormData)
+        }
       />
       <Table getData={getData} setData={setData} />
     </>

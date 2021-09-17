@@ -5,9 +5,11 @@
     "moduleResolution": "Node",
     "esModuleInterop": true,
     "resolveJsonModule": true,
+    "isolatedModules": true,
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
     "jsx": "react-jsx",
+    "allowJs": true,
     "removeComments": true,
     "rootDir": "src",
     "outDir": "dist",
@@ -19,11 +21,7 @@
     "noEmit": true,
     "allowUnreachableCode": false,
     "allowSyntheticDefaultImports": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "forceConsistentCasingInFileNames": true,
-    "isolatedModules": true,
-    "allowJs": true
+    "forceConsistentCasingInFileNames": true
   },
   "exclude": ["node_modules"],
   "include": ["src/**/*.tsx", "src/**/*.ts", "types/**/*.ts"]
