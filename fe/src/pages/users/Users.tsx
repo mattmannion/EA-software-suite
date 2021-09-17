@@ -26,12 +26,12 @@ export default function Home() {
       <UserForm
         getFormData={getFormData}
         setFormData={setFormData}
-        handleSubmit={(e: React.FormEvent<HTMLFormElement>) =>
-          handleSubmitCreate(e, getFormData, setFormData, setData)
-        }
-        handleChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          handleChange(e, getFormData, setFormData)
-        }
+        handleSubmit={function (e: React.FormEvent<HTMLFormElement>) {
+          handleSubmitCreate(e, getFormData, setFormData, setData);
+        }}
+        handleChange={function (e: React.ChangeEvent<HTMLInputElement>) {
+          handleChange(e, getFormData, setFormData);
+        }}
       />
       <Table getData={getData} setData={setData} />
     </>
