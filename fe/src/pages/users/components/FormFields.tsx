@@ -19,6 +19,9 @@ export default function UserFormFields({
   const options = [
     { value: 'admin', label: 'Admin' },
     { value: 'user', label: 'User' },
+    { value: 'pallet', label: 'Pallet' },
+    { value: 'tack', label: 'Tacker' },
+    { value: 'assem', label: 'Assembler' },
   ];
 
   // creates state for select menu
